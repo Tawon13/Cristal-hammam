@@ -1,0 +1,846 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cristal d'Azur — Hammam, sauna &amp; beauté à Marseille</title>
+<meta name="description" content="Hammam, sauna, bain vapeur, rituels, esthétique et coiffure au 112 rue Loubon, Marseille 3e. Femmes 9h–17h, hommes 18h–23h. Entrée 25 €. Réservation en ligne.">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&amp;family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&amp;display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#F7F5F0;color:#141A26;font-family:'DM Sans',system-ui,sans-serif;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+a{color:inherit;text-decoration:none}
+a:hover{color:#8A6A3B}
+button,select,input,textarea{font-family:inherit}
+img{display:block;max-width:100%}
+.serif{font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;letter-spacing:-0.01em}
+.wrap{max-width:1200px;margin:0 auto;padding:0 40px}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase}
+
+@keyframes up{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+@keyframes fill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes rise{from{opacity:0;transform:translateY(32px)}to{opacity:1;transform:none}}
+@keyframes zoomIn{from{opacity:0;transform:scale(.98)}to{opacity:1;transform:none}}
+.up{animation:up 1s cubic-bezier(.2,.7,.2,1) both}
+.bar{position:absolute;inset:0;background:#fff;transform:scaleX(0);transform-origin:left}
+.bar.on{animation:fill 6s linear both}
+.zoom{animation:zoomIn .45s ease both}
+
+.slide{transition:opacity 1.4s ease,transform 7s ease-out}
+.btn{transition:background .25s,color .25s,border-color .25s,transform .25s}
+.btn:hover{transform:translateY(-1px)}
+.btn-light:hover{background:#EDE6D8!important;color:#141A26!important}
+.btn-dark:hover{background:#26375C!important;color:#fff!important}
+.btn-line:hover{background:#141A26!important;color:#fff!important}
+.btn-ghost:hover{background:rgba(255,255,255,.12)!important;color:#fff!important}
+.btn-gold:hover{background:#C9A46A!important;color:#141A26!important}
+.card{transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s}
+.card:hover{transform:translateY(-4px);box-shadow:0 24px 50px -28px rgba(0,0,0,.5)}
+.tile img{transition:transform 1s cubic-bezier(.2,.7,.2,1)}
+.tile:hover img{transform:scale(1.05)}
+.chip{transition:background .2s,color .2s,border-color .2s}
+.chip:hover{border-color:#141A26!important}
+.tab{transition:color .2s,border-color .2s}
+.tab:hover{color:#141A26!important}
+.navlink{position:relative}
+.navlink:after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.navlink:hover:after{transform:scaleX(1)}
+.navlink:hover{color:inherit}
+.hair th,.hair td{padding:12px 14px;text-align:right;white-space:nowrap;border-bottom:1px solid #ECE8E0}
+.hair th:first-child,.hair td:first-child{text-align:left;white-space:normal}
+.hair .pc{width:110px}
+.hair .pl{width:124px}
+.hair thead th{font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#5E6573}
+
+.g-info{display:grid;grid-template-columns:repeat(4,minmax(0,1fr)) auto}
+.g-intro{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:80px;align-items:center}
+.g-rit{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+.g-price{columns:2;column-gap:20px}
+.g-price>*{break-inside:avoid;margin-bottom:20px}
+.g-gal{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-rows:260px;gap:16px}
+.g-gal .big{grid-column:span 2;grid-row:span 2}
+.g-rev{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.g-book{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr)}
+.g-infos{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:64px;align-items:stretch}
+.g-foot{display:grid;grid-template-columns:2fr 1fr 1.3fr 1fr;gap:40px}
+.feat{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.aaroussa{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:32px;align-items:center}
+.desk{display:flex}
+.mob{display:none}
+
+@media (max-width:1080px){
+.g-info{grid-template-columns:repeat(2,minmax(0,1fr))}
+.g-info>*:last-child{grid-column:span 2}
+.g-rit{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:960px){
+.wrap{padding:0 24px}
+.desk{display:none!important}
+.mob{display:flex}
+.g-intro,.g-infos,.g-book{grid-template-columns:minmax(0,1fr);gap:28px}
+.g-price{columns:1}
+.g-gal{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:170px;gap:10px}
+.g-gal .mwide{grid-column:span 2}
+.g-rev{grid-template-columns:minmax(0,1fr)}
+.g-foot{grid-template-columns:repeat(2,minmax(0,1fr))}
+.aaroussa{grid-template-columns:minmax(0,1fr)}
+.sec{padding-top:72px!important;padding-bottom:72px!important}
+.footer{padding-bottom:96px!important}
+.herocontent{justify-content:flex-end!important;padding-bottom:156px!important}
+.heroind{bottom:84px!important}
+.pane{padding:32px 22px!important}
+.hair{min-width:0!important;font-size:14px!important}
+.hair th,.hair td{padding:10px 6px}
+.hair .pc{width:58px}
+.hair .pl{width:78px}
+.hair thead th{font-size:10px;letter-spacing:.06em}
+}
+@media (max-width:560px){
+.g-info,.g-rit,.feat{grid-template-columns:minmax(0,1fr)}
+.g-info>*:last-child{grid-column:auto}
+.g-foot{grid-template-columns:minmax(0,1fr)}
+}
+@supports (animation-timeline: view()){
+.rv{animation:rise linear both;animation-timeline:view();animation-range:entry 0% cover 22%}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</helmet>
+
+<div id="top">
+
+<!-- ============ HEADER ============ -->
+<header style="position: fixed; top: 0; left: 0; right: 0; z-index: 40; background: {{headerBg}}; color: {{headerFg}}; border-bottom: 1px solid {{headerLine}}; transition: background .35s, color .35s, border-color .35s">
+  <div class="wrap" style="height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 24px">
+    <a href="#top" style="display: flex; align-items: center; gap: 12px; color: inherit">
+      <svg width="26" height="22" viewBox="0 0 26 22" aria-hidden="true"><path d="M13 3c2.2 2.6 3 5.4 0 9-3-3.6-2.2-6.4 0-9zM13 12c3-2.4 6.4-3.2 10-2-1.4 3.6-5 4.6-10 2zM13 12c-3-2.4-6.4-3.2-10-2 1.4 3.6 5 4.6 10 2zM5 17h16" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"></path></svg>
+      <span style="display: flex; flex-direction: column; line-height: 1">
+        <span class="serif" style="font-size: 24px; font-weight: 600">Cristal d'Azur</span>
+        <span style="font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; margin-top: 4px">Hammam · Sauna · Beauté</span>
+      </span>
+    </a>
+    <nav class="desk" aria-label="Navigation principale" style="gap: 34px; font-size: 14px; font-weight: 500">
+      <a class="navlink" href="#rituels">Rituels</a>
+      <a class="navlink" href="#tarifs">Tarifs</a>
+      <a class="navlink" href="#galerie">Galerie</a>
+      <a class="navlink" href="#avis">Avis</a>
+      <a class="navlink" href="#infos">Horaires &amp; accès</a>
+    </nav>
+    <div style="display: flex; align-items: center; gap: 20px">
+      <a class="desk navlink" href="tel:+33665961156" style="font-size: 14px; font-weight: 500; align-items: center; gap: 8px">
+        <svg width="15" height="15" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 1.5h2.5l1.2 3.2-1.6 1.1a8.5 8.5 0 0 0 4.6 4.6l1.1-1.6 3.2 1.2v2.5a1.5 1.5 0 0 1-1.6 1.5A12.5 12.5 0 0 1 2 3.1 1.5 1.5 0 0 1 3.5 1.5z" fill="none" stroke="currentColor" stroke-width="1.2"></path></svg>
+        06 65 96 11 56
+      </a>
+      <a class="btn desk" href="#reserver" style="background: {{ctaBg}}; color: {{ctaFg}}; padding: 0 22px; height: 44px; align-items: center; border-radius: 2px; font-size: 14px; font-weight: 600">Réserver</a>
+      <button type="button" class="mob" onClick="{{toggleMenu}}" aria-label="Ouvrir le menu" aria-expanded="{{menuExpanded}}" style="width: 44px; height: 44px; align-items: center; justify-content: center; background: none; border: 0; color: inherit; cursor: pointer">
+        <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><path d="M3 7h16M3 15h16" stroke="currentColor" stroke-width="1.5"></path></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<sc-if value="{{menuOpen}}" hint-placeholder-val="{{ false }}">
+  <div class="zoom" style="position: fixed; inset: 0; z-index: 60; background: #13213D; color: #fff; display: flex; flex-direction: column; padding: 20px 24px 32px">
+    <div style="display: flex; justify-content: space-between; align-items: center; height: 36px">
+      <span class="serif" style="font-size: 24px; font-weight: 600">Cristal d'Azur</span>
+      <button type="button" onClick="{{toggleMenu}}" aria-label="Fermer le menu" style="width: 44px; height: 44px; background: none; border: 0; color: #fff; cursor: pointer">
+        <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 4l12 12M16 4L4 16" stroke="currentColor" stroke-width="1.5"></path></svg>
+      </button>
+    </div>
+    <nav aria-label="Menu mobile" style="display: flex; flex-direction: column; gap: 6px; margin-top: 48px">
+      <sc-for list="{{menuLinks}}" as="l" hint-placeholder-count="5">
+        <a href="{{l.href}}" onClick="{{closeMenu}}" class="serif" style="font-size: 34px; padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.12); color: #fff">{{l.label}}</a>
+      </sc-for>
+    </nav>
+    <div style="margin-top: auto; display: flex; flex-direction: column; gap: 12px">
+      <p style="margin: 0 0 8px; color: #C8CEDA; font-size: 14px">Femmes 9 h – 17 h · Hommes 18 h – 23 h</p>
+      <a href="#reserver" onClick="{{closeMenu}}" style="background: #fff; color: #141A26; height: 52px; display: flex; align-items: center; justify-content: center; font-weight: 600; border-radius: 2px">Réserver</a>
+      <a href="tel:+33665961156" style="border: 1px solid rgba(255,255,255,0.4); color: #fff; height: 52px; display: flex; align-items: center; justify-content: center; border-radius: 2px">06 65 96 11 56</a>
+    </div>
+  </div>
+</sc-if>
+
+<!-- ============ HERO ============ -->
+<section aria-label="Présentation" style="position: relative; height: 100vh; min-height: 660px; max-height: 960px; overflow: hidden; background: #13213D; color: #fff">
+  <sc-for list="{{slides}}" as="sl" hint-placeholder-count="3">
+    <img class="slide" src="{{sl.src}}" alt="{{sl.alt}}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: {{sl.op}}; transform: {{sl.tf}}">
+  </sc-for>
+  <div aria-hidden="true" style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(10,16,30,0.8) 0%, rgba(10,16,30,0.45) 55%, rgba(10,16,30,0.15) 100%)"></div>
+  <div aria-hidden="true" style="position: absolute; left: 0; right: 0; bottom: 0; height: 40%; background: linear-gradient(0deg, rgba(10,16,30,0.6), rgba(10,16,30,0))"></div>
+
+  <div class="wrap herocontent" style="position: relative; height: 100%; display: flex; flex-direction: column; justify-content: center; padding-top: 76px; padding-bottom: 60px">
+    <div style="max-width: 760px; display: flex; flex-direction: column; gap: 22px">
+      <p class="eyebrow up" style="margin: 0; color: #D9BE8E; animation-delay: .1s; display: flex; align-items: center; gap: 14px"><span aria-hidden="true" style="width: 32px; height: 1px; background: #D9BE8E"></span>Hammam · Sauna · Bain vapeur — Marseille 3e</p>
+      <h1 class="serif up" style="margin: 0; font-size: clamp(40px, 5vw, 68px); line-height: 1.06; animation-delay: .25s">Un moment pour vous,<br><span style="font-style: italic; color: #E8D6B3">un bien-être au quotidien.</span></h1>
+      <p class="up" style="margin: 0; font-size: 18px; line-height: 1.65; color: rgba(255,255,255,0.88); max-width: 520px; animation-delay: .45s">Hammam, gommages traditionnels, rituels, esthétique et coiffure, réunis dans un même lieu au cœur de la Belle de Mai.</p>
+      <div class="up" style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; animation-delay: .6s">
+        <a class="btn btn-light" href="#reserver" style="background: #fff; color: #141A26; height: 52px; padding: 0 28px; display: inline-flex; align-items: center; border-radius: 2px; font-weight: 600; font-size: 15px">Réserver</a>
+        <a class="btn btn-ghost" href="#tarifs" style="border: 1px solid rgba(255,255,255,0.5); color: #fff; height: 52px; padding: 0 26px; display: inline-flex; align-items: center; border-radius: 2px; font-size: 15px">Voir les tarifs</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="desk up" style="position: absolute; right: max(40px, calc((100vw - 1200px) / 2 + 40px)); top: 50%; margin-top: -40px; width: 168px; height: 168px; border-radius: 50%; border: 1px solid rgba(217,190,142,0.7); background: rgba(10,16,30,0.35); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); flex-direction: column; align-items: center; justify-content: center; text-align: center; animation-delay: .9s">
+    <span class="eyebrow" style="color: #D9BE8E; font-size: 11px">Entrée</span>
+    <span class="serif" style="font-size: 54px; line-height: 1; margin: 4px 0">25 €</span>
+    <span style="font-size: 12px; color: rgba(255,255,255,0.85); line-height: 1.4">Hammam · Sauna<br>Bain vapeur</span>
+  </div>
+
+  <div class="wrap heroind" style="position: absolute; left: 0; right: 0; bottom: 120px; margin: 0 auto; display: flex; align-items: center; gap: 20px">
+    <span style="font-size: 13px; color: rgba(255,255,255,0.8); min-width: 44px">{{slideNum}} / 03</span>
+    <div style="display: flex; gap: 8px">
+      <sc-for list="{{slides}}" as="sl" hint-placeholder-count="3">
+        <button type="button" onClick="{{sl.pick}}" aria-label="{{sl.label}}" style="width: 56px; height: 44px; padding: 0; background: none; border: 0; cursor: pointer; display: flex; align-items: center">
+          <span style="position: relative; display: block; width: 100%; height: 2px; background: rgba(255,255,255,0.3); overflow: hidden"><span class="{{sl.barClass}}"></span></span>
+        </button>
+      </sc-for>
+    </div>
+    <span class="desk" style="margin-left: auto; font-size: 13px; color: rgba(255,255,255,0.8)">{{slideCaption}}</span>
+  </div>
+</section>
+
+<!-- ============ BANDEAU INFOS ============ -->
+<div class="wrap" style="position: relative; z-index: 2; margin-top: -64px">
+  <div class="g-info up" style="background: #fff; box-shadow: 0 24px 60px -24px rgba(19,33,61,0.25); animation-delay: .8s">
+    <div style="padding: 22px 26px; border-right: 1px solid #ECE8E0; border-bottom: 1px solid #ECE8E0">
+      <p class="eyebrow" style="margin: 0 0 6px; color: #8A6A3B">Femmes</p>
+      <p style="margin: 0; font-weight: 600">9 h – 17 h</p>
+      <p style="margin: 2px 0 0; font-size: 14px; color: #5E6573">Tous les jours</p>
+    </div>
+    <div style="padding: 22px 26px; border-right: 1px solid #ECE8E0; border-bottom: 1px solid #ECE8E0">
+      <p class="eyebrow" style="margin: 0 0 6px; color: #8A6A3B">Hommes</p>
+      <p style="margin: 0; font-weight: 600">18 h – 23 h</p>
+      <p style="margin: 2px 0 0; font-size: 14px; color: #5E6573">Tous les jours</p>
+    </div>
+    <div style="padding: 22px 26px; border-right: 1px solid #ECE8E0; border-bottom: 1px solid #ECE8E0">
+      <p class="eyebrow" style="margin: 0 0 6px; color: #8A6A3B">Maintenant</p>
+      <p style="margin: 0; font-weight: 600; color: {{openColor}}; display: flex; align-items: center; gap: 8px"><span style="width: 8px; height: 8px; border-radius: 50%; background: {{openColor}}"></span>{{openTitle}}</p>
+      <p style="margin: 2px 0 0; font-size: 14px; color: #5E6573">{{openDetail}}</p>
+    </div>
+    <div style="padding: 22px 26px; border-right: 1px solid #ECE8E0; border-bottom: 1px solid #ECE8E0">
+      <p class="eyebrow" style="margin: 0 0 6px; color: #8A6A3B">Adresse</p>
+      <p style="margin: 0; font-weight: 600">112 rue Loubon</p>
+      <p style="margin: 2px 0 0; font-size: 14px; color: #5E6573">13003 Marseille</p>
+    </div>
+    <a class="btn btn-dark" href="#reserver" style="background: #13213D; color: #fff; display: flex; align-items: center; justify-content: center; gap: 12px; padding: 22px 32px; font-weight: 600; min-height: 64px">Prendre rendez-vous
+      <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.4"></path></svg>
+    </a>
+  </div>
+</div>
+
+<!-- ============ INTRO ============ -->
+<section class="sec" style="padding: 120px 0">
+  <div class="wrap g-intro">
+    <div class="rv" style="position: relative">
+      <img src="images/hero.webp" alt="La salle du hammam en marbre, ses vasques et sa table de gommage" style="width: 100%; aspect-ratio: 4 / 5; object-fit: cover">
+      <div class="desk" style="position: absolute; right: -32px; bottom: 40px; background: #13213D; color: #fff; padding: 22px 26px; flex-direction: column; gap: 4px">
+        <span class="eyebrow" style="color: #D9BE8E; font-size: 11px">Entrée hammam</span>
+        <span class="serif" style="font-size: 38px; line-height: 1">25 €</span>
+        <span style="font-size: 13px; color: #C8CEDA">Hammam · sauna · bain vapeur</span>
+      </div>
+    </div>
+    <div class="rv" style="display: flex; flex-direction: column; gap: 22px">
+      <p class="eyebrow" style="margin: 0; color: #8A6A3B">Bienvenue chez Cristal d'Azur</p>
+      <h2 class="serif" style="margin: 0; font-size: clamp(34px, 3.6vw, 48px); line-height: 1.1">L'authenticité du hammam pour une profonde relaxation</h2>
+      <p style="margin: 0; color: #4A5160; font-size: 17px">Sous le marbre, la vapeur détend le corps et prépare la peau au gommage au savon noir. Prolongez avec un rituel, un massage, un soin esthétique ou un passage au salon de coiffure : tout se fait sur place.</p>
+      <ul class="feat" style="list-style: none; margin: 12px 0 0; padding: 24px 0 0; border-top: 1px solid #E4E0D8">
+        <li style="display: flex; gap: 14px">
+          <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true" style="flex: none"><path d="M9 22c-2-3 2-5 0-8s2-5 0-8M14 22c-2-3 2-5 0-8s2-5 0-8M19 22c-2-3 2-5 0-8s2-5 0-8" fill="none" stroke="#8A6A3B" stroke-width="1.3" stroke-linecap="round"></path></svg>
+          <span style="display: flex; flex-direction: column"><span style="font-weight: 600; font-size: 15px">Hammam, sauna &amp; bain vapeur</span><span style="font-size: 14px; color: #5E6573">Savon noir, gommage kassa, tébrima</span></span>
+        </li>
+        <li style="display: flex; gap: 14px">
+          <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true" style="flex: none"><path d="M14 5c2.5 3 3.5 6 0 10-3.5-4-2.5-7 0-10zM14 15c3.5-2.6 7-3.4 11-2-1.6 4-5.5 5-11 2zM14 15c-3.5-2.6-7-3.4-11-2 1.6 4 5.5 5 11 2zM7 22h14" fill="none" stroke="#8A6A3B" stroke-width="1.3" stroke-linejoin="round"></path></svg>
+          <span style="display: flex; flex-direction: column"><span style="font-weight: 600; font-size: 15px">Rituels &amp; massages</span><span style="font-size: 14px; color: #5E6573">5 rituels, de 38 € à 150 €</span></span>
+        </li>
+        <li style="display: flex; gap: 14px">
+          <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true" style="flex: none"><path d="M14 4l1.8 5.2L21 11l-5.2 1.8L14 18l-1.8-5.2L7 11l5.2-1.8zM21 18l.9 2.1L24 21l-2.1.9L21 24l-.9-2.1L18 21l2.1-.9z" fill="none" stroke="#8A6A3B" stroke-width="1.3" stroke-linejoin="round"></path></svg>
+          <span style="display: flex; flex-direction: column"><span style="font-weight: 600; font-size: 15px">Esthétique</span><span style="font-size: 14px; color: #5E6573">Visage, épilation, regard, mains &amp; pieds</span></span>
+        </li>
+        <li style="display: flex; gap: 14px">
+          <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true" style="flex: none"><circle cx="8" cy="20" r="3" fill="none" stroke="#8A6A3B" stroke-width="1.3"></circle><circle cx="8" cy="8" r="3" fill="none" stroke="#8A6A3B" stroke-width="1.3"></circle><path d="M10.5 9.5L24 20M10.5 18.5L24 8" fill="none" stroke="#8A6A3B" stroke-width="1.3" stroke-linecap="round"></path></svg>
+          <span style="display: flex; flex-direction: column"><span style="font-weight: 600; font-size: 15px">Coiffure</span><span style="font-size: 14px; color: #5E6573">Coupe, couleur, balayage, lissage</span></span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RITUELS ============ -->
+<section id="rituels" class="sec" style="padding: 120px 0; background: #13213D; color: #fff">
+  <div class="wrap">
+    <div class="rv" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 24px; margin-bottom: 56px">
+      <div style="max-width: 600px">
+        <p class="eyebrow" style="margin: 0 0 14px; color: #D9BE8E">Nos rituels</p>
+        <h2 class="serif" style="margin: 0; font-size: clamp(34px, 3.6vw, 48px); line-height: 1.1">Des formules complètes, du gommage au massage</h2>
+      </div>
+      <p style="margin: 0; max-width: 360px; color: #C8CEDA">Chaque rituel comprend l'accès au hammam, au sauna et au bain vapeur.</p>
+    </div>
+    <div class="g-rit">
+      <sc-for list="{{rituals4}}" as="r" hint-placeholder-count="4">
+        <article class="card rv" style="background: #1B2C4D; border: 1px solid rgba(255,255,255,0.08); padding: 28px 24px; display: flex; flex-direction: column; gap: 18px">
+          <div>
+            <p class="eyebrow" style="margin: 0 0 6px; color: #D9BE8E; font-size: 11px">Rituel</p>
+            <h3 class="serif" style="margin: 0; font-size: 28px; line-height: 1.1">{{r.name}}</h3>
+          </div>
+          <ul style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; flex: 1">
+            <sc-for list="{{r.items}}" as="it" hint-placeholder-count="3">
+              <li style="display: flex; gap: 10px; font-size: 15px; color: #DCE1EA"><span aria-hidden="true" style="color: #D9BE8E">—</span>{{it}}</li>
+            </sc-for>
+          </ul>
+          <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,0.12)">
+            <span class="serif" style="font-size: 36px; line-height: 1; color: #E8D6B3">{{r.price}}</span>
+            <a class="btn btn-ghost" href="#reserver" onClick="{{r.book}}" style="border: 1px solid rgba(255,255,255,0.4); height: 44px; padding: 0 16px; display: inline-flex; align-items: center; border-radius: 2px; font-size: 14px; font-weight: 600; color: #fff">Réserver</a>
+          </div>
+        </article>
+      </sc-for>
+    </div>
+    <article class="aaroussa card rv" style="margin-top: 20px; background: linear-gradient(120deg, #22355C, #1B2C4D); border: 1px solid rgba(217,190,142,0.55); padding: 32px 36px">
+      <div style="display: flex; flex-direction: column; gap: 14px">
+        <p class="eyebrow" style="margin: 0; color: #D9BE8E">Le plus complet · idéal avant un mariage</p>
+        <h3 class="serif" style="margin: 0; font-size: clamp(30px, 3vw, 40px); line-height: 1.1">{{aaroussa.name}}</h3>
+        <p style="margin: 0; color: #DCE1EA; font-size: 16px">{{aaroussa.line}}</p>
+      </div>
+      <div style="display: flex; align-items: center; gap: 24px; flex-wrap: wrap">
+        <span class="serif" style="font-size: 52px; line-height: 1; color: #E8D6B3">{{aaroussa.price}}</span>
+        <a class="btn btn-gold" href="#reserver" onClick="{{aaroussa.book}}" style="background: #D9BE8E; color: #141A26; height: 52px; padding: 0 26px; display: inline-flex; align-items: center; border-radius: 2px; font-weight: 600">Réserver ce rituel</a>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ============ TARIFS ============ -->
+<section id="tarifs" class="sec" style="padding: 120px 0; background: #EFEBE3">
+  <div class="wrap">
+    <div class="rv" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 24px; margin-bottom: 40px">
+      <div style="max-width: 560px">
+        <p class="eyebrow" style="margin: 0 0 14px; color: #8A6A3B">Carte des soins</p>
+        <h2 class="serif" style="margin: 0; font-size: clamp(34px, 3.6vw, 48px); line-height: 1.1">Tous nos tarifs</h2>
+      </div>
+      <p style="margin: 0; max-width: 380px; color: #4A5160">Hammam, esthétique, mains et pieds, coiffure : choisissez une catégorie.</p>
+    </div>
+
+    <div role="tablist" aria-label="Catégories de soins" style="display: flex; gap: 4px 28px; flex-wrap: wrap; border-bottom: 1px solid #D8D2C6; margin-bottom: 36px">
+      <sc-for list="{{tabs}}" as="t" hint-placeholder-count="5">
+        <button type="button" role="tab" class="tab" onClick="{{t.pick}}" aria-selected="{{t.selected}}" style="background: none; border: 0; border-bottom: 2px solid {{t.line}}; margin-bottom: -1px; padding: 12px 0; min-height: 48px; font-size: 15px; font-weight: 600; color: {{t.color}}; cursor: pointer">{{t.label}}</button>
+      </sc-for>
+    </div>
+
+    <sc-if value="{{tabIsList}}" hint-placeholder-val="{{ true }}">
+      <div class="g-price" role="tabpanel">
+        <sc-for list="{{groups}}" as="g" hint-placeholder-count="2">
+          <div class="zoom" style="background: #fff; padding: 28px 28px 20px">
+            <h3 class="serif" style="margin: 0; font-size: 26px">{{g.title}}</h3>
+            <sc-if value="{{g.hasNote}}" hint-placeholder-val="{{ false }}">
+              <p style="margin: 4px 0 0; font-size: 14px; color: #5E6573">{{g.note}}</p>
+            </sc-if>
+            <ul style="list-style: none; margin: 16px 0 0; padding: 0">
+              <sc-for list="{{g.items}}" as="it" hint-placeholder-count="4">
+                <li style="padding: 12px 0; border-top: 1px solid #ECE8E0">
+                  <div style="display: flex; align-items: baseline; gap: 10px">
+                    <span style="font-weight: 500">{{it.n}}</span>
+                    <span aria-hidden="true" style="flex: 1; border-bottom: 1px dotted #CFC9BD; transform: translateY(-4px)"></span>
+                    <span style="font-weight: 600; color: #13213D; white-space: nowrap">{{it.p}}</span>
+                  </div>
+                  <sc-if value="{{it.hasD}}" hint-placeholder-val="{{ false }}">
+                    <p style="margin: 2px 0 0; font-size: 14px; color: #5E6573">{{it.d}}</p>
+                  </sc-if>
+                </li>
+              </sc-for>
+            </ul>
+          </div>
+        </sc-for>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{tabIsHair}}" hint-placeholder-val="{{ false }}">
+      <div role="tabpanel" style="display: flex; flex-direction: column; gap: 20px">
+        <p style="margin: 0; color: #5E6573; font-size: 14px">Prix selon la longueur des cheveux : court, mi-long ou long.</p>
+        <sc-for list="{{hair}}" as="h" hint-placeholder-count="3">
+          <div class="zoom" style="background: #fff; padding: 24px 14px 8px">
+            <h3 class="serif" style="margin: 0 14px 10px; font-size: 26px">{{h.title}}</h3>
+            <div style="overflow-x: auto">
+              <table class="hair" style="width: 100%; min-width: 520px; border-collapse: collapse; font-size: 15px; table-layout: fixed">
+                <thead><tr><th scope="col">Prestation</th><th scope="col" class="pc">Court</th><th scope="col" class="pc">Mi-long</th><th scope="col" class="pc pl">Long</th></tr></thead>
+                <tbody>
+                  <sc-for list="{{h.rows}}" as="row" hint-placeholder-count="4">
+                    <tr><th scope="row" style="font-weight: 500">{{row.n}}<sc-if value="{{row.hasD}}" hint-placeholder-val="{{ false }}"><span style="display: block; font-size: 13px; font-weight: 400; color: #5E6573">{{row.d}}</span></sc-if></th><td>{{row.c}}</td><td>{{row.m}}</td><td style="font-weight: 600; color: #13213D">{{row.l}}</td></tr>
+                  </sc-for>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </sc-if>
+  </div>
+</section>
+
+<!-- ============ GALERIE ============ -->
+<section id="galerie" class="sec" style="padding: 120px 0">
+  <div class="wrap">
+    <div class="rv" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 24px; margin-bottom: 48px">
+      <div>
+        <p class="eyebrow" style="margin: 0 0 14px; color: #8A6A3B">Galerie</p>
+        <h2 class="serif" style="margin: 0; font-size: clamp(34px, 3.6vw, 48px); line-height: 1.1">Découvrez les lieux</h2>
+      </div>
+      <p style="margin: 0; color: #5E6573; font-size: 14px">Cliquez sur une photo pour l'agrandir</p>
+    </div>
+    <div class="g-gal">
+      <sc-for list="{{photos}}" as="p" hint-placeholder-count="6">
+        <button type="button" class="tile rv {{p.cls}}" onClick="{{p.open}}" aria-label="Agrandir : {{p.alt}}" style="padding: 0; border: 0; overflow: hidden; cursor: zoom-in; background: #E4E0D8; position: relative">
+          <img src="{{p.src}}" alt="{{p.alt}}" style="width: 100%; height: 100%; object-fit: cover">
+        </button>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<sc-if value="{{lbOpen}}" hint-placeholder-val="{{ false }}">
+  <div class="zoom" role="dialog" aria-modal="true" aria-label="Photo agrandie" style="position: fixed; inset: 0; z-index: 70; background: rgba(10,16,30,0.95); display: flex; align-items: center; justify-content: center; padding: 80px 88px">
+    <figure style="margin: 0; max-width: 100%; max-height: 100%; display: flex; flex-direction: column; align-items: center; gap: 14px">
+      <img src="{{lbSrc}}" alt="{{lbAlt}}" style="max-width: 100%; max-height: calc(100vh - 200px); object-fit: contain">
+      <figcaption style="color: #C8CEDA; font-size: 14px">{{lbAlt}} · {{lbCount}}</figcaption>
+    </figure>
+    <button type="button" onClick="{{lbClose}}" aria-label="Fermer" style="position: absolute; top: 20px; right: 20px; width: 48px; height: 48px; border: 1px solid rgba(255,255,255,0.4); background: none; color: #fff; cursor: pointer; border-radius: 50%">
+      <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.5"></path></svg>
+    </button>
+    <button type="button" onClick="{{lbPrev}}" aria-label="Photo précédente" style="position: absolute; left: 20px; top: 50%; margin-top: -24px; width: 48px; height: 48px; border: 1px solid rgba(255,255,255,0.4); background: none; color: #fff; cursor: pointer; border-radius: 50%">
+      <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="1.5"></path></svg>
+    </button>
+    <button type="button" onClick="{{lbNext}}" aria-label="Photo suivante" style="position: absolute; right: 20px; top: 50%; margin-top: -24px; width: 48px; height: 48px; border: 1px solid rgba(255,255,255,0.4); background: none; color: #fff; cursor: pointer; border-radius: 50%">
+      <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.5"></path></svg>
+    </button>
+  </div>
+</sc-if>
+
+<!-- ============ AVIS ============ -->
+<section id="avis" class="sec" style="padding: 120px 0; background: #EFEBE3">
+  <div class="wrap">
+    <div class="rv" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 24px; margin-bottom: 48px">
+      <div>
+        <p class="eyebrow" style="margin: 0 0 14px; color: #8A6A3B">Avis clients</p>
+        <h2 class="serif" style="margin: 0; font-size: clamp(34px, 3.6vw, 48px); line-height: 1.1">Ils nous ont rendu visite</h2>
+      </div>
+      <a class="btn btn-line" href="https://www.google.com/maps/search/?api=1&amp;query=Cristal+d%27Azur+112+Rue+Loubon+Marseille" style="border: 1px solid #141A26; height: 44px; padding: 0 20px; display: inline-flex; align-items: center; gap: 10px; border-radius: 2px; font-size: 14px; font-weight: 600">Tous les avis sur Google
+        <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3h8v8M13 3L3 13" fill="none" stroke="currentColor" stroke-width="1.4"></path></svg>
+      </a>
+    </div>
+    <div class="g-rev">
+      <sc-for list="{{reviews}}" as="r" hint-placeholder-count="4">
+        <figure class="rv" style="margin: 0; background: #fff; padding: 32px; display: flex; flex-direction: column; gap: 20px">
+          <span role="img" aria-label="5 étoiles sur 5" style="color: #A8814A; letter-spacing: 3px; font-size: 15px">★★★★★</span>
+          <blockquote class="serif" style="margin: 0; font-size: 23px; line-height: 1.35; flex: 1">« {{r.text}} »</blockquote>
+          <figcaption style="display: flex; align-items: center; gap: 12px; padding-top: 16px; border-top: 1px solid #ECE8E0">
+            <span aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; background: #13213D; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 14px">{{r.initial}}</span>
+            <span style="display: flex; flex-direction: column; line-height: 1.3"><span style="font-weight: 600; font-size: 15px">{{r.name}}</span><span style="font-size: 13px; color: #5E6573">Avis Google</span></span>
+          </figcaption>
+        </figure>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RESERVATION ============ -->
+<section id="reserver" class="sec" style="padding: 120px 0">
+  <div class="wrap">
+    <div class="g-book rv" style="background: #fff; box-shadow: 0 30px 80px -40px rgba(19,33,61,0.35)">
+      <div class="pane" style="background: #13213D; color: #fff; padding: 48px 40px; display: flex; flex-direction: column; gap: 22px">
+        <p class="eyebrow" style="margin: 0; color: #D9BE8E">Réservation</p>
+        <h2 class="serif" style="margin: 0; font-size: clamp(32px, 3.2vw, 44px); line-height: 1.1">Réservez votre moment</h2>
+        <p style="margin: 0; color: #C8CEDA">Envoyez votre demande, nous vous rappelons pour confirmer le créneau.</p>
+        <div style="margin-top: 8px; border: 1px solid rgba(255,255,255,0.18); padding: 20px 22px; display: flex; flex-direction: column; gap: 12px">
+          <span class="eyebrow" style="color: #D9BE8E">Votre demande</span>
+          <div style="display: flex; justify-content: space-between; gap: 12px"><span>{{service}}</span><span style="font-weight: 600; white-space: nowrap">{{price}}</span></div>
+          <div style="display: flex; justify-content: space-between; gap: 12px; color: #C8CEDA; font-size: 15px"><span>{{dateLabel}}</span><span>{{slotLabel}}</span></div>
+          <div style="color: #C8CEDA; font-size: 14px">Créneau {{who}} · {{whoHours}}</div>
+        </div>
+        <div style="margin-top: auto; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.18)">
+          <p style="margin: 0 0 4px; font-size: 14px; color: #C8CEDA">Vous préférez appeler ?</p>
+          <a href="tel:+33665961156" class="serif" style="font-size: 32px; color: #fff">06 65 96 11 56</a>
+        </div>
+      </div>
+
+      <div class="pane" style="padding: 48px 40px">
+        <sc-if value="{{notSubmitted}}" hint-placeholder-val="{{ true }}">
+          <form onSubmit="{{submit}}" style="display: flex; flex-direction: column; gap: 26px">
+            <fieldset style="border: 0; margin: 0; padding: 0">
+              <legend style="font-weight: 600; font-size: 15px; margin-bottom: 12px">1. Vous êtes</legend>
+              <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px">
+                <sc-for list="{{whoOpts}}" as="w" hint-placeholder-count="2">
+                  <button type="button" class="chip" onClick="{{w.pick}}" aria-pressed="{{w.on}}" style="border: 1px solid {{w.border}}; background: {{w.bg}}; color: {{w.fg}}; min-height: 56px; padding: 8px 14px; cursor: pointer; border-radius: 2px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px">
+                    <span style="font-weight: 600; font-size: 15px">{{w.label}}</span><span style="font-size: 13px; opacity: .8">{{w.hours}}</span>
+                  </button>
+                </sc-for>
+              </div>
+            </fieldset>
+            <label style="display: flex; flex-direction: column; gap: 10px; font-weight: 600; font-size: 15px">2. La prestation
+              <select onChange="{{setService}}" value="{{serviceId}}" style="font-size: 16px; font-weight: 400; color: #141A26; height: 52px; padding: 0 14px; border: 1px solid #CFC9BD; border-radius: 2px; background: #fff">
+                <sc-for list="{{bookGroups}}" as="bg" hint-placeholder-count="5">
+                  <optgroup label="{{bg.label}}">
+                    <sc-for list="{{bg.options}}" as="o" hint-placeholder-count="3"><option value="{{o.id}}">{{o.label}}</option></sc-for>
+                  </optgroup>
+                </sc-for>
+              </select>
+            </label>
+            <fieldset style="border: 0; margin: 0; padding: 0">
+              <legend style="font-weight: 600; font-size: 15px; margin-bottom: 12px">3. Le jour</legend>
+              <div style="display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px">
+                <sc-for list="{{days}}" as="d" hint-placeholder-count="7">
+                  <button type="button" class="chip" onClick="{{d.pick}}" aria-pressed="{{d.on}}" aria-label="{{d.full}}" style="border: 1px solid {{d.border}}; background: {{d.bg}}; color: {{d.fg}}; padding: 10px 0; cursor: pointer; border-radius: 2px; display: flex; flex-direction: column; align-items: center; gap: 2px; min-height: 60px">
+                    <span style="font-size: 12px">{{d.dow}}</span><span style="font-size: 18px; font-weight: 600">{{d.num}}</span>
+                  </button>
+                </sc-for>
+              </div>
+            </fieldset>
+            <fieldset style="border: 0; margin: 0; padding: 0">
+              <legend style="font-weight: 600; font-size: 15px; margin-bottom: 12px">4. L'heure</legend>
+              <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(72px, 1fr)); gap: 6px">
+                <sc-for list="{{slots}}" as="t" hint-placeholder-count="8">
+                  <button type="button" class="chip" onClick="{{t.pick}}" aria-pressed="{{t.on}}" disabled="{{t.past}}" style="border: 1px solid {{t.border}}; background: {{t.bg}}; color: {{t.fg}}; height: 44px; font-size: 14px; cursor: {{t.cursor}}; border-radius: 2px; text-decoration: {{t.deco}}">{{t.label}}</button>
+                </sc-for>
+              </div>
+            </fieldset>
+            <fieldset style="border: 0; margin: 0; padding: 0">
+              <legend style="font-weight: 600; font-size: 15px; margin-bottom: 12px">5. Vos coordonnées</legend>
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px">
+                <label style="display: flex; flex-direction: column; gap: 6px; font-size: 14px; color: #4A5160">Nom et prénom
+                  <input type="text" autocomplete="name" value="{{name}}" onInput="{{setName}}" style="font-size: 16px; color: #141A26; height: 50px; padding: 0 14px; border: 1px solid #CFC9BD; border-radius: 2px; background: #fff">
+                </label>
+                <label style="display: flex; flex-direction: column; gap: 6px; font-size: 14px; color: #4A5160">Téléphone
+                  <input type="tel" autocomplete="tel" value="{{phone}}" onInput="{{setPhone}}" style="font-size: 16px; color: #141A26; height: 50px; padding: 0 14px; border: 1px solid #CFC9BD; border-radius: 2px; background: #fff">
+                </label>
+              </div>
+              <label style="display: flex; flex-direction: column; gap: 6px; font-size: 14px; color: #4A5160; margin-top: 12px">Précisions (facultatif)
+                <textarea rows="2" value="{{note}}" onInput="{{setNote}}" placeholder="Ex. : épilation jambes complètes + aisselles, cheveux mi-longs…" style="font-size: 16px; color: #141A26; padding: 12px 14px; border: 1px solid #CFC9BD; border-radius: 2px; background: #fff; resize: vertical"></textarea>
+              </label>
+            </fieldset>
+            <sc-if value="{{hasError}}" hint-placeholder-val="{{ false }}">
+              <p role="alert" style="margin: 0; color: #B42318; font-size: 14px">{{error}}</p>
+            </sc-if>
+            <button type="submit" class="btn btn-dark" style="background: #13213D; color: #fff; border: 0; height: 56px; font-size: 16px; font-weight: 600; cursor: pointer; border-radius: 2px" disabled="{{sending}}">{{submitLabel}}</button>
+          </form>
+        </sc-if>
+        <sc-if value="{{submitted}}" hint-placeholder-val="{{ false }}">
+          <div class="zoom" style="min-height: 420px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 16px">
+            <span style="width: 64px; height: 64px; border-radius: 50%; border: 1px solid #A8814A; color: #8A6A3B; display: flex; align-items: center; justify-content: center">
+              <svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true"><path d="M6 13.5l5 5 9-11" fill="none" stroke="currentColor" stroke-width="1.6"></path></svg>
+            </span>
+            <h3 class="serif" style="margin: 0; font-size: 36px">Merci {{firstName}}</h3>
+            <p style="margin: 0; color: #4A5160; max-width: 400px">Votre demande « {{service}} » pour le {{dateLabel}} à {{slotLabel}} est bien reçue. Nous vous rappelons au {{phone}} pour confirmer.</p>
+            <button type="button" onClick="{{reset}}" class="btn btn-line" style="margin-top: 8px; border: 1px solid #141A26; background: none; height: 44px; padding: 0 20px; cursor: pointer; border-radius: 2px; color: #141A26">Faire une autre demande</button>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HORAIRES & ACCES ============ -->
+<section id="infos" class="sec" style="padding: 0 0 120px">
+  <div class="wrap g-infos">
+    <div class="rv" style="position: relative; min-height: 460px; background: #E4E0D8; overflow: hidden">
+      <img src="images/g5.webp" alt="L'accueil de Cristal d'Azur" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover">
+      <span style="position: absolute; left: 16px; top: 16px; background: #fff; padding: 8px 12px; font-size: 13px">[Carte Google Maps intégrée ici]</span>
+    </div>
+    <div class="rv" style="display: flex; flex-direction: column; gap: 26px; justify-content: center">
+      <div>
+        <p class="eyebrow" style="margin: 0 0 14px; color: #8A6A3B">Horaires &amp; accès</p>
+        <h2 class="serif" style="margin: 0; font-size: clamp(34px, 3.6vw, 48px); line-height: 1.1">Nous trouver</h2>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px">
+        <div style="background: #fff; padding: 18px 20px; border-top: 2px solid #A8814A">
+          <p class="eyebrow" style="margin: 0 0 6px; color: #8A6A3B">Femmes</p>
+          <p class="serif" style="margin: 0; font-size: 28px; line-height: 1.1">9 h – 17 h</p>
+          <p style="margin: 4px 0 0; font-size: 14px; color: #5E6573">Tous les jours</p>
+        </div>
+        <div style="background: #fff; padding: 18px 20px; border-top: 2px solid #13213D">
+          <p class="eyebrow" style="margin: 0 0 6px; color: #13213D">Hommes</p>
+          <p class="serif" style="margin: 0; font-size: 28px; line-height: 1.1">18 h – 23 h</p>
+          <p style="margin: 4px 0 0; font-size: 14px; color: #5E6573">Tous les jours</p>
+        </div>
+      </div>
+      <dl style="margin: 0; display: flex; flex-direction: column">
+        <div style="display: flex; justify-content: space-between; gap: 16px; padding: 14px 0; border-top: 1px solid #E4E0D8"><dt style="color: #5E6573">Adresse</dt><dd style="margin: 0; text-align: right; font-weight: 500">112 rue Loubon, 13003 Marseille</dd></div>
+        <div style="display: flex; justify-content: space-between; gap: 16px; padding: 14px 0; border-top: 1px solid #E4E0D8"><dt style="color: #5E6573">Téléphone</dt><dd style="margin: 0; text-align: right; font-weight: 500"><a href="tel:+33665961156">06 65 96 11 56</a></dd></div>
+        <div style="display: flex; justify-content: space-between; gap: 16px; padding: 14px 0; border-top: 1px solid #E4E0D8; border-bottom: 1px solid #E4E0D8"><dt style="color: #5E6573">E-mail</dt><dd style="margin: 0; text-align: right; font-weight: 500; overflow-wrap: anywhere"><a href="mailto:cristal.dazur001@gmail.com">cristal.dazur001@gmail.com</a></dd></div>
+      </dl>
+      <div style="display: flex; flex-wrap: wrap; gap: 12px">
+        <a class="btn btn-dark" href="https://www.google.com/maps/dir/?api=1&amp;destination=112+Rue+Loubon+13003+Marseille" style="background: #13213D; color: #fff; height: 48px; padding: 0 22px; display: inline-flex; align-items: center; gap: 10px; border-radius: 2px; font-weight: 600; font-size: 15px">Itinéraire
+          <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.4"></path></svg>
+        </a>
+        <button type="button" class="btn btn-line" onClick="{{copyAddress}}" style="border: 1px solid #141A26; background: none; height: 48px; padding: 0 22px; border-radius: 2px; font-size: 15px; cursor: pointer; color: #141A26">{{copyLabel}}</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer" style="background: #0F1A30; color: #C8CEDA; padding: 72px 0 32px">
+  <div class="wrap">
+    <div class="g-foot" style="padding-bottom: 48px; border-bottom: 1px solid rgba(255,255,255,0.12)">
+      <div style="display: flex; flex-direction: column; gap: 14px; max-width: 320px">
+        <span class="serif" style="font-size: 30px; font-weight: 600; color: #fff">Cristal d'Azur</span>
+        <span style="font-size: 15px">Hammam, sauna, bain vapeur, esthétique et coiffure à la Belle de Mai, Marseille. Au plaisir de vous accueillir.</span>
+        <div style="display: flex; gap: 10px; margin-top: 6px">
+          <a class="btn btn-ghost" href="https://www.instagram.com/cristal_d_azur/" aria-label="Instagram cristal_d_azur" style="width: 44px; height: 44px; border: 1px solid rgba(255,255,255,0.25); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff">
+            <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><rect x="2" y="2" width="14" height="14" rx="4" fill="none" stroke="currentColor" stroke-width="1.3"></rect><circle cx="9" cy="9" r="3.2" fill="none" stroke="currentColor" stroke-width="1.3"></circle><circle cx="13.2" cy="4.8" r="0.9" fill="currentColor"></circle></svg>
+          </a>
+          <a class="btn btn-ghost" href="https://www.tiktok.com/@cristal.dazur.hammam.beaute" aria-label="TikTok Cristal d'Azur" style="width: 44px; height: 44px; border: 1px solid rgba(255,255,255,0.25); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff">
+            <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M10 2v9.5a2.8 2.8 0 1 1-2.8-2.8M10 2c.4 2.2 1.8 3.5 4 3.7" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"></path></svg>
+          </a>
+          <a class="btn btn-ghost" href="mailto:cristal.dazur001@gmail.com" aria-label="Envoyer un e-mail" style="width: 44px; height: 44px; border: 1px solid rgba(255,255,255,0.25); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff">
+            <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><rect x="2" y="4" width="14" height="10" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.3"></rect><path d="M2.5 5l6.5 5 6.5-5" fill="none" stroke="currentColor" stroke-width="1.3"></path></svg>
+          </a>
+        </div>
+      </div>
+      <nav aria-label="Pied de page" style="display: flex; flex-direction: column; gap: 10px; font-size: 15px">
+        <span class="eyebrow" style="color: #D9BE8E; margin-bottom: 6px">Navigation</span>
+        <a href="#rituels">Rituels</a><a href="#tarifs">Tarifs</a><a href="#galerie">Galerie</a><a href="#reserver">Réserver</a>
+      </nav>
+      <div style="display: flex; flex-direction: column; gap: 10px; font-size: 15px">
+        <span class="eyebrow" style="color: #D9BE8E; margin-bottom: 6px">Contact</span>
+        <span>112 rue Loubon<br>13003 Marseille</span>
+        <a href="tel:+33665961156" style="color: #fff">06 65 96 11 56</a>
+        <a href="mailto:cristal.dazur001@gmail.com" style="overflow-wrap: anywhere">cristal.dazur001@gmail.com</a>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 10px; font-size: 15px">
+        <span class="eyebrow" style="color: #D9BE8E; margin-bottom: 6px">Horaires</span>
+        <span>Femmes<br><span style="color: #fff">9 h – 17 h</span></span>
+        <span>Hommes<br><span style="color: #fff">18 h – 23 h</span></span>
+        <span style="font-size: 13px">Tous les jours</span>
+      </div>
+    </div>
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; padding-top: 24px; font-size: 13px">
+      <span>© 2026 Cristal d'Azur · Hammam &amp; beauté</span>
+      <a href="#top">Retour en haut ↑</a>
+    </div>
+  </div>
+</footer>
+
+<!-- Barre d'action mobile -->
+<div class="mob" style="position: fixed; left: 0; right: 0; bottom: 0; z-index: 45; background: #fff; border-top: 1px solid #E4E0D8; padding: 10px 16px; gap: 10px">
+  <a href="tel:+33665961156" style="flex: 1; height: 48px; display: flex; align-items: center; justify-content: center; border: 1px solid #141A26; border-radius: 2px; font-weight: 500">Appeler</a>
+  <a href="#reserver" style="flex: 1; height: 48px; display: flex; align-items: center; justify-content: center; background: #13213D; color: #fff; border-radius: 2px; font-weight: 600">Réserver</a>
+</div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":7200}}'>
+class Component extends DCLogic {
+  state = { slide: 0, scrolled: false, menu: false, tab: 'hammam', who: 'f', serviceId: 'entree', day: 0, slot: null, name: '', phone: '', note: '', submitted: false, error: '', lb: -1, copied: false, sending: false };
+
+  slides = [
+    { src: 'images/g6.webp', alt: 'Salle du hammam en marbre', caption: 'Le hammam' },
+    { src: 'images/g4.webp', alt: 'Bain vapeur en mosaïque bleue', caption: 'Le bain vapeur' },
+    { src: 'images/g2.webp', alt: 'Sauna en bois', caption: 'Le sauna' }
+  ];
+
+  rituals = [
+    { id: 'r1', name: 'Éclat d\'Azur', items: ['Hammam', 'Savon noir', 'Gommage au gant kassa'], price: 38 },
+    { id: 'r2', name: 'Le Secret Berbère', items: ['Hammam', 'Gommage Tébrima', 'Huile corps'], price: 40 },
+    { id: 'r3', name: 'Détente', items: ['Hammam', 'Gommage savon noir', 'Massage relaxant 30 min'], price: 78 },
+    { id: 'r4', name: 'Cristal d\'Azur', items: ['Hammam', 'Gommage savon noir', 'Enveloppement', 'Soin visage', 'Massage 30 min'], price: 138 },
+    { id: 'r5', name: 'Hammam à l\'Aaroussa', items: ['Hammam', 'Gommage savon noir', 'Tébrimat Aaroussa', 'Soin visage', 'Massage relaxant 1 h'], price: 150 }
+  ];
+
+  tabsData = [
+    { id: 'hammam', label: 'Hammam', groups: [
+      { title: 'Entrée', note: 'Accès au hammam, au sauna et au bain vapeur', items: [ { n: 'Entrée hammam', d: 'Hammam · Sauna · Bain vapeur', p: '25 €' } ] },
+      { title: 'À la carte', note: 'En complément de votre entrée', items: [ { n: 'Savon noir', p: '5 €' }, { n: 'Gommage « Kiassa »', p: '8 €' }, { n: 'Gommage Cristal d\'Azur', d: 'Au choix : café, lavande ou argile', p: '20 €' } ] }
+    ] },
+    { id: 'visage', label: 'Visage & épilation', groups: [
+      { title: 'Soin du visage', items: [ { n: 'Soin du visage complet', d: 'Gommage, vapeur, extraction des points noirs et modelage', p: '40 €' } ] },
+      { title: 'Épilation du visage', note: 'À la cire orientale faite maison ou à la cire d\'institut', items: [ { n: 'Sourcils', p: '10 €' }, { n: 'Lèvres', p: '8 €' }, { n: 'Menton', p: '8 €' }, { n: 'Visage complet', p: '25 €' } ] },
+      { title: 'Épilation du corps', note: 'À la cire orientale faite maison ou à la cire d\'institut', items: [ { n: 'Aisselles', p: '10 €' }, { n: 'Avant-bras', p: '10 €' }, { n: 'Bras complets', p: '15 €' }, { n: 'Demi-jambes', p: '15 €' }, { n: 'Jambes complètes', p: '20 €' }, { n: 'Maillot classique', p: '15 €' }, { n: 'Maillot intégral', p: '25 €' }, { n: 'Ventre', p: '10 €' }, { n: 'Bas du dos', p: '10 €' }, { n: 'Dos complet', p: '20 €' } ] }
+    ] },
+    { id: 'regard', label: 'Regard & sourcils', groups: [
+      { title: 'Beauté du regard', items: [ { n: 'Teinture au henné + épilation des sourcils', p: '25 €' }, { n: 'Rehaussement des cils', p: '40 €' }, { n: 'Rehaussement des cils + teinture', p: '45 €' }, { n: 'Brow lift', p: '30 €' }, { n: 'Brow lift + teinture', p: '35 €' } ] },
+      { title: 'Sourcils & maquillage semi-permanent', items: [ { n: 'Maquillage semi-permanent', p: '180 €' }, { n: 'Technique électrique', p: '180 €' }, { n: 'Microblading poil à poil', p: '180 €' }, { n: 'Candy lips', p: '180 €' }, { n: 'Retouches de finition', p: '50 €' }, { n: 'Retouche à 3 mois', p: '50 €' } ] }
+    ] },
+    { id: 'mains', label: 'Mains & pieds', groups: [
+      { title: 'Soins des mains & des pieds', items: [ { n: 'Beauté des mains', d: 'Manucure', p: '15 €' }, { n: 'Beauté des pieds', d: 'Pédicure', p: '20 €' }, { n: 'Callus peeling', d: 'Soin anti-callosités', p: '35 €' } ] },
+      { title: 'Vernis', items: [ { n: 'Vernis semi-permanent', p: '25 €' }, { n: 'Dépose de vernis semi-permanent', p: '5 €' } ] }
+    ] },
+    { id: 'coiffure', label: 'Coiffure', hair: [
+      { title: 'Services & coiffage', rows: [ ['Shampooing + soin', '5 €', '5 €', '5 €'], ['Shampooing + brushing', '15 €', '15 €', '15 €'], ['Shampooing + coupe + séchage', '20 €', '20 €', '20 €'], ['Shampooing + coupe + brushing', '35 €', '35 €', '40 €'], ['Coupe enfant + brushing', '10 €', '10 €', '20 €'] ] },
+      { title: 'Couleur, balayage & permanente', rows: [ ['Couleur racines + shampooing + brushing', '35 €', '35 €', '40 €', 'Racines de 1,5 à 2 cm'], ['Supplément couleur', '10 €', '10 €', '10 €'], ['Couleur tête entière + shampooing + brushing', '40 €', '50 €', '60 €'], ['Patine / gloss / rinçage', '20 €', '20 €', '30 €'], ['Balayage + shampooing + brushing', '40 €', '60 €', '80 – 150 €'], ['Ombré hair + shampooing + brushing', '40 €', '60 €', '80 – 150 €'], ['Flash balayage + shampooing + brushing', '40 €', '60 €', '80 – 150 €'], ['Permanente + shampooing + coupe + brushing', '60 €', '80 €', '120 €'] ] },
+      { title: 'Lissage & botox', rows: [ ['Lissage brésilien, protéines ou indien', '50 €', '80 €', '120 €'], ['Botox capillaire / soin', '35 €', '35 €', '40 €'] ] }
+    ] }
+  ];
+
+  bookData = [
+    { label: 'Hammam', options: [ { id: 'entree', label: 'Entrée hammam · sauna · bain vapeur', price: '25 €' } ] },
+    { label: 'Rituels', options: [] },
+    { label: 'Esthétique', options: [ { id: 'visage', label: 'Soin du visage', price: '40 €' }, { id: 'epilation', label: 'Épilation (visage ou corps)', price: 'dès 8 €' }, { id: 'regard', label: 'Beauté du regard', price: 'dès 25 €' }, { id: 'sourcils', label: 'Sourcils & maquillage semi-permanent', price: 'dès 50 €' } ] },
+    { label: 'Mains & pieds', options: [ { id: 'manucure', label: 'Beauté des mains (manucure)', price: '15 €' }, { id: 'pedicure', label: 'Beauté des pieds (pédicure)', price: '20 €' }, { id: 'vernis', label: 'Vernis semi-permanent', price: '25 €' } ] },
+    { label: 'Coiffure', options: [ { id: 'coupe', label: 'Coupe & brushing', price: 'dès 15 €' }, { id: 'couleur', label: 'Couleur, balayage, permanente', price: 'dès 20 €' }, { id: 'lissage', label: 'Lissage ou botox capillaire', price: 'dès 35 €' } ] }
+  ];
+
+  photos = [
+    { src: 'images/g3.webp', alt: 'Table de gommage en marbre', cls: 'big' },
+    { src: 'images/g4.webp', alt: 'Bain vapeur en mosaïque', cls: '' },
+    { src: 'images/hero.webp', alt: 'Vasques du hammam', cls: '' },
+    { src: 'images/g1.webp', alt: 'Couloir éclairé', cls: '' },
+    { src: 'images/g5.webp', alt: 'Accueil', cls: '' },
+    { src: 'images/g2.webp', alt: 'Sauna en bois', cls: 'mwide' }
+  ];
+
+  reviews = [
+    { name: 'Dounia K.', text: 'Tout était au rendez-vous : accueil chaleureux, espace bien-être, décoration apaisante. Merci aux femmes qui nous ont fait un super gommage.' },
+    { name: 'Soudani S.', text: 'Parfait ! Équipe très professionnelle et serviable.' },
+    { name: 'Bilal D.', text: 'Je recommande fortement, accueil et service au top.' },
+    { name: 'Karim H.', text: 'Très bon hammam, je recommande.' }
+  ];
+
+  hours = { f: { label: 'Femme', hours: '9 h – 17 h', times: ['09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00'] },
+            h: { label: 'Homme', hours: '18 h – 23 h', times: ['18:00','19:00','20:00','21:00','22:00'] } };
+
+  componentDidMount() {
+    this._onScroll = () => { const s = window.scrollY > 40; if (s !== this.state.scrolled) this.setState({ scrolled: s }); };
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+    this._onScroll();
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) this.startSlides();
+  }
+  componentWillUnmount() { window.removeEventListener('scroll', this._onScroll); clearInterval(this._iv); clearTimeout(this._ct); }
+  startSlides() { clearInterval(this._iv); this._iv = setInterval(() => this.setState(s => ({ slide: (s.slide + 1) % this.slides.length })), 6000); }
+
+  allOptions() {
+    const rit = this.rituals.map(r => ({ id: r.id, label: 'Rituel ' + r.name, price: r.price + ' €' }));
+    return this.bookData.map(g => g.label === 'Rituels' ? { ...g, options: rit } : g);
+  }
+
+  renderVals() {
+    const s = this.state, ink = '#141A26', navy = '#13213D', line = '#CFC9BD';
+    const chip = on => ({ bg: on ? navy : '#fff', fg: on ? '#fff' : ink, border: on ? navy : line });
+    const now = new Date(), h = now.getHours();
+    let openTitle, openDetail, openColor = '#1E7A46';
+    if (h >= 9 && h < 17) { openTitle = 'Ouvert'; openDetail = 'Créneau femmes jusqu\'à 17 h'; }
+    else if (h >= 18 && h < 23) { openTitle = 'Ouvert'; openDetail = 'Créneau hommes jusqu\'à 23 h'; }
+    else if (h >= 17 && h < 18) { openTitle = 'Fermé'; openDetail = 'Réouverture à 18 h (hommes)'; openColor = '#B42318'; }
+    else { openTitle = 'Fermé'; openDetail = 'Ouverture à 9 h (femmes)'; openColor = '#B42318'; }
+
+    const dows = ['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'];
+    const longDows = ['dimanche','lundi','mardi','mercredi','jeudi','vendredi','samedi'];
+    const months = ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
+    const dates = Array.from({ length: 7 }, (_, i) => { const d = new Date(now); d.setDate(now.getDate() + i); return d; });
+    const sel = dates[s.day];
+    const solid = s.scrolled || s.menu;
+    const n = this.photos.length;
+    const groupsAll = this.allOptions();
+    const flat = groupsAll.reduce((a, g) => a.concat(g.options), []);
+    const current = flat.find(o => o.id === s.serviceId) || flat[0];
+    const tab = this.tabsData.find(t => t.id === s.tab) || this.tabsData[0];
+    const who = this.hours[s.who];
+    const dateLabel = longDows[sel.getDay()] + ' ' + sel.getDate() + ' ' + months[sel.getMonth()];
+    const fmt = r => ({ ...r, price: r.price + ' €', line: r.items.join(' · '), book: () => this.setState({ serviceId: r.id, submitted: false }) });
+
+    return {
+      headerBg: solid ? 'rgba(247,245,240,0.96)' : 'transparent',
+      headerFg: solid ? ink : '#fff',
+      headerLine: solid ? '#E4E0D8' : 'transparent',
+      ctaBg: solid ? navy : '#fff',
+      ctaFg: solid ? '#fff' : ink,
+
+      menuOpen: s.menu, menuExpanded: s.menu ? 'true' : 'false',
+      toggleMenu: () => this.setState({ menu: !s.menu }),
+      closeMenu: () => this.setState({ menu: false }),
+      menuLinks: [ { href: '#rituels', label: 'Rituels' }, { href: '#tarifs', label: 'Tarifs' }, { href: '#galerie', label: 'Galerie' }, { href: '#avis', label: 'Avis' }, { href: '#infos', label: 'Horaires & accès' } ],
+
+      slides: this.slides.map((x, i) => ({ ...x,
+        op: i === s.slide ? 1 : 0, tf: i === s.slide ? 'scale(1)' : 'scale(1.08)',
+        barClass: i === s.slide ? 'bar on' : 'bar', label: 'Afficher la photo ' + (i + 1),
+        pick: () => { this.setState({ slide: i }); this.startSlides(); } })),
+      slideNum: '0' + (s.slide + 1),
+      slideCaption: this.slides[s.slide].caption,
+
+      openTitle, openDetail, openColor,
+
+      rituals4: this.rituals.slice(0, 4).map(fmt),
+      aaroussa: fmt(this.rituals[4]),
+
+      tabs: this.tabsData.map(t => ({ label: t.label, selected: t.id === tab.id ? 'true' : 'false', color: t.id === tab.id ? ink : '#5E6573', line: t.id === tab.id ? '#A8814A' : 'transparent', pick: () => this.setState({ tab: t.id }) })),
+      tabIsList: !tab.hair, tabIsHair: !!tab.hair,
+      groups: (tab.groups || []).map(g => ({ ...g, hasNote: !!g.note, items: g.items.map(it => ({ ...it, hasD: !!it.d })) })),
+      hair: (tab.hair || []).map(t => ({ title: t.title, rows: t.rows.map(r => ({ n: r[0], c: r[1], m: r[2], l: r[3], d: r[4] || '', hasD: !!r[4] })) })),
+
+      photos: this.photos.map((p, i) => ({ ...p, open: () => this.setState({ lb: i }) })),
+      lbOpen: s.lb >= 0,
+      lbSrc: s.lb >= 0 ? this.photos[s.lb].src : '',
+      lbAlt: s.lb >= 0 ? this.photos[s.lb].alt : '',
+      lbCount: (s.lb + 1) + ' / ' + n,
+      lbClose: () => this.setState({ lb: -1 }),
+      lbPrev: () => this.setState({ lb: (s.lb - 1 + n) % n }),
+      lbNext: () => this.setState({ lb: (s.lb + 1) % n }),
+
+      reviews: this.reviews.map(r => ({ ...r, initial: r.name.charAt(0) })),
+
+      whoOpts: ['f', 'h'].map(k => { const c = chip(s.who === k); return { label: this.hours[k].label, hours: this.hours[k].hours, on: s.who === k ? 'true' : 'false', ...c, pick: () => this.setState({ who: k, slot: null }) }; }),
+      who: who.label.toLowerCase(), whoHours: who.hours,
+      bookGroups: groupsAll.map(g => ({ label: g.label, options: g.options.map(o => ({ id: o.id, label: o.label + ' — ' + o.price })) })),
+      serviceId: current.id,
+      setService: e => this.setState({ serviceId: e.target.value }),
+
+      days: dates.map((d, i) => { const c = chip(s.day === i); return { dow: i === 0 ? 'Auj.' : dows[d.getDay()], num: d.getDate(), full: longDows[d.getDay()] + ' ' + d.getDate() + ' ' + months[d.getMonth()], on: s.day === i ? 'true' : 'false', ...c, pick: () => this.setState({ day: i, slot: null }) }; }),
+      slots: who.times.map(t => {
+        const past = s.day === 0 && parseInt(t, 10) <= h, c = chip(s.slot === t);
+        return { label: t, past, on: s.slot === t ? 'true' : 'false',
+          bg: past ? '#F3F1EC' : c.bg, fg: past ? '#8E929C' : c.fg, border: past ? '#ECE8E0' : c.border,
+          cursor: past ? 'not-allowed' : 'pointer', deco: past ? 'line-through' : 'none',
+          pick: () => { if (!past) this.setState({ slot: t, error: '' }); } };
+      }),
+      service: current.label, price: current.price,
+      dateLabel,
+      sending: s.sending,
+      submitLabel: s.sending ? 'Envoi en cours…' : 'Envoyer ma demande',
+      slotLabel: s.slot || 'heure à choisir',
+      name: s.name, phone: s.phone, note: s.note,
+      firstName: s.name.trim().split(' ')[0],
+      error: s.error, hasError: !!s.error,
+      submitted: s.submitted, notSubmitted: !s.submitted,
+      setName: e => this.setState({ name: e.target.value }),
+      setPhone: e => this.setState({ phone: e.target.value }),
+      setNote: e => this.setState({ note: e.target.value }),
+      submit: e => {
+        e.preventDefault();
+        if (!s.slot) return this.setState({ error: 'Choisissez une heure.' });
+        if (!s.name.trim()) return this.setState({ error: 'Indiquez votre nom.' });
+        if (s.phone.replace(/\D/g, '').length < 10) return this.setState({ error: 'Indiquez un numéro de téléphone valide.' });
+        if (s.sending) return;
+        this.setState({ sending: true, error: '' });
+        fetch('https://formsubmit.co/ajax/d9f0a11d909a2f841737bccc15b61222', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({
+            _subject: 'Réservation Cristal d\'Azur — ' + current.label + ' — ' + dateLabel + ' ' + s.slot,
+            _template: 'table',
+            _captcha: 'false',
+            'Nom': s.name.trim(),
+            'Téléphone': s.phone.trim(),
+            'Clientèle': who.label + ' (' + who.hours + ')',
+            'Prestation': current.label + ' — ' + current.price,
+            'Date': dateLabel,
+            'Heure': s.slot,
+            'Précisions': s.note.trim() || '—'
+          })
+        })
+          .then(r => r.json())
+          .then(d => { if (String(d.success) !== 'true') throw new Error(d.message || 'refus'); this.setState({ submitted: true, sending: false }); })
+          .catch(() => this.setState({ sending: false, error: 'L\'envoi n\'a pas abouti. Réessayez ou appelez-nous au 06 65 96 11 56.' }));
+      },
+      reset: () => this.setState({ submitted: false, sending: false, slot: null, name: '', phone: '', note: '' }),
+
+      copyLabel: s.copied ? 'Adresse copiée' : 'Copier l\'adresse',
+      copyAddress: () => { try { navigator.clipboard && navigator.clipboard.writeText('112 rue Loubon, 13003 Marseille').catch(() => {}); } catch (e) {} this.setState({ copied: true }); clearTimeout(this._ct); this._ct = setTimeout(() => this.setState({ copied: false }), 2000); }
+    };
+  }
+}
+</script>
+</body>
+</html>
