@@ -30,10 +30,10 @@ img{display:block;max-width:100%}
 @keyframes zoomIn{from{opacity:0;transform:scale(.98)}to{opacity:1;transform:none}}
 .up{animation:up 1s cubic-bezier(.2,.7,.2,1) both}
 .bar{position:absolute;inset:0;background:#fff;transform:scaleX(0);transform-origin:left}
-.bar.on{animation:fill 6s linear both}
+.bar.on{animation:fill 1.5s linear both}
 .zoom{animation:zoomIn .45s ease both}
 
-.slide{transition:opacity 1.4s ease,transform 7s ease-out}
+.slide{transition:opacity .6s ease,transform 1.8s ease-out}
 .btn{transition:background .25s,color .25s,border-color .25s,transform .25s}
 .btn:hover{transform:translateY(-1px)}
 .btn-light:hover{background:#EDE6D8!important;color:#141A26!important}
@@ -49,7 +49,7 @@ img{display:block;max-width:100%}
 .chip:hover{border-color:#141A26!important}
 .tab{transition:color .2s,border-color .2s}
 .tab:hover{color:#141A26!important}
-.navlink{position:relative}
+.navlink{position:relative;white-space:nowrap}
 .navlink:after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform .3s}
 .navlink:hover:after{transform:scaleX(1)}
 .navlink:hover{color:inherit}
@@ -76,6 +76,9 @@ img{display:block;max-width:100%}
 .desk{display:flex}
 .mob{display:none}
 
+@media (max-width:1180px){
+.hdr-phone{display:none!important}
+}
 @media (max-width:1080px){
 .g-info{grid-template-columns:repeat(2,minmax(0,1fr))}
 .g-info>*:last-child{grid-column:span 2}
@@ -135,7 +138,7 @@ img{display:block;max-width:100%}
       <a class="navlink" href="#infos">Horaires &amp; accès</a>
     </nav>
     <div style="display: flex; align-items: center; gap: 20px">
-      <a class="desk navlink" href="tel:+33986283063" style="font-size: 14px; font-weight: 500; align-items: center; gap: 8px">
+      <a class="desk navlink hdr-phone" href="tel:+33986283063" style="font-size: 14px; font-weight: 500; align-items: center; gap: 8px">
         <svg width="15" height="15" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 1.5h2.5l1.2 3.2-1.6 1.1a8.5 8.5 0 0 0 4.6 4.6l1.1-1.6 3.2 1.2v2.5a1.5 1.5 0 0 1-1.6 1.5A12.5 12.5 0 0 1 2 3.1 1.5 1.5 0 0 1 3.5 1.5z" fill="none" stroke="currentColor" stroke-width="1.2"></path></svg>
         09 86 28 30 63
       </a>
@@ -684,7 +687,7 @@ class Component extends DCLogic {
   slides = [
     { src: 'images/hammam-salle.webp', alt: 'La salle du hammam, marbre bleu et robinets dorés', caption: 'Le hammam' },
     { src: 'images/hammam-table.webp', alt: 'La table de gommage préparée avec bougies et serviettes', caption: 'La table de gommage' },
-    { src: 'images/bain-vapeur.webp', alt: 'Bain vapeur en mosaïque bleue', caption: 'Le bain vapeur' }
+    { src: 'images/hammam-voute.webp', alt: 'Le hammam sous sa voûte, vasques et robinets dorés', caption: 'Sous la voûte' }
   ];
 
   rituals = [
@@ -766,7 +769,7 @@ class Component extends DCLogic {
     if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) this.startSlides();
   }
   componentWillUnmount() { window.removeEventListener('scroll', this._onScroll); clearInterval(this._iv); clearTimeout(this._ct); }
-  startSlides() { clearInterval(this._iv); this._iv = setInterval(() => this.setState(s => ({ slide: (s.slide + 1) % this.slides.length })), 6000); }
+  startSlides() { clearInterval(this._iv); this._iv = setInterval(() => this.setState(s => ({ slide: (s.slide + 1) % this.slides.length })), 1500); }
 
   allOptions() {
     const rit = this.rituals.map(r => ({ id: r.id, label: 'Rituel ' + r.name, price: r.price + ' €' }));
