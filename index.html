@@ -66,6 +66,7 @@ img{display:block;max-width:100%}
 .g-price>*{break-inside:avoid;margin-bottom:20px}
 .g-gal{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-rows:260px;gap:16px}
 .g-gal .big{grid-column:span 2;grid-row:span 2}
+.g-esp{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
 .g-rev{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
 .g-book{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr)}
 .g-infos{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:64px;align-items:stretch}
@@ -78,7 +79,7 @@ img{display:block;max-width:100%}
 @media (max-width:1080px){
 .g-info{grid-template-columns:repeat(2,minmax(0,1fr))}
 .g-info>*:last-child{grid-column:span 2}
-.g-rit{grid-template-columns:repeat(2,minmax(0,1fr))}
+.g-rit,.g-esp{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 @media (max-width:960px){
 .wrap{padding:0 24px}
@@ -87,7 +88,6 @@ img{display:block;max-width:100%}
 .g-intro,.g-infos,.g-book{grid-template-columns:minmax(0,1fr);gap:28px}
 .g-price{columns:1}
 .g-gal{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:170px;gap:10px}
-.g-gal .mwide{grid-column:span 2}
 .g-rev{grid-template-columns:minmax(0,1fr)}
 .g-foot{grid-template-columns:repeat(2,minmax(0,1fr))}
 .aaroussa{grid-template-columns:minmax(0,1fr)}
@@ -103,7 +103,8 @@ img{display:block;max-width:100%}
 .hair thead th{font-size:10px;letter-spacing:.06em}
 }
 @media (max-width:560px){
-.g-info,.g-rit,.feat{grid-template-columns:minmax(0,1fr)}
+.g-info,.g-rit,.g-esp,.feat{grid-template-columns:minmax(0,1fr)}
+.g-esp article>div:first-child{aspect-ratio:4/3!important}
 .g-info>*:last-child{grid-column:auto}
 .g-foot{grid-template-columns:minmax(0,1fr)}
 }
@@ -128,9 +129,9 @@ img{display:block;max-width:100%}
     </a>
     <nav class="desk" aria-label="Navigation principale" style="gap: 34px; font-size: 14px; font-weight: 500">
       <a class="navlink" href="#rituels">Rituels</a>
+      <a class="navlink" href="#beaute">Massage &amp; beauté</a>
       <a class="navlink" href="#tarifs">Tarifs</a>
       <a class="navlink" href="#galerie">Galerie</a>
-      <a class="navlink" href="#avis">Avis</a>
       <a class="navlink" href="#infos">Horaires &amp; accès</a>
     </nav>
     <div style="display: flex; align-items: center; gap: 20px">
@@ -239,7 +240,7 @@ img{display:block;max-width:100%}
 <section class="sec" style="padding: 120px 0">
   <div class="wrap g-intro">
     <div class="rv" style="position: relative">
-      <img src="images/hero.webp" alt="La salle du hammam en marbre, ses vasques et sa table de gommage" style="width: 100%; aspect-ratio: 4 / 5; object-fit: cover">
+      <img src="images/hammam-bougies.webp" alt="La table de gommage en marbre bleu, bougies et serviettes" style="width: 100%; aspect-ratio: 4 / 5; object-fit: cover">
       <div class="desk" style="position: absolute; right: -32px; bottom: 40px; background: #13213D; color: #fff; padding: 22px 26px; flex-direction: column; gap: 4px">
         <span class="eyebrow" style="color: #D9BE8E; font-size: 11px">Entrée hammam</span>
         <span class="serif" style="font-size: 38px; line-height: 1">25 €</span>
@@ -261,7 +262,7 @@ img{display:block;max-width:100%}
         </li>
         <li style="display: flex; gap: 14px">
           <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true" style="flex: none"><path d="M14 4l1.8 5.2L21 11l-5.2 1.8L14 18l-1.8-5.2L7 11l5.2-1.8zM21 18l.9 2.1L24 21l-2.1.9L21 24l-.9-2.1L18 21l2.1-.9z" fill="none" stroke="#8A6A3B" stroke-width="1.3" stroke-linejoin="round"></path></svg>
-          <span style="display: flex; flex-direction: column"><span style="font-weight: 600; font-size: 15px">Esthétique</span><span style="font-size: 14px; color: #5E6573">Visage, épilation, regard, mains &amp; pieds</span></span>
+          <span style="display: flex; flex-direction: column"><span style="font-weight: 600; font-size: 15px">Esthétique &amp; onglerie</span><span style="font-size: 14px; color: #5E6573">Visage, épilation, regard, mains &amp; pieds</span></span>
         </li>
         <li style="display: flex; gap: 14px">
           <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true" style="flex: none"><circle cx="8" cy="20" r="3" fill="none" stroke="#8A6A3B" stroke-width="1.3"></circle><circle cx="8" cy="8" r="3" fill="none" stroke="#8A6A3B" stroke-width="1.3"></circle><path d="M10.5 9.5L24 20M10.5 18.5L24 8" fill="none" stroke="#8A6A3B" stroke-width="1.3" stroke-linecap="round"></path></svg>
@@ -312,6 +313,47 @@ img{display:block;max-width:100%}
         <a class="btn btn-gold" href="#reserver" onClick="{{aaroussa.book}}" style="background: #D9BE8E; color: #141A26; height: 52px; padding: 0 26px; display: inline-flex; align-items: center; border-radius: 2px; font-weight: 600">Réserver ce rituel</a>
       </div>
     </article>
+  </div>
+</section>
+
+<!-- ============ MASSAGE & BEAUTE ============ -->
+<section id="beaute" class="sec" style="padding: 120px 0">
+  <div class="wrap">
+    <div class="rv" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 24px; margin-bottom: 48px">
+      <div style="max-width: 600px">
+        <p class="eyebrow" style="margin: 0 0 14px; color: #8A6A3B">Massage &amp; beauté</p>
+        <h2 class="serif" style="margin: 0; font-size: clamp(34px, 3.6vw, 48px); line-height: 1.1">Bien plus qu'un hammam</h2>
+      </div>
+      <p style="margin: 0; max-width: 400px; color: #4A5160">Cabine de massage, espace esthétique, onglerie et salon de coiffure : prenez rendez-vous pour un soin seul ou après votre hammam.</p>
+    </div>
+    <div class="g-esp">
+      <sc-for list="{{spaces}}" as="sp" hint-placeholder-count="4">
+        <article class="card rv" style="background: #fff; display: flex; flex-direction: column">
+          <sc-if value="{{sp.hasImg}}" hint-placeholder-val="{{ true }}">
+            <div class="tile" style="overflow: hidden; aspect-ratio: 4 / 5; background: #E4E0D8">
+              <img src="{{sp.img}}" alt="{{sp.alt}}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover">
+            </div>
+          </sc-if>
+          <sc-if value="{{sp.noImg}}" hint-placeholder-val="{{ false }}">
+            <div aria-hidden="true" style="aspect-ratio: 4 / 5; background: #13213D; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; color: #D9BE8E">
+              <svg width="64" height="64" viewBox="0 0 28 28"><circle cx="8" cy="20" r="3" fill="none" stroke="currentColor" stroke-width="1"></circle><circle cx="8" cy="8" r="3" fill="none" stroke="currentColor" stroke-width="1"></circle><path d="M10.5 9.5L24 20M10.5 18.5L24 8" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round"></path></svg>
+              <span class="serif" style="font-size: 26px; font-style: italic; color: #E8D6B3">Salon de coiffure</span>
+            </div>
+          </sc-if>
+          <div style="padding: 24px 22px; display: flex; flex-direction: column; gap: 10px; flex: 1">
+            <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 12px">
+              <h3 class="serif" style="margin: 0; font-size: 28px; line-height: 1.1">{{sp.title}}</h3>
+              <span style="font-weight: 600; color: #8A6A3B; white-space: nowrap; font-size: 15px">{{sp.from}}</span>
+            </div>
+            <p style="margin: 0; color: #4A5160; font-size: 15px; flex: 1">{{sp.desc}}</p>
+            <div style="display: flex; gap: 8px; margin-top: 8px">
+              <a class="btn btn-dark" href="#reserver" onClick="{{sp.book}}" style="flex: 1; background: #13213D; color: #fff; height: 44px; display: inline-flex; align-items: center; justify-content: center; border-radius: 2px; font-size: 14px; font-weight: 600">Réserver</a>
+              <a class="btn btn-line" href="#tarifs" onClick="{{sp.prices}}" style="border: 1px solid #141A26; height: 44px; padding: 0 16px; display: inline-flex; align-items: center; border-radius: 2px; font-size: 14px; font-weight: 600">Tarifs</a>
+            </div>
+          </div>
+        </article>
+      </sc-for>
+    </div>
   </div>
 </section>
 
@@ -570,6 +612,10 @@ img{display:block;max-width:100%}
         <div style="display: flex; justify-content: space-between; gap: 16px; padding: 14px 0; border-top: 1px solid #E4E0D8"><dt style="color: #5E6573">Téléphone</dt><dd style="margin: 0; text-align: right; font-weight: 500"><a href="tel:+33665961156">06 65 96 11 56</a></dd></div>
         <div style="display: flex; justify-content: space-between; gap: 16px; padding: 14px 0; border-top: 1px solid #E4E0D8; border-bottom: 1px solid #E4E0D8"><dt style="color: #5E6573">E-mail</dt><dd style="margin: 0; text-align: right; font-weight: 500; overflow-wrap: anywhere"><a href="mailto:cristal.dazur001@gmail.com">cristal.dazur001@gmail.com</a></dd></div>
       </dl>
+      <div style="display: flex; gap: 16px; align-items: center; background: #fff; padding: 12px">
+        <img src="images/facade.webp" alt="La devanture du Hammam Cristal d'Azur, rue Loubon" loading="lazy" style="width: 132px; aspect-ratio: 4 / 3; object-fit: cover; flex: none">
+        <p style="margin: 0; font-size: 15px; color: #4A5160">Repérez notre devanture <strong style="color: #141A26">« Hammam Cristal d'Azur »</strong> au 112 rue Loubon.</p>
+      </div>
       <div style="display: flex; flex-wrap: wrap; gap: 12px">
         <a class="btn btn-dark" href="https://www.google.com/maps/dir/?api=1&amp;destination=112+Rue+Loubon+13003+Marseille" style="background: #13213D; color: #fff; height: 48px; padding: 0 22px; display: inline-flex; align-items: center; gap: 10px; border-radius: 2px; font-weight: 600; font-size: 15px">Itinéraire
           <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.4"></path></svg>
@@ -636,9 +682,9 @@ class Component extends DCLogic {
   state = { slide: 0, scrolled: false, menu: false, tab: 'hammam', who: 'f', serviceId: 'entree', day: 0, slot: null, name: '', phone: '', note: '', submitted: false, error: '', lb: -1, copied: false, sending: false };
 
   slides = [
-    { src: 'images/g6.webp', alt: 'Salle du hammam en marbre', caption: 'Le hammam' },
-    { src: 'images/g4.webp', alt: 'Bain vapeur en mosaïque bleue', caption: 'Le bain vapeur' },
-    { src: 'images/g2.webp', alt: 'Sauna en bois', caption: 'Le sauna' }
+    { src: 'images/hammam-salle.webp', alt: 'La salle du hammam, marbre bleu et robinets dorés', caption: 'Le hammam' },
+    { src: 'images/hammam-table.webp', alt: 'La table de gommage préparée avec bougies et serviettes', caption: 'La table de gommage' },
+    { src: 'images/bain-vapeur.webp', alt: 'Bain vapeur en mosaïque bleue', caption: 'Le bain vapeur' }
   ];
 
   rituals = [
@@ -652,7 +698,8 @@ class Component extends DCLogic {
   tabsData = [
     { id: 'hammam', label: 'Hammam', groups: [
       { title: 'Entrée', note: 'Accès au hammam, au sauna et au bain vapeur', items: [ { n: 'Entrée hammam', d: 'Hammam · Sauna · Bain vapeur', p: '25 €' } ] },
-      { title: 'À la carte', note: 'En complément de votre entrée', items: [ { n: 'Savon noir', p: '5 €' }, { n: 'Gommage « Kiassa »', p: '8 €' }, { n: 'Gommage Cristal d\'Azur', d: 'Au choix : café, lavande ou argile', p: '20 €' } ] }
+      { title: 'À la carte', note: 'En complément de votre entrée', items: [ { n: 'Savon noir', p: '5 €' }, { n: 'Gommage « Kiassa »', p: '8 €' }, { n: 'Gommage Cristal d\'Azur', d: 'Au choix : café, lavande ou argile', p: '20 €' } ] },
+      { title: 'Massage', note: 'En cabine privée', items: [ { n: 'Massage relaxant', d: 'Aux huiles', p: '40 €' } ] }
     ] },
     { id: 'visage', label: 'Visage & épilation', groups: [
       { title: 'Soin du visage', items: [ { n: 'Soin du visage complet', d: 'Gommage, vapeur, extraction des points noirs et modelage', p: '40 €' } ] },
@@ -663,7 +710,7 @@ class Component extends DCLogic {
       { title: 'Beauté du regard', items: [ { n: 'Teinture au henné + épilation des sourcils', p: '25 €' }, { n: 'Rehaussement des cils', p: '40 €' }, { n: 'Rehaussement des cils + teinture', p: '45 €' }, { n: 'Brow lift', p: '30 €' }, { n: 'Brow lift + teinture', p: '35 €' } ] },
       { title: 'Sourcils & maquillage semi-permanent', items: [ { n: 'Maquillage semi-permanent', p: '180 €' }, { n: 'Technique électrique', p: '180 €' }, { n: 'Microblading poil à poil', p: '180 €' }, { n: 'Candy lips', p: '180 €' }, { n: 'Retouches de finition', p: '50 €' }, { n: 'Retouche à 3 mois', p: '50 €' } ] }
     ] },
-    { id: 'mains', label: 'Mains & pieds', groups: [
+    { id: 'mains', label: 'Onglerie', groups: [
       { title: 'Soins des mains & des pieds', items: [ { n: 'Beauté des mains', d: 'Manucure', p: '15 €' }, { n: 'Beauté des pieds', d: 'Pédicure', p: '20 €' }, { n: 'Callus peeling', d: 'Soin anti-callosités', p: '35 €' } ] },
       { title: 'Vernis', items: [ { n: 'Vernis semi-permanent', p: '25 €' }, { n: 'Dépose de vernis semi-permanent', p: '5 €' } ] }
     ] },
@@ -677,18 +724,29 @@ class Component extends DCLogic {
   bookData = [
     { label: 'Hammam', options: [ { id: 'entree', label: 'Entrée hammam · sauna · bain vapeur', price: '25 €' } ] },
     { label: 'Rituels', options: [] },
+    { label: 'Massage', options: [ { id: 'massage', label: 'Massage relaxant', price: '40 €' } ] },
     { label: 'Esthétique', options: [ { id: 'visage', label: 'Soin du visage', price: '40 €' }, { id: 'epilation', label: 'Épilation (visage ou corps)', price: 'dès 8 €' }, { id: 'regard', label: 'Beauté du regard', price: 'dès 25 €' }, { id: 'sourcils', label: 'Sourcils & maquillage semi-permanent', price: 'dès 50 €' } ] },
-    { label: 'Mains & pieds', options: [ { id: 'manucure', label: 'Beauté des mains (manucure)', price: '15 €' }, { id: 'pedicure', label: 'Beauté des pieds (pédicure)', price: '20 €' }, { id: 'vernis', label: 'Vernis semi-permanent', price: '25 €' } ] },
+    { label: 'Onglerie', options: [ { id: 'manucure', label: 'Beauté des mains (manucure)', price: '15 €' }, { id: 'pedicure', label: 'Beauté des pieds (pédicure)', price: '20 €' }, { id: 'vernis', label: 'Vernis semi-permanent', price: '25 €' } ] },
     { label: 'Coiffure', options: [ { id: 'coupe', label: 'Coupe & brushing', price: 'dès 15 €' }, { id: 'couleur', label: 'Couleur, balayage, permanente', price: 'dès 20 €' }, { id: 'lissage', label: 'Lissage ou botox capillaire', price: 'dès 35 €' } ] }
   ];
 
+  spaces = [
+    { title: 'Massage', img: 'images/massage.webp', alt: 'La cabine de massage et ses outils en bois', desc: 'Massage relaxant aux huiles dans une cabine calme et privée.', from: '40 €', service: 'massage', tab: 'hammam' },
+    { title: 'Esthétique', img: 'images/esthetique.webp', alt: 'La cabine d\'esthétique', desc: 'Soin du visage, épilation à la cire orientale maison, regard et sourcils.', from: 'dès 8 €', service: 'visage', tab: 'visage' },
+    { title: 'Onglerie', img: 'images/onglerie.webp', alt: 'Le poste d\'onglerie et ses vernis', desc: 'Manucure, pédicure, callus peeling et vernis semi-permanent.', from: 'dès 15 €', service: 'manucure', tab: 'mains' },
+    { title: 'Coiffure', img: '', alt: '', desc: 'Coupe, brushing, couleur, balayage, lissage et botox capillaire.', from: 'dès 5 €', service: 'coupe', tab: 'coiffure' }
+  ];
+
   photos = [
-    { src: 'images/g3.webp', alt: 'Table de gommage en marbre', cls: 'big' },
-    { src: 'images/g4.webp', alt: 'Bain vapeur en mosaïque', cls: '' },
-    { src: 'images/hero.webp', alt: 'Vasques du hammam', cls: '' },
-    { src: 'images/g1.webp', alt: 'Couloir éclairé', cls: '' },
-    { src: 'images/g5.webp', alt: 'Accueil', cls: '' },
-    { src: 'images/g2.webp', alt: 'Sauna en bois', cls: 'mwide' }
+    { src: 'images/hammam-voute.webp', alt: 'Le hammam sous sa voûte, vasques et robinets dorés', cls: 'big' },
+    { src: 'images/hammam-arche.webp', alt: 'Vasques en marbre et passage voûté', cls: '' },
+    { src: 'images/bain-vapeur.webp', alt: 'Bain vapeur en mosaïque bleue', cls: '' },
+    { src: 'images/sauna.webp', alt: 'Sauna en bois', cls: '' },
+    { src: 'images/massage-cabine.webp', alt: 'La cabine de massage', cls: '' },
+    { src: 'images/onglerie.webp', alt: 'Le poste d\'onglerie', cls: '' },
+    { src: 'images/esthetique.webp', alt: 'La cabine d\'esthétique', cls: '' },
+    { src: 'images/vestiaire.webp', alt: 'Vestiaires et espace détente', cls: '' },
+    { src: 'images/facade.webp', alt: 'La devanture rue Loubon', cls: '' }
   ];
 
   reviews = [
@@ -750,7 +808,7 @@ class Component extends DCLogic {
       menuOpen: s.menu, menuExpanded: s.menu ? 'true' : 'false',
       toggleMenu: () => this.setState({ menu: !s.menu }),
       closeMenu: () => this.setState({ menu: false }),
-      menuLinks: [ { href: '#rituels', label: 'Rituels' }, { href: '#tarifs', label: 'Tarifs' }, { href: '#galerie', label: 'Galerie' }, { href: '#avis', label: 'Avis' }, { href: '#infos', label: 'Horaires & accès' } ],
+      menuLinks: [ { href: '#rituels', label: 'Rituels' }, { href: '#beaute', label: 'Massage & beauté' }, { href: '#tarifs', label: 'Tarifs' }, { href: '#galerie', label: 'Galerie' }, { href: '#avis', label: 'Avis' }, { href: '#infos', label: 'Horaires & accès' } ],
 
       slides: this.slides.map((x, i) => ({ ...x,
         op: i === s.slide ? 1 : 0, tf: i === s.slide ? 'scale(1)' : 'scale(1.08)',
@@ -761,6 +819,9 @@ class Component extends DCLogic {
 
       openTitle, openDetail, openColor,
 
+      spaces: this.spaces.map(x => ({ ...x, hasImg: !!x.img, noImg: !x.img,
+        book: () => this.setState({ serviceId: x.service, submitted: false }),
+        prices: () => this.setState({ tab: x.tab }) })),
       rituals4: this.rituals.slice(0, 4).map(fmt),
       aaroussa: fmt(this.rituals[4]),
 
