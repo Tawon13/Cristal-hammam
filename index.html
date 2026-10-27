@@ -28,11 +28,12 @@ img{display:block;max-width:100%}
 @keyframes fill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 @keyframes rise{from{opacity:0;transform:translateY(32px)}to{opacity:1;transform:none}}
 @keyframes zoomIn{from{opacity:0;transform:scale(.98)}to{opacity:1;transform:none}}
-.up{animation:up 1s cubic-bezier(.2,.7,.2,1) both}
+.up{animation:up 2s cubic-bezier(.2,.7,.2,1) both}
 .bar{position:absolute;inset:0;background:#fff;transform:scaleX(0);transform-origin:left}
-.bar.on{animation:fill 1.5s linear both}
-.zoom{animation:zoomIn .45s ease both}
+.bar.on{animation:fill 3.0s linear both}
+.zoom{animation:zoomIn 3.45s ease both}
 
+.herocontent h1,.herocontent p{text-shadow:0 2px 18px rgba(0,0,0,.45)}
 .slide{transition:opacity .6s ease,transform 1.8s ease-out}
 .btn{transition:background .25s,color .25s,border-color .25s,transform .25s}
 .btn:hover{transform:translateY(-1px)}
@@ -176,8 +177,8 @@ img{display:block;max-width:100%}
   <sc-for list="{{slides}}" as="sl" hint-placeholder-count="3">
     <img class="slide" src="{{sl.src}}" alt="{{sl.alt}}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: {{sl.op}}; transform: {{sl.tf}}">
   </sc-for>
-  <div aria-hidden="true" style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(10,16,30,0.8) 0%, rgba(10,16,30,0.45) 55%, rgba(10,16,30,0.15) 100%)"></div>
-  <div aria-hidden="true" style="position: absolute; left: 0; right: 0; bottom: 0; height: 40%; background: linear-gradient(0deg, rgba(10,16,30,0.6), rgba(10,16,30,0))"></div>
+  <div aria-hidden="true" style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(10,16,30,0.6) 0%, rgba(10,16,30,0.25) 50%, rgba(10,16,30,0) 100%)"></div>
+  <div aria-hidden="true" style="position: absolute; left: 0; right: 0; bottom: 0; height: 35%; background: linear-gradient(0deg, rgba(10,16,30,0.45), rgba(10,16,30,0))"></div>
 
   <div class="wrap herocontent" style="position: relative; height: 100%; display: flex; flex-direction: column; justify-content: center; padding-top: 76px; padding-bottom: 60px">
     <div style="max-width: 760px; display: flex; flex-direction: column; gap: 22px">
@@ -198,7 +199,7 @@ img{display:block;max-width:100%}
   </div>
 
   <div class="wrap heroind" style="position: absolute; left: 0; right: 0; bottom: 120px; margin: 0 auto; display: flex; align-items: center; gap: 20px">
-    <span style="font-size: 13px; color: rgba(255,255,255,0.8); min-width: 44px">{{slideNum}} / 03</span>
+    <span style="font-size: 13px; color: rgba(255,255,255,0.8); min-width: 44px">{{slideNum}} / {{slideTotal}}</span>
     <div style="display: flex; gap: 8px">
       <sc-for list="{{slides}}" as="sl" hint-placeholder-count="3">
         <button type="button" onClick="{{sl.pick}}" aria-label="{{sl.label}}" style="width: 56px; height: 44px; padding: 0; background: none; border: 0; cursor: pointer; display: flex; align-items: center">
@@ -685,9 +686,11 @@ class Component extends DCLogic {
   state = { slide: 0, scrolled: false, menu: false, tab: 'hammam', who: 'f', serviceId: 'entree', day: 0, slot: null, name: '', phone: '', note: '', submitted: false, error: '', lb: -1, copied: false, sending: false };
 
   slides = [
-    { src: 'images/hammam-salle.webp', alt: 'La salle du hammam, marbre bleu et robinets dorés', caption: 'Le hammam' },
-    { src: 'images/hammam-table.webp', alt: 'La table de gommage préparée avec bougies et serviettes', caption: 'La table de gommage' },
-    { src: 'images/hammam-voute.webp', alt: 'Le hammam sous sa voûte, vasques et robinets dorés', caption: 'Sous la voûte' }
+    { src: 'images/hero-hammam.webp', alt: 'La salle du hammam, marbre bleu et robinets dorés', caption: 'Le hammam' },
+    { src: 'images/hero-sauna.webp', alt: 'Le sauna en bois', caption: 'Le sauna' },
+    { src: 'images/hero-table.webp', alt: 'La table de gommage préparée avec bougies et serviettes', caption: 'La table de gommage' },
+    { src: 'images/hero-bain-vapeur.webp', alt: 'Le bain vapeur en mosaïque bleue', caption: 'Le bain vapeur' },
+    { src: 'images/hero-voute.webp', alt: 'Le hammam sous sa voûte, vasques et robinets dorés', caption: 'Sous la voûte' }
   ];
 
   rituals = [
@@ -769,7 +772,7 @@ class Component extends DCLogic {
     if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) this.startSlides();
   }
   componentWillUnmount() { window.removeEventListener('scroll', this._onScroll); clearInterval(this._iv); clearTimeout(this._ct); }
-  startSlides() { clearInterval(this._iv); this._iv = setInterval(() => this.setState(s => ({ slide: (s.slide + 1) % this.slides.length })), 1500); }
+  startSlides() { clearInterval(this._iv); this._iv = setInterval(() => this.setState(s => ({ slide: (s.slide + 1) % this.slides.length })), 3000); }
 
   allOptions() {
     const rit = this.rituals.map(r => ({ id: r.id, label: 'Rituel ' + r.name, price: r.price + ' €' }));
@@ -814,10 +817,11 @@ class Component extends DCLogic {
       menuLinks: [ { href: '#rituels', label: 'Rituels' }, { href: '#beaute', label: 'Massage & beauté' }, { href: '#tarifs', label: 'Tarifs' }, { href: '#galerie', label: 'Galerie' }, { href: '#avis', label: 'Avis' }, { href: '#infos', label: 'Horaires & accès' } ],
 
       slides: this.slides.map((x, i) => ({ ...x,
-        op: i === s.slide ? 1 : 0, tf: i === s.slide ? 'scale(1)' : 'scale(1.08)',
+        op: i === s.slide ? 1 : 0, tf: i === s.slide ? 'scale(1)' : 'scale(1.03)',
         barClass: i === s.slide ? 'bar on' : 'bar', label: 'Afficher la photo ' + (i + 1),
         pick: () => { this.setState({ slide: i }); this.startSlides(); } })),
       slideNum: '0' + (s.slide + 1),
+      slideTotal: '0' + this.slides.length,
       slideCaption: this.slides[s.slide].caption,
 
       openTitle, openDetail, openColor,
