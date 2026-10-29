@@ -1,4 +1,4 @@
-import { checkPassword, json, deny } from './_lib/auth.js';
+import { checkPassword, json, deny, storageError } from './_lib/auth.js';
 import { writeContent } from './_lib/store.js';
 
 const KEYS = ['schedule', 'closures', 'slides', 'photos', 'spaces', 'rituals', 'tabsData', 'bookData'];
@@ -25,6 +25,7 @@ export async function POST(request) {
   const err = validate(content);
   if (err) return json({ error: err }, 400);
   content.updatedAt = new Date().toISOString();
-  await writeContent(content);
+  try { await writeContent(content); }
+  catch (e) { console.error(e); return json({ error: storageError(e) }, 500); }
   return json({ ok: true, updatedAt: content.updatedAt });
 }
