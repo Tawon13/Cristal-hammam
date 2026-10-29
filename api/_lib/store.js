@@ -3,7 +3,8 @@ import { promises as fs } from 'node:fs';
 import path from 'node:path';
 
 const CONTENT = 'content.json';
-const useBlob = () => !!process.env.BLOB_READ_WRITE_TOKEN;
+// Connexion au Blob : jeton classique ou BLOB_STORE_ID + OIDC (nouveaux stockages Vercel)
+const useBlob = () => !!(process.env.BLOB_READ_WRITE_TOKEN || process.env.BLOB_STORE_ID);
 const localDir = () => path.join(process.cwd(), '.data');
 
 export async function readContent() {

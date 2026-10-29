@@ -19,7 +19,7 @@ export const deny = () => json({ error: 'Mot de passe incorrect.' }, 401);
 // Message lisible quand le stockage Vercel Blob refuse l'opération.
 export function storageError(e) {
   const msg = String(e && e.message || e);
-  if (!process.env.BLOB_READ_WRITE_TOKEN) return 'Stockage non relié : BLOB_READ_WRITE_TOKEN est absent (Storage → Blob → Connect Project, puis redéployer).';
+  if (!process.env.BLOB_READ_WRITE_TOKEN && !process.env.BLOB_STORE_ID) return 'Stockage non relié : BLOB_READ_WRITE_TOKEN est absent (Storage → Blob → Connect Project, puis redéployer).';
   if (/private/i.test(msg)) return 'Le stockage Blob est en accès privé ; il doit être en accès public. (' + msg + ')';
   return 'Stockage : ' + msg;
 }
