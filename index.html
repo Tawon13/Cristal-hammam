@@ -6,6 +6,7 @@
 <title>Cristal d'Azur — Hammam, sauna &amp; beauté à Marseille</title>
 <meta name="description" content="Hammam, sauna, bain vapeur, rituels, esthétique et coiffure au 112 rue Loubon, Marseille 3e. Femmes 9h–17h, hommes 18h–23h (mardi hommes 10h–23h, vendredi femmes 12h–22h). Entrée 25 €. Réservation en ligne.">
 <link rel="canonical" href="https://www.cristaldazur.fr/">
+<script src="./content/defaults.js"></script>
 <script src="./support.js"></script>
 </head>
 <body>
@@ -223,6 +224,9 @@ img{display:block;max-width:100%}
 
 <!-- ============ BANDEAU INFOS ============ -->
 <div class="wrap" style="position: relative; z-index: 2; margin-top: -64px">
+  <sc-if value="{{hasSoonClosure}}" hint-placeholder-val="{{ false }}">
+    <div class="up" role="status" style="background: #D9BE8E; color: #141A26; padding: 12px 26px; font-size: 15px; animation-delay: .8s"><strong>Fermeture exceptionnelle :</strong> {{soonClosures}}</div>
+  </sc-if>
   <div class="g-info up" style="background: #fff; box-shadow: 0 24px 60px -24px rgba(19,33,61,0.25); animation-delay: .8s">
     <div style="padding: 22px 26px; border-right: 1px solid #ECE8E0; border-bottom: 1px solid #ECE8E0">
       <p class="eyebrow" style="margin: 0 0 6px; color: #8A6A3B">Femmes · {{todayName}}</p>
@@ -516,6 +520,14 @@ img{display:block;max-width:100%}
           </sc-for>
         </tbody>
       </table>
+    <sc-if value="{{hasClosures}}" hint-placeholder-val="{{ false }}">
+      <div style="margin-top: 20px; padding: 16px 18px; background: #fff; border-left: 3px solid #A8814A">
+        <p class="eyebrow" style="margin: 0 0 8px; color: #8A6A3B">Fermetures exceptionnelles</p>
+        <sc-for list="{{closuresList}}" as="cl" hint-placeholder-count="1">
+          <p style="margin: 2px 0; font-size: 15px">{{cl.text}}</p>
+        </sc-for>
+      </div>
+    </sc-if>
   </div>
 </section>
 
@@ -705,77 +717,22 @@ img{display:block;max-width:100%}
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":7200}}'>
+const D = window.CRISTAL_DEFAULTS;
+
 class Component extends DCLogic {
   state = { slide: 0, scrolled: false, menu: false, tab: 'hammam', who: 'f', serviceId: 'entree', day: 0, slot: null, name: '', phone: '', note: '', submitted: false, error: '', lb: -1, copied: false, sending: false, failed: false };
 
-  slides = [
-    { src: 'images/hero-sauna.webp', alt: 'Le sauna en bois', caption: 'Le sauna' },
-    { src: 'images/hero-table.webp', alt: 'La table de gommage préparée avec bougies et serviettes', caption: 'La table de gommage' },
-    { src: 'images/hero-bain-vapeur.webp', alt: 'Le bain vapeur en mosaïque bleue', caption: 'Le bain vapeur' },
-    { src: 'images/hero-voute.webp', alt: 'Le hammam sous sa voûte, vasques et robinets dorés', caption: 'Sous la voûte' }
-  ];
+  slides = D.slides;
 
-  rituals = [
-    { id: 'r1', name: 'Éclat d\'Azur', items: ['Hammam', 'Savon noir', 'Gommage au gant kassa'], price: 38 },
-    { id: 'r2', name: 'Le Secret Berbère', items: ['Hammam', 'Gommage Tébrima', 'Huile corps'], price: 40 },
-    { id: 'r3', name: 'Détente', items: ['Hammam', 'Gommage savon noir', 'Massage relaxant 30 min'], price: 78 },
-    { id: 'r4', name: 'Cristal d\'Azur', items: ['Hammam', 'Gommage savon noir', 'Enveloppement', 'Soin visage', 'Massage 30 min'], price: 138 },
-    { id: 'r5', name: 'Hammam à l\'Aaroussa', items: ['Hammam', 'Gommage savon noir', 'Tébrimat Aaroussa', 'Soin visage', 'Massage relaxant 1 h'], price: 150 }
-  ];
+  rituals = D.rituals;
 
-  tabsData = [
-    { id: 'hammam', label: 'Hammam', groups: [
-      { title: 'Entrée', note: 'Accès au hammam, au sauna et au bain vapeur', items: [ { n: 'Entrée hammam', d: 'Hammam · Sauna · Bain vapeur', p: '25 €' } ] },
-      { title: 'À la carte', note: 'En complément de votre entrée', items: [ { n: 'Savon noir', p: '5 €' }, { n: 'Gommage « Kiassa »', p: '8 €' }, { n: 'Gommage Cristal d\'Azur', d: 'Au choix : café, lavande ou argile', p: '20 €' } ] },
-      { title: 'Massage', note: 'En cabine privée', items: [ { n: 'Massage relaxant', d: 'Aux huiles', p: '40 €' } ] }
-    ] },
-    { id: 'visage', label: 'Visage & épilation', groups: [
-      { title: 'Soin du visage', items: [ { n: 'Soin du visage complet', d: 'Gommage, vapeur, extraction des points noirs et modelage', p: '40 €' } ] },
-      { title: 'Épilation du visage', note: 'À la cire orientale faite maison ou à la cire d\'institut', items: [ { n: 'Sourcils', p: '10 €' }, { n: 'Lèvres', p: '8 €' }, { n: 'Menton', p: '8 €' }, { n: 'Visage complet', p: '25 €' } ] },
-      { title: 'Épilation du corps', note: 'À la cire orientale faite maison ou à la cire d\'institut', items: [ { n: 'Aisselles', p: '10 €' }, { n: 'Avant-bras', p: '10 €' }, { n: 'Bras complets', p: '15 €' }, { n: 'Demi-jambes', p: '15 €' }, { n: 'Jambes complètes', p: '20 €' }, { n: 'Maillot classique', p: '15 €' }, { n: 'Maillot intégral', p: '25 €' }, { n: 'Ventre', p: '10 €' }, { n: 'Bas du dos', p: '10 €' }, { n: 'Dos complet', p: '20 €' } ] }
-    ] },
-    { id: 'regard', label: 'Regard & sourcils', groups: [
-      { title: 'Beauté du regard', items: [ { n: 'Teinture au henné + épilation des sourcils', p: '25 €' }, { n: 'Rehaussement des cils', p: '40 €' }, { n: 'Rehaussement des cils + teinture', p: '45 €' }, { n: 'Brow lift', p: '30 €' }, { n: 'Brow lift + teinture', p: '35 €' } ] },
-      { title: 'Sourcils & maquillage semi-permanent', items: [ { n: 'Maquillage semi-permanent', p: '180 €' }, { n: 'Technique électrique', p: '180 €' }, { n: 'Microblading poil à poil', p: '180 €' }, { n: 'Candy lips', p: '180 €' }, { n: 'Retouches de finition', p: '50 €' }, { n: 'Retouche à 3 mois', p: '50 €' } ] }
-    ] },
-    { id: 'mains', label: 'Onglerie', groups: [
-      { title: 'Soins des mains & des pieds', items: [ { n: 'Beauté des mains', d: 'Manucure', p: '15 €' }, { n: 'Beauté des pieds', d: 'Pédicure', p: '20 €' }, { n: 'Callus peeling', d: 'Soin anti-callosités', p: '35 €' } ] },
-      { title: 'Vernis', items: [ { n: 'Vernis semi-permanent', p: '25 €' }, { n: 'Dépose de vernis semi-permanent', p: '5 €' } ] }
-    ] },
-    { id: 'coiffure', label: 'Coiffure', hair: [
-      { title: 'Services & coiffage', rows: [ ['Shampooing + soin', '5 €', '5 €', '5 €'], ['Shampooing + brushing', '15 €', '15 €', '15 €'], ['Shampooing + coupe + séchage', '20 €', '20 €', '20 €'], ['Shampooing + coupe + brushing', '35 €', '35 €', '40 €'], ['Coupe enfant + brushing', '10 €', '10 €', '20 €'] ] },
-      { title: 'Couleur, balayage & permanente', rows: [ ['Couleur racines + shampooing + brushing', '35 €', '35 €', '40 €', 'Racines de 1,5 à 2 cm'], ['Supplément couleur', '10 €', '10 €', '10 €'], ['Couleur tête entière + shampooing + brushing', '40 €', '50 €', '60 €'], ['Patine / gloss / rinçage', '20 €', '20 €', '30 €'], ['Balayage + shampooing + brushing', '40 €', '60 €', '80 – 150 €'], ['Ombré hair + shampooing + brushing', '40 €', '60 €', '80 – 150 €'], ['Flash balayage + shampooing + brushing', '40 €', '60 €', '80 – 150 €'], ['Permanente + shampooing + coupe + brushing', '60 €', '80 €', '120 €'] ] },
-      { title: 'Lissage & botox', rows: [ ['Lissage brésilien, protéines ou indien', '50 €', '80 €', '120 €'], ['Botox capillaire / soin', '35 €', '35 €', '40 €'] ] }
-    ] }
-  ];
+  tabsData = D.tabsData;
 
-  bookData = [
-    { label: 'Hammam', options: [ { id: 'entree', label: 'Entrée hammam · sauna · bain vapeur', price: '25 €' } ] },
-    { label: 'Rituels', options: [] },
-    { label: 'Massage', options: [ { id: 'massage', label: 'Massage relaxant', price: '40 €' } ] },
-    { label: 'Esthétique', options: [ { id: 'visage', label: 'Soin du visage', price: '40 €' }, { id: 'epilation', label: 'Épilation (visage ou corps)', price: 'dès 8 €' }, { id: 'regard', label: 'Beauté du regard', price: 'dès 25 €' }, { id: 'sourcils', label: 'Sourcils & maquillage semi-permanent', price: 'dès 50 €' } ] },
-    { label: 'Onglerie', options: [ { id: 'manucure', label: 'Beauté des mains (manucure)', price: '15 €' }, { id: 'pedicure', label: 'Beauté des pieds (pédicure)', price: '20 €' }, { id: 'vernis', label: 'Vernis semi-permanent', price: '25 €' } ] },
-    { label: 'Coiffure', options: [ { id: 'coupe', label: 'Coupe & brushing', price: 'dès 15 €' }, { id: 'couleur', label: 'Couleur, balayage, permanente', price: 'dès 20 €' }, { id: 'lissage', label: 'Lissage ou botox capillaire', price: 'dès 35 €' } ] }
-  ];
+  bookData = D.bookData;
 
-  spaces = [
-    { title: 'Massage', img: 'images/massage.webp', alt: 'La cabine de massage et ses outils en bois', desc: 'Massage relaxant aux huiles dans une cabine calme et privée.', from: '40 €', service: 'massage', tab: 'hammam' },
-    { title: 'Esthétique', img: 'images/esthetique.webp', alt: 'La cabine d\'esthétique', desc: 'Soin du visage, épilation à la cire orientale maison, regard et sourcils.', from: 'dès 8 €', service: 'visage', tab: 'visage' },
-    { title: 'Onglerie', img: 'images/onglerie.webp', alt: 'Le poste d\'onglerie et ses vernis', desc: 'Manucure, pédicure, callus peeling et vernis semi-permanent.', from: 'dès 15 €', service: 'manucure', tab: 'mains' },
-    { title: 'Coiffure', img: 'images/coiffure.webp', alt: 'Le salon de coiffure, ses miroirs lumineux et son bar à couleurs', desc: 'Coupe, brushing, couleur, balayage, lissage et botox capillaire.', from: 'dès 5 €', service: 'coupe', tab: 'coiffure' }
-  ];
+  spaces = D.spaces;
 
-  photos = [
-    { src: 'images/hammam-voute.webp', alt: 'Le hammam sous sa voûte, vasques et robinets dorés', cls: 'big' },
-    { src: 'images/hammam-arche.webp', alt: 'Vasques en marbre et passage voûté', cls: '' },
-    { src: 'images/bain-vapeur.webp', alt: 'Bain vapeur en mosaïque bleue', cls: '' },
-    { src: 'images/sauna.webp', alt: 'Sauna en bois', cls: '' },
-    { src: 'images/massage-cabine.webp', alt: 'La cabine de massage', cls: '' },
-    { src: 'images/onglerie.webp', alt: 'Le poste d\'onglerie', cls: '' },
-    { src: 'images/esthetique.webp', alt: 'La cabine d\'esthétique', cls: '' },
-    { src: 'images/vestiaire.webp', alt: 'Vestiaires et espace détente', cls: '' },
-    { src: 'images/facade.webp', alt: 'La devanture rue Loubon', cls: '' }
-  ];
+  photos = D.photos;
 
   reviews = [
     { name: 'Dounia K.', text: 'Tout était au rendez-vous : accueil chaleureux, espace bien-être, décoration apaisante. Merci aux femmes qui nous ont fait un super gommage.' },
@@ -784,16 +741,8 @@ class Component extends DCLogic {
     { name: 'Karim H.', text: 'Très bon hammam, je recommande.' }
   ];
 
-  // Horaires par jour (0 = dimanche) : [ouverture, fermeture] en heures, null = fermé
-  schedule = [
-    { f: [9, 17], h: [18, 23] },
-    { f: [9, 17], h: [18, 23] },
-    { f: null, h: [10, 23] },
-    { f: [9, 17], h: [18, 23] },
-    { f: [9, 17], h: [18, 23] },
-    { f: [12, 22], h: null },
-    { f: [9, 17], h: [18, 23] }
-  ];
+  schedule = D.schedule;
+  closures = D.closures;
 
   hours = { f: { label: 'Femme' }, h: { label: 'Homme' } };
 
@@ -802,6 +751,9 @@ class Component extends DCLogic {
     window.addEventListener('scroll', this._onScroll, { passive: true });
     this._onScroll();
     if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) this.startSlides();
+    // Contenu enregistré depuis /admin (gardé dans le state : la logique peut être recréée)
+    window.__cristalContent = window.__cristalContent || fetch('/api/content').then(r => r.ok ? r.json() : {}).catch(() => ({}));
+    window.__cristalContent.then(c => { if (c && c.updatedAt && !this.state.content) this.setState({ content: c, slide: 0 }); });
   }
   componentWillUnmount() { window.removeEventListener('scroll', this._onScroll); clearInterval(this._iv); clearTimeout(this._ct); }
   startSlides() { clearInterval(this._iv); this._iv = setInterval(() => this.setState(s => ({ slide: (s.slide + 1) % this.slides.length })), 3000); }
@@ -812,27 +764,44 @@ class Component extends DCLogic {
   }
 
   renderVals() {
+    const content = this.state.content || {};
+    ['schedule', 'closures', 'slides', 'photos', 'spaces', 'rituals', 'tabsData', 'bookData'].forEach(k => { if (Array.isArray(content[k]) && (content[k].length || k === 'closures')) this[k] = content[k]; });
     const s = this.state, ink = '#141A26', navy = '#13213D', line = '#CFC9BD';
     const chip = on => ({ bg: on ? navy : '#fff', fg: on ? '#fff' : ink, border: on ? navy : line });
     const now = new Date(), h = now.getHours();
-    let openTitle = 'Fermé', openDetail, openColor = '#B42318';
-    const today = this.schedule[now.getDay()];
+    const longDows = ['dimanche','lundi','mardi','mercredi','jeudi','vendredi','samedi'];
+    const months = ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
+    const iso = d => d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+    const closureOn = d => this.closures.find(c => c.date === iso(d));
+    const spanFor = (d, k) => closureOn(d) ? null : this.schedule[d.getDay()][k];
+    const dayName = d => longDows[d.getDay()] + ' ' + d.getDate() + ' ' + months[d.getMonth()];
     const label = { f: 'femmes', h: 'hommes' };
+    const today = { f: spanFor(now, 'f'), h: spanFor(now, 'h') };
+    const todayClosure = closureOn(now);
+    let openTitle = 'Fermé', openDetail = '', openColor = '#B42318';
     const cur = ['f', 'h'].find(k => today[k] && h >= today[k][0] && h < today[k][1]);
+    const firstOf = sp => ['f', 'h'].filter(k => sp[k]).sort((a, b) => sp[a][0] - sp[b][0])[0];
     if (cur) { openTitle = 'Ouvert'; openColor = '#1E7A46'; openDetail = 'Créneau ' + label[cur] + ' jusqu\'à ' + today[cur][1] + ' h'; }
     else {
       const next = ['f', 'h'].filter(k => today[k] && h < today[k][0]).sort((a, b) => today[a][0] - today[b][0])[0];
-      if (next) openDetail = (h < 9 ? 'Ouverture' : 'Réouverture') + ' à ' + today[next][0] + ' h (' + label[next] + ')';
+      const first = firstOf(today);
+      if (next) openDetail = (first && today[first][0] < h ? 'Réouverture' : 'Ouverture') + ' à ' + today[next][0] + ' h (' + label[next] + ')';
       else {
-        const tmr = this.schedule[(now.getDay() + 1) % 7];
-        const k = ['f', 'h'].filter(x => tmr[x]).sort((a, b) => tmr[a][0] - tmr[b][0])[0];
-        openDetail = 'Demain à ' + tmr[k][0] + ' h (' + label[k] + ')';
+        for (let i = 1; i <= 14 && !openDetail; i++) {
+          const d = new Date(now); d.setDate(now.getDate() + i);
+          const sp = { f: spanFor(d, 'f'), h: spanFor(d, 'h') }, k = firstOf(sp);
+          if (k) openDetail = (i === 1 ? 'Demain' : longDows[d.getDay()].charAt(0).toUpperCase() + longDows[d.getDay()].slice(1)) + ' à ' + sp[k][0] + ' h (' + label[k] + ')';
+        }
       }
+      if (todayClosure) openDetail = 'Fermeture exceptionnelle' + (todayClosure.note ? ' : ' + todayClosure.note : '');
     }
+    const upcoming = this.closures
+      .map(c => ({ ...c, d: new Date(c.date + 'T12:00:00') }))
+      .filter(c => !isNaN(c.d) && c.date >= iso(now) && (c.d - now) / 864e5 < 60)
+      .sort((a, b) => a.d - b.d)
+      .map(c => ({ text: dayName(c.d) + (c.note ? ' — ' + c.note : ''), soon: (c.d - now) / 864e5 < 14 }));
 
     const dows = ['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'];
-    const longDows = ['dimanche','lundi','mardi','mercredi','jeudi','vendredi','samedi'];
-    const months = ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
     const dates = Array.from({ length: 7 }, (_, i) => { const d = new Date(now); d.setDate(now.getDate() + i); return d; });
     const sel = dates[s.day];
     const solid = s.scrolled || s.menu;
@@ -842,7 +811,8 @@ class Component extends DCLogic {
     const current = flat.find(o => o.id === s.serviceId) || flat[0];
     const tab = this.tabsData.find(t => t.id === s.tab) || this.tabsData[0];
     const who = this.hours[s.who];
-    const span = this.schedule[sel.getDay()][s.who];
+    const selClosure = closureOn(sel);
+    const span = spanFor(sel, s.who);
     const daySlots = span ? Array.from({ length: span[1] - span[0] }, (_, i) => String(span[0] + i).padStart(2, '0') + ':00') : [];
     const dayHours = span ? span[0] + ' h – ' + span[1] + ' h' : '';
     const dateLabel = longDows[sel.getDay()] + ' ' + sel.getDate() + ' ' + months[sel.getMonth()];
@@ -883,7 +853,7 @@ class Component extends DCLogic {
       groups: (tab.groups || []).map(g => ({ ...g, hasNote: !!g.note, items: g.items.map(it => ({ ...it, hasD: !!it.d })) })),
       hair: (tab.hair || []).map(t => ({ title: t.title, rows: t.rows.map(r => ({ n: r[0], c: r[1], m: r[2], l: r[3], d: r[4] || '', hasD: !!r[4] })) })),
 
-      photos: this.photos.map((p, i) => ({ ...p, open: () => this.setState({ lb: i }) })),
+      photos: this.photos.map((p, i) => ({ ...p, cls: i === 0 ? 'big' : '', open: () => this.setState({ lb: i }) })),
       lbOpen: s.lb >= 0,
       lbSrc: s.lb >= 0 ? this.photos[s.lb].src : '',
       lbAlt: s.lb >= 0 ? this.photos[s.lb].alt : '',
@@ -895,6 +865,8 @@ class Component extends DCLogic {
       todayName: longDows[now.getDay()],
       todayF: today.f ? today.f[0] + ' h – ' + today.f[1] + ' h' : 'Fermé aujourd\'hui',
       todayH: today.h ? today.h[0] + ' h – ' + today.h[1] + ' h' : 'Fermé aujourd\'hui',
+      closuresList: upcoming, hasClosures: upcoming.length > 0,
+      soonClosures: upcoming.filter(c => c.soon).map(c => c.text).join(' · '), hasSoonClosure: upcoming.some(c => c.soon),
       week: [1, 2, 3, 4, 5, 6, 0].map(d => {
         const sc = this.schedule[d], fmt = x => x ? x[0] + ' h – ' + x[1] + ' h' : '—';
         const isToday = d === now.getDay();
@@ -911,7 +883,7 @@ class Component extends DCLogic {
 
       days: dates.map((d, i) => { const c = chip(s.day === i); return { dow: i === 0 ? 'Auj.' : dows[d.getDay()], num: d.getDate(), full: longDows[d.getDay()] + ' ' + d.getDate() + ' ' + months[d.getMonth()], on: s.day === i ? 'true' : 'false', ...c, pick: () => this.setState({ day: i, slot: null }) }; }),
       noSlots: !daySlots.length,
-      noSlotsMsg: 'Pas de créneau ' + (s.who === 'f' ? 'femmes' : 'hommes') + ' le ' + longDows[sel.getDay()] + '. Choisissez un autre jour.',
+      noSlotsMsg: selClosure ? 'Fermeture exceptionnelle le ' + dayName(sel) + (selClosure.note ? ' (' + selClosure.note + ')' : '') + '. Choisissez un autre jour.' : 'Pas de créneau ' + (s.who === 'f' ? 'femmes' : 'hommes') + ' le ' + longDows[sel.getDay()] + '. Choisissez un autre jour.',
       slots: daySlots.map(t => {
         const past = s.day === 0 && parseInt(t, 10) <= h, c = chip(s.slot === t);
         return { label: t, past, on: s.slot === t ? 'true' : 'false',

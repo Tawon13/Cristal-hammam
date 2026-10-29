@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Gestion du site — Cristal d'Azur</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&amp;family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&amp;display=swap" rel="stylesheet">
+<style>
+:root{--navy:#13213D;--ink:#141A26;--muted:#5E6573;--line:#DDD8CE;--brass:#8A6A3B;--ivory:#F7F5F0;--sand:#EFEBE3;--red:#B42318;--green:#1E7A46}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--ivory);color:var(--ink);font:16px/1.5 'DM Sans',system-ui,sans-serif}
+button,input,select,textarea{font:inherit;color:inherit}
+h1,h2,h3{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;line-height:1.15;margin:0}
+.wrap{max-width:960px;margin:0 auto;padding:0 16px}
+header{background:var(--navy);color:#fff}
+header .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:64px}
+header h1{font-size:24px}
+header a{color:#D9BE8E;font-size:14px}
+nav.tabs{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+nav.tabs .wrap{display:flex;gap:4px;overflow-x:auto}
+nav.tabs button{background:none;border:0;border-bottom:2px solid transparent;padding:14px 12px;font-weight:600;color:var(--muted);cursor:pointer;white-space:nowrap}
+nav.tabs button[aria-selected=true]{color:var(--navy);border-color:var(--navy)}
+main{padding:24px 0 140px}
+section.card{background:#fff;border:1px solid var(--line);padding:20px;margin-bottom:20px}
+section.card>h2{font-size:26px;margin-bottom:4px}
+.hint{color:var(--muted);font-size:14px;margin:0 0 16px}
+label.f{display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--muted);font-weight:500;min-width:0}
+input[type=text],input[type=date],input[type=number],input[type=password],select,textarea{width:100%;min-height:44px;padding:8px 10px;border:1px solid #CFC9BD;border-radius:2px;background:#fff;font-size:16px}
+textarea{min-height:80px;resize:vertical}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px;padding:0 16px;border-radius:2px;border:1px solid var(--navy);background:#fff;color:var(--navy);font-weight:600;cursor:pointer;font-size:15px}
+.btn.primary{background:var(--navy);color:#fff}
+.btn.small{min-height:36px;padding:0 10px;font-size:14px}
+.btn.danger{border-color:#E7C3BF;color:var(--red)}
+.btn:disabled{opacity:.5;cursor:default}
+.icon{width:36px;min-height:36px;padding:0}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end}
+.grow{flex:1 1 180px}
+.day{display:grid;grid-template-columns:110px 1fr 1fr;gap:12px;align-items:center;padding:12px 0;border-top:1px solid var(--sand)}
+.day:first-of-type{border-top:0}
+.day h3{font-family:inherit;font-size:16px;font-weight:600}
+.slot{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.slot .who{font-size:13px;font-weight:600;color:var(--brass);width:100%;text-transform:uppercase;letter-spacing:.08em}
+.slot select{width:auto;min-width:84px}
+.slot label.ck{display:flex;gap:6px;align-items:center;font-size:15px;min-height:44px}
+.slot .closed{color:var(--muted);font-size:14px}
+.err{color:var(--red);font-size:14px;margin:4px 0 0}
+.item{border-top:1px solid var(--sand);padding:12px 0}
+.item:first-child{border-top:0}
+.photo{display:grid;grid-template-columns:120px 1fr;gap:14px;align-items:start;padding:14px 0;border-top:1px solid var(--sand)}
+.photo:first-child{border-top:0}
+.photo img{width:120px;aspect-ratio:4/3;object-fit:cover;background:var(--sand);display:block}
+.photo .tools{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.badge{display:inline-block;font-size:12px;font-weight:600;color:var(--brass);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
+details.group{border:1px solid var(--line);margin-bottom:12px;background:#fff}
+details.group>summary{padding:14px 16px;font-weight:600;cursor:pointer;font-size:17px}
+details.group>.body{padding:0 16px 16px}
+.cat{background:var(--ivory);padding:14px;margin-bottom:12px}
+.line{display:grid;grid-template-columns:2fr 2fr 1fr auto;gap:8px;align-items:end;padding:8px 0;border-top:1px dashed var(--line)}
+.line.hair{grid-template-columns:2fr 1fr 1fr 1fr 1.5fr auto}
+.line:first-of-type{border-top:0}
+.savebar{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--line);box-shadow:0 -8px 24px rgba(19,33,61,.08);z-index:10}
+.savebar .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:72px;padding-top:10px;padding-bottom:10px}
+.status{font-size:14px;color:var(--muted)}
+.status.dirty{color:var(--brass);font-weight:600}
+.status.ok{color:var(--green);font-weight:600}
+.status.bad{color:var(--red);font-weight:600}
+.login{max-width:380px;margin:12vh auto;background:#fff;border:1px solid var(--line);padding:28px}
+.login h1{font-size:30px;margin-bottom:6px}
+.toast{position:fixed;left:50%;top:16px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 16px;border-radius:2px;font-size:14px;z-index:20}
+[hidden]{display:none!important}
+@media (max-width:640px){
+  .day{grid-template-columns:1fr;gap:8px}
+  .line,.line.hair{grid-template-columns:1fr 1fr}
+  .line>.full,.line.hair>.full{grid-column:1/-1}
+  .photo{grid-template-columns:96px 1fr}
+  .photo img{width:96px}
+  .savebar .wrap{min-height:64px}
+  .savebar .btn{padding:0 12px;font-size:14px;flex:none}
+  .status{font-size:13px}
+}
+</style>
+</head>
+<body>
+
+<div id="login" class="login" hidden>
+  <h1>Cristal d'Azur</h1>
+  <p class="hint">Gestion du site : horaires, fermetures, photos et tarifs.</p>
+  <form id="loginForm" style="display:flex;flex-direction:column;gap:12px">
+    <label class="f">Mot de passe<input type="password" id="pw" autocomplete="current-password" required></label>
+    <p class="err" id="loginErr" hidden></p>
+    <button class="btn primary" type="submit" id="loginBtn">Se connecter</button>
+  </form>
+</div>
+
+<div id="app" hidden>
+  <header><div class="wrap"><h1>Gestion du site</h1><span><a href="/" target="_blank" rel="noopener">Voir le site ↗</a> · <a href="#" id="logout">Se déconnecter</a></span></div></header>
+  <nav class="tabs" aria-label="Rubriques"><div class="wrap" role="tablist" id="tabs"></div></nav>
+  <main><div class="wrap" id="panel"></div></main>
+  <div class="savebar"><div class="wrap">
+    <span class="status" id="status">Aucune modification</span>
+    <button class="btn primary" id="save" disabled>Enregistrer</button>
+  </div></div>
+</div>
+
+<script src="/content/defaults.js"></script>
+<script>
+(() => {
+  const DAYS = [[1, 'Lundi'], [2, 'Mardi'], [3, 'Mercredi'], [4, 'Jeudi'], [5, 'Vendredi'], [6, 'Samedi'], [0, 'Dimanche']];
+  const TABS = [['horaires', 'Horaires'], ['fermetures', 'Fermetures'], ['photos', 'Photos'], ['tarifs', 'Tarifs']];
+  const KEY = 'cristal-admin-pw';
+  const clone = o => JSON.parse(JSON.stringify(o));
+  let pw = '', data = null, dirty = false, tab = 'horaires';
+
+  // ---------- petits utilitaires DOM ----------
+  function h(tag, attrs, ...kids) {
+    const el = document.createElement(tag);
+    for (const [k, v] of Object.entries(attrs || {})) {
+      if (v == null || v === false) continue;
+      if (k.startsWith('on')) el.addEventListener(k.slice(2), v);
+      else if (k === 'value') el.value = v;
+      else if (k === 'checked') el.checked = v;
+      else el.setAttribute(k, v === true ? '' : v);
+    }
+    for (const kid of kids.flat()) if (kid != null && kid !== false) el.append(kid.nodeType ? kid : String(kid));
+    return el;
+  }
+  const field = (label, input, cls) => h('label', { class: 'f ' + (cls || '') }, label, input);
+  const text = (value, onChange, attrs) => h('input', { type: 'text', value: value || '', oninput: e => { onChange(e.target.value); touch(); }, ...attrs });
+  const btn = (label, onClick, cls, attrs) => h('button', { type: 'button', class: 'btn ' + (cls || ''), onclick: onClick, ...attrs }, label);
+  const src = s => /^(https?:|\/)/.test(s) ? s : '/' + s;
+  function toast(msg) { const t = h('div', { class: 'toast', role: 'status' }, msg); document.body.append(t); setTimeout(() => t.remove(), 2600); }
+  function move(arr, i, d) { const j = i + d; if (j < 0 || j >= arr.length) return; [arr[i], arr[j]] = [arr[j], arr[i]]; touch(); render(); }
+  function remove(arr, i, what) { if (!window.confirm('Supprimer ' + what + ' ?')) return; arr.splice(i, 1); touch(); render(); }
+
+  function touch() { dirty = true; setStatus('Modifications non enregistrées', 'dirty'); document.getElementById('save').disabled = false; }
+  function setStatus(msg, cls) { const s = document.getElementById('status'); s.textContent = msg; s.className = 'status ' + (cls || ''); }
+
+  // ---------- API ----------
+  async function api(path, opts) {
+    const res = await fetch(path, { ...opts, headers: { 'x-admin-password': pw, ...(opts && opts.headers) } });
+    const body = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(body.error || 'Erreur ' + res.status);
+    return body;
+  }
+
+  async function resize(file) {
+    const max = 1600;
+    const bmp = await createImageBitmap(file);
+    const scale = Math.min(1, max / bmp.width);
+    const c = document.createElement('canvas');
+    c.width = Math.round(bmp.width * scale); c.height = Math.round(bmp.height * scale);
+    c.getContext('2d').drawImage(bmp, 0, 0, c.width, c.height);
+    const blob = await new Promise(r => c.toBlob(r, 'image/webp', 0.82));
+    if (blob && blob.type === 'image/webp') return blob;
+    return new Promise(r => c.toBlob(r, 'image/jpeg', 0.85));
+  }
+
+  function pickPhoto(onDone) {
+    const input = h('input', { type: 'file', accept: 'image/*' });
+    input.addEventListener('change', async () => {
+      const file = input.files[0];
+      if (!file) return;
+      setStatus('Envoi de la photo…');
+      try {
+        const blob = await resize(file);
+        const { url } = await api('/api/upload', { method: 'POST', headers: { 'Content-Type': blob.type, 'x-file-name': file.name }, body: blob });
+        onDone(url); touch(); render();
+        toast('Photo ajoutée — pensez à enregistrer');
+      } catch (e) { setStatus('Échec de l\'envoi : ' + e.message, 'bad'); }
+    });
+    input.click();
+  }
+
+  // ---------- rubriques ----------
+  function hoursSelect(value, from, to, onChange) {
+    const s = h('select', { onchange: e => { onChange(Number(e.target.value)); touch(); render(); } });
+    for (let i = from; i <= to; i++) s.append(h('option', { value: i, selected: i === value }, i + ' h'));
+    return s;
+  }
+
+  function panelHoraires() {
+    const card = h('section', { class: 'card' }, h('h2', {}, 'Horaires de la semaine'),
+      h('p', { class: 'hint' }, 'Ces horaires s\'affichent sur le site et définissent les créneaux proposés à la réservation.'));
+    for (const [d, name] of DAYS) {
+      const day = data.schedule[d];
+      const cols = ['f', 'h'].map(k => {
+        const v = day[k];
+        const box = h('div', { class: 'slot' }, h('span', { class: 'who' }, k === 'f' ? 'Femmes' : 'Hommes'),
+          h('label', { class: 'ck' }, h('input', { type: 'checkbox', checked: !!v, onchange: e => { day[k] = e.target.checked ? (k === 'f' ? [9, 17] : [18, 23]) : null; touch(); render(); } }), 'Ouvert'));
+        if (v) box.append(hoursSelect(v[0], 0, 23, n => { v[0] = n; }), '→', hoursSelect(v[1], 1, 24, n => { v[1] = n; }));
+        else box.append(h('span', { class: 'closed' }, 'Fermé'));
+        if (v && v[0] >= v[1]) box.append(h('p', { class: 'err' }, 'L\'heure de fin doit être après l\'heure de début.'));
+        return box;
+      });
+      card.append(h('div', { class: 'day' }, h('h3', {}, name), ...cols));
+    }
+    return [card];
+  }
+
+  function panelFermetures() {
+    const today = new Date().toISOString().slice(0, 10);
+    const list = data.closures;
+    const card = h('section', { class: 'card' }, h('h2', {}, 'Fermetures exceptionnelles'),
+      h('p', { class: 'hint' }, 'Un jour de fermeture (jour férié, travaux…). Il est annoncé sur le site deux semaines avant et ne peut plus être réservé.'));
+    if (!list.length) card.append(h('p', { class: 'hint' }, 'Aucune fermeture prévue.'));
+    list.forEach((c, i) => {
+      card.append(h('div', { class: 'item' }, h('div', { class: 'row' },
+        field('Date' + (c.date && c.date < today ? ' (passée)' : ''), h('input', { type: 'date', value: c.date, min: today, oninput: e => { c.date = e.target.value; touch(); } })),
+        field('Motif (facultatif)', text(c.note, v => { c.note = v; }, { placeholder: 'Ex. : Noël' }), 'grow'),
+        btn('Supprimer', () => remove(list, i, 'cette fermeture'), 'danger')
+      )));
+    });
+    card.append(h('div', { style: 'margin-top:12px' }, btn('+ Ajouter une fermeture', () => {
+      const d = new Date(); d.setDate(d.getDate() + 1);
+      list.push({ date: d.toISOString().slice(0, 10), note: '' }); touch(); render();
+    })));
+    return [card];
+  }
+
+  function photoRow(arr, i, opts) {
+    const p = arr[i];
+    const key = opts.key || 'src';
+    const right = h('div', {}, opts.badge ? h('span', { class: 'badge' }, opts.badge) : null);
+    if (opts.caption) right.append(field('Légende (affichée sur la photo)', text(p.caption, v => { p.caption = v; })));
+    if (opts.alt !== false) right.append(field('Description (pour Google et les malvoyants)', text(p.alt, v => { p.alt = v; })));
+    const tools = h('div', { class: 'tools' }, btn('Remplacer', () => pickPhoto(url => { p[key] = url; }), 'small'));
+    if (opts.sortable) tools.append(btn('↑', () => move(arr, i, -1), 'small icon', { 'aria-label': 'Monter', disabled: i === 0 }), btn('↓', () => move(arr, i, 1), 'small icon', { 'aria-label': 'Descendre', disabled: i === arr.length - 1 }));
+    if (opts.removable) tools.append(btn('Supprimer', () => arr.length > (opts.min || 0) ? remove(arr, i, 'cette photo') : toast('Il faut garder au moins une photo.'), 'small danger'));
+    right.append(tools);
+    return h('div', { class: 'photo' }, h('img', { src: src(p[key]), alt: '' }), right);
+  }
+
+  function panelPhotos() {
+    const hero = h('section', { class: 'card' }, h('h2', {}, 'Photos du haut de page'), h('p', { class: 'hint' }, 'Elles défilent en grand au début du site. Format paysage conseillé.'));
+    data.slides.forEach((_, i) => hero.append(photoRow(data.slides, i, { caption: true, sortable: true, removable: true, min: 1 })));
+    hero.append(h('div', { style: 'margin-top:12px' }, btn('+ Ajouter une photo', () => pickPhoto(url => data.slides.push({ src: url, alt: '', caption: '' })))));
+
+    const gal = h('section', { class: 'card' }, h('h2', {}, 'Galerie'), h('p', { class: 'hint' }, 'La première photo est affichée en grand.'));
+    data.photos.forEach((_, i) => gal.append(photoRow(data.photos, i, { sortable: true, removable: true, badge: i === 0 ? 'En grand' : null })));
+    gal.append(h('div', { style: 'margin-top:12px' }, btn('+ Ajouter une photo', () => pickPhoto(url => data.photos.push({ src: url, alt: '' })))));
+
+    const sp = h('section', { class: 'card' }, h('h2', {}, 'Massage & beauté'), h('p', { class: 'hint' }, 'La photo de chaque espace.'));
+    data.spaces.forEach((s, i) => sp.append(photoRow(data.spaces, i, { key: 'img', badge: s.title })));
+    return [hero, gal, sp];
+  }
+
+  function itemLine(group, i) {
+    const it = group.items[i];
+    return h('div', { class: 'line' },
+      field('Prestation', text(it.n, v => { it.n = v; })),
+      field('Détail (facultatif)', text(it.d, v => { if (v) it.d = v; else delete it.d; })),
+      field('Prix', text(it.p, v => { it.p = v; }, { placeholder: 'Ex. : 25 €' })),
+      btn('✕', () => remove(group.items, i, '« ' + (it.n || 'cette ligne') + ' »'), 'small icon danger', { 'aria-label': 'Supprimer la ligne' }));
+  }
+
+  function hairLine(group, i) {
+    const r = group.rows[i];
+    const cell = (j, label, ph) => field(label, text(r[j], v => { r[j] = v; }, { placeholder: ph }));
+    return h('div', { class: 'line hair' },
+      h('div', { class: 'full' }, cell(0, 'Prestation')), cell(1, 'Court', '20 €'), cell(2, 'Mi-long', '20 €'), cell(3, 'Long', '20 €'),
+      field('Remarque', text(r[4], v => { if (v) r[4] = v; else r.length = 4; })),
+      btn('✕', () => remove(group.rows, i, '« ' + (r[0] || 'cette ligne') + ' »'), 'small icon danger', { 'aria-label': 'Supprimer la ligne' }));
+  }
+
+  function panelTarifs() {
+    const out = [h('p', { class: 'hint' }, 'Les prix s\'écrivent tels qu\'ils doivent apparaître : « 25 € », « dès 15 € », « 80 – 150 € ».')];
+    for (const t of data.tabsData) {
+      const body = h('div', { class: 'body' });
+      if (t.hair) {
+        t.hair.forEach((g, gi) => {
+          const cat = h('div', { class: 'cat' }, h('div', { class: 'row' }, field('Catégorie', text(g.title, v => { g.title = v; }), 'grow'), btn('Supprimer la catégorie', () => remove(t.hair, gi, 'la catégorie « ' + g.title + ' »'), 'small danger')));
+          g.rows.forEach((_, i) => cat.append(hairLine(g, i)));
+          cat.append(btn('+ Ajouter une prestation', () => { g.rows.push(['', '', '', '']); touch(); render(); }, 'small'));
+          body.append(cat);
+        });
+        body.append(btn('+ Ajouter une catégorie', () => { t.hair.push({ title: 'Nouvelle catégorie', rows: [['', '', '', '']] }); touch(); render(); }));
+      } else {
+        t.groups.forEach((g, gi) => {
+          const cat = h('div', { class: 'cat' }, h('div', { class: 'row' },
+            field('Catégorie', text(g.title, v => { g.title = v; }), 'grow'),
+            field('Sous-titre (facultatif)', text(g.note, v => { if (v) g.note = v; else delete g.note; }), 'grow'),
+            btn('Supprimer la catégorie', () => remove(t.groups, gi, 'la catégorie « ' + g.title + ' »'), 'small danger')));
+          g.items.forEach((_, i) => cat.append(itemLine(g, i)));
+          cat.append(btn('+ Ajouter une prestation', () => { g.items.push({ n: '', p: '' }); touch(); render(); }, 'small'));
+          body.append(cat);
+        });
+        body.append(btn('+ Ajouter une catégorie', () => { t.groups.push({ title: 'Nouvelle catégorie', items: [{ n: '', p: '' }] }); touch(); render(); }));
+      }
+      out.push(h('details', { class: 'group', open: openTabs.has(t.id), ontoggle: e => e.target.open ? openTabs.add(t.id) : openTabs.delete(t.id) }, h('summary', {}, 'Tarifs — ' + t.label), body));
+    }
+
+    const rit = h('div', { class: 'body' });
+    data.rituals.forEach((r, i) => rit.append(h('div', { class: 'cat' },
+      h('div', { class: 'row' }, field('Nom du rituel', text(r.name, v => { r.name = v; }), 'grow'),
+        field('Prix (€)', h('input', { type: 'number', min: 0, step: 1, value: r.price, oninput: e => { r.price = Number(e.target.value) || 0; touch(); } })),
+        btn('Supprimer', () => remove(data.rituals, i, 'le rituel « ' + r.name + ' »'), 'small danger')),
+      field('Composition (une étape par ligne)', h('textarea', { rows: 4, oninput: e => { r.items = e.target.value.split('\n').map(s => s.trim()).filter(Boolean); touch(); } }, r.items.join('\n'))))));
+    rit.append(btn('+ Ajouter un rituel', () => { data.rituals.push({ id: 'r' + Date.now(), name: 'Nouveau rituel', items: ['Hammam'], price: 0 }); touch(); render(); }));
+    out.push(h('details', { class: 'group', open: openTabs.has('rituels'), ontoggle: e => e.target.open ? openTabs.add('rituels') : openTabs.delete('rituels') }, h('summary', {}, 'Rituels'), rit));
+
+    const book = h('div', { class: 'body' }, h('p', { class: 'hint', style: 'margin-top:0' }, 'Les choix proposés dans le formulaire de réservation. Les rituels y sont ajoutés automatiquement.'));
+    data.bookData.filter(g => g.label !== 'Rituels').forEach(g => {
+      const cat = h('div', { class: 'cat' }, h('h3', { style: 'font-size:20px;margin-bottom:6px' }, g.label));
+      g.options.forEach((o, i) => cat.append(h('div', { class: 'line' },
+        h('div', { class: 'full' }, field('Choix', text(o.label, v => { o.label = v; }))), field('Prix affiché', text(o.price, v => { o.price = v; })), h('span'),
+        btn('✕', () => g.options.length > 1 ? remove(g.options, i, '« ' + o.label + ' »') : toast('Gardez au moins un choix par catégorie.'), 'small icon danger', { 'aria-label': 'Supprimer' }))));
+      cat.append(btn('+ Ajouter un choix', () => { g.options.push({ id: 'o' + Date.now(), label: '', price: '' }); touch(); render(); }, 'small'));
+      book.append(cat);
+    });
+    out.push(h('details', { class: 'group', open: openTabs.has('resa'), ontoggle: e => e.target.open ? openTabs.add('resa') : openTabs.delete('resa') }, h('summary', {}, 'Formulaire de réservation'), book));
+
+    const sp = h('div', { class: 'body' });
+    data.spaces.forEach(s => sp.append(h('div', { class: 'cat' }, h('h3', { style: 'font-size:20px;margin-bottom:6px' }, s.title),
+      h('div', { class: 'row' }, field('Texte', text(s.desc, v => { s.desc = v; }), 'grow'), field('Prix affiché', text(s.from, v => { s.from = v; }))))));
+    out.push(h('details', { class: 'group', open: openTabs.has('spaces'), ontoggle: e => e.target.open ? openTabs.add('spaces') : openTabs.delete('spaces') }, h('summary', {}, 'Cartes « Massage & beauté »'), sp));
+    return out;
+  }
+  const openTabs = new Set();
+
+  function render() {
+    const tabs = document.getElementById('tabs');
+    tabs.replaceChildren(...TABS.map(([id, label]) => h('button', { role: 'tab', 'aria-selected': String(id === tab), onclick: () => { tab = id; render(); window.scrollTo(0, 0); } }, label)));
+    const y = window.scrollY;
+    const panel = { horaires: panelHoraires, fermetures: panelFermetures, photos: panelPhotos, tarifs: panelTarifs }[tab]();
+    document.getElementById('panel').replaceChildren(...panel);
+    window.scrollTo(0, y);
+  }
+
+  function invalid() {
+    for (const [d, name] of DAYS) for (const k of ['f', 'h']) { const v = data.schedule[d][k]; if (v && v[0] >= v[1]) return 'Horaires du ' + name.toLowerCase() + ' : l\'heure de fin doit être après l\'heure de début.'; }
+    if (data.closures.some(c => !/^\d{4}-\d{2}-\d{2}$/.test(c.date))) return 'Une fermeture n\'a pas de date.';
+    return null;
+  }
+
+  async function save() {
+    const err = invalid();
+    if (err) { setStatus(err, 'bad'); return; }
+    const b = document.getElementById('save');
+    b.disabled = true; setStatus('Enregistrement…');
+    data.closures.sort((a, c) => a.date.localeCompare(c.date));
+    try {
+      await api('/api/save', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
+      dirty = false;
+      setStatus('Enregistré ✓ — visible sur le site d\'ici une minute', 'ok');
+      render();
+    } catch (e) { b.disabled = false; setStatus('Échec : ' + e.message, 'bad'); }
+  }
+
+  async function start() {
+    document.getElementById('login').hidden = true;
+    document.getElementById('app').hidden = false;
+    const saved = await fetch('/api/content?fresh=' + Date.now(), { cache: 'no-store' }).then(r => r.json()).catch(() => ({}));
+    const base = clone(window.CRISTAL_DEFAULTS);
+    data = saved && saved.updatedAt ? { ...base, ...clone(saved) } : base;
+    delete data.updatedAt;
+    if (saved && saved.updatedAt) setStatus('Dernière modification : ' + new Date(saved.updatedAt).toLocaleString('fr-FR', { dateStyle: 'short', timeStyle: 'short' }));
+    render();
+  }
+
+  document.getElementById('save').addEventListener('click', save);
+  document.getElementById('logout').addEventListener('click', e => { e.preventDefault(); try { sessionStorage.removeItem(KEY); } catch (_) {} location.reload(); });
+  window.addEventListener('beforeunload', e => { if (dirty) { e.preventDefault(); e.returnValue = ''; } });
+
+  document.getElementById('loginForm').addEventListener('submit', async e => {
+    e.preventDefault();
+    const errEl = document.getElementById('loginErr'), b = document.getElementById('loginBtn');
+    pw = document.getElementById('pw').value;
+    b.disabled = true; errEl.hidden = true;
+    try {
+      await api('/api/login', { method: 'POST' });
+      try { sessionStorage.setItem(KEY, pw); } catch (_) {}
+      start();
+    } catch (err) { errEl.textContent = err.message; errEl.hidden = false; }
+    b.disabled = false;
+  });
+
+  let stored = null;
+  try { stored = sessionStorage.getItem(KEY); } catch (_) {}
+  if (stored) { pw = stored; start(); } else document.getElementById('login').hidden = false;
+})();
+</script>
+</body>
+</html>
