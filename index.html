@@ -61,6 +61,15 @@ img{display:block;max-width:100%}
 .hair .pl{width:124px}
 .hair thead th{font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#5E6573}
 
+.week{width:100%;border-collapse:collapse;background:#fff;font-size:15px}
+.week th,.week td{padding:11px 16px;text-align:left;border-bottom:1px solid #ECE8E0}
+.week thead th{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#8A6A3B;font-weight:600;border-bottom:2px solid #A8814A}
+.week tbody th{font-weight:500}
+.week tr.closed-f td:nth-child(2),.week tr.closed-h td:nth-child(3){color:#A0A4AD}
+.week tr.today{background:#F3EEE4}
+.week tr.today th,.week tr.today td{font-weight:600;color:#13213D}
+.todaytag{display:inline-block;margin-left:8px;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#8A6A3B}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 .g-info{display:grid;grid-template-columns:repeat(4,minmax(0,1fr)) auto}
 .g-intro{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:80px;align-items:center}
 .g-rit{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
@@ -137,7 +146,7 @@ img{display:block;max-width:100%}
       <a class="navlink" href="#beaute">Massage &amp; beauté</a>
       <a class="navlink" href="#tarifs">Tarifs</a>
       <a class="navlink" href="#galerie">Galerie</a>
-      <a class="navlink" href="#infos">Horaires &amp; accès</a>
+      <a class="navlink" href="#horaires">Horaires &amp; accès</a>
     </nav>
     <div style="display: flex; align-items: center; gap: 20px">
       <a class="desk navlink hdr-phone" href="tel:+33986283063" style="font-size: 14px; font-weight: 500; align-items: center; gap: 8px">
@@ -166,7 +175,7 @@ img{display:block;max-width:100%}
       </sc-for>
     </nav>
     <div style="margin-top: auto; display: flex; flex-direction: column; gap: 12px">
-      <p style="margin: 0 0 8px; color: #C8CEDA; font-size: 14px">Femmes 9 h – 17 h · Hommes 18 h – 23 h<br>Mardi : hommes 10 h – 23 h · Vendredi : femmes 12 h – 22 h</p>
+      <p style="margin: 0 0 8px; color: #C8CEDA; font-size: 14px">Mardi : hommes 10 h – 23 h<br>Vendredi : femmes 12 h – 22 h<br>Autres jours : femmes 9 h – 17 h · hommes 18 h – 23 h</p>
       <a href="#reserver" onClick="{{closeMenu}}" style="background: #fff; color: #141A26; height: 52px; display: flex; align-items: center; justify-content: center; font-weight: 600; border-radius: 2px">Réserver</a>
       <a href="tel:+33986283063" style="border: 1px solid rgba(255,255,255,0.4); color: #fff; height: 52px; display: flex; align-items: center; justify-content: center; border-radius: 2px">09 86 28 30 63</a>
     </div>
@@ -216,14 +225,14 @@ img{display:block;max-width:100%}
 <div class="wrap" style="position: relative; z-index: 2; margin-top: -64px">
   <div class="g-info up" style="background: #fff; box-shadow: 0 24px 60px -24px rgba(19,33,61,0.25); animation-delay: .8s">
     <div style="padding: 22px 26px; border-right: 1px solid #ECE8E0; border-bottom: 1px solid #ECE8E0">
-      <p class="eyebrow" style="margin: 0 0 6px; color: #8A6A3B">Femmes</p>
-      <p style="margin: 0; font-weight: 600">9 h – 17 h</p>
-      <p style="margin: 2px 0 0; font-size: 14px; color: #5E6573">Fermé le mardi · vendredi 12 h – 22 h</p>
+      <p class="eyebrow" style="margin: 0 0 6px; color: #8A6A3B">Femmes · {{todayName}}</p>
+      <p style="margin: 0; font-weight: 600">{{todayF}}</p>
+      <p style="margin: 2px 0 0; font-size: 14px"><a href="#horaires" style="color: #5E6573; text-decoration: underline; text-underline-offset: 3px">Horaires de la semaine</a></p>
     </div>
     <div style="padding: 22px 26px; border-right: 1px solid #ECE8E0; border-bottom: 1px solid #ECE8E0">
-      <p class="eyebrow" style="margin: 0 0 6px; color: #8A6A3B">Hommes</p>
-      <p style="margin: 0; font-weight: 600">18 h – 23 h</p>
-      <p style="margin: 2px 0 0; font-size: 14px; color: #5E6573">Mardi 10 h – 23 h · fermé le vendredi</p>
+      <p class="eyebrow" style="margin: 0 0 6px; color: #8A6A3B">Hommes · {{todayName}}</p>
+      <p style="margin: 0; font-weight: 600">{{todayH}}</p>
+      <p style="margin: 2px 0 0; font-size: 14px"><a href="#horaires" style="color: #5E6573; text-decoration: underline; text-underline-offset: 3px">Horaires de la semaine</a></p>
     </div>
     <div style="padding: 22px 26px; border-right: 1px solid #ECE8E0; border-bottom: 1px solid #ECE8E0">
       <p class="eyebrow" style="margin: 0 0 6px; color: #8A6A3B">Maintenant</p>
@@ -494,6 +503,22 @@ img{display:block;max-width:100%}
   </div>
 </section>
 
+<!-- ============ HORAIRES ============ -->
+<section id="horaires" class="sec" style="padding: 120px 0 0">
+  <div class="wrap rv" style="max-width: 720px">
+    <p class="eyebrow" style="margin: 0 0 14px; color: #8A6A3B">Horaires</p>
+    <h2 class="serif" style="margin: 0 0 28px; font-size: clamp(34px, 3.6vw, 48px); line-height: 1.1">Quand venir</h2>
+    <table class="week" aria-label="Horaires de la semaine">
+        <thead><tr><th scope="col"><span class="sr">Jour</span></th><th scope="col">Femmes</th><th scope="col">Hommes</th></tr></thead>
+        <tbody>
+          <sc-for list="{{week}}" as="wd" hint-placeholder-count="7">
+            <tr class="{{wd.cls}}"><th scope="row">{{wd.day}}<sc-if value="{{wd.isToday}}" hint-placeholder-val="{{ false }}"><span class="todaytag">Aujourd'hui</span></sc-if></th><td>{{wd.f}}</td><td>{{wd.h}}</td></tr>
+          </sc-for>
+        </tbody>
+      </table>
+  </div>
+</section>
+
 <!-- ============ RESERVATION ============ -->
 <section id="reserver" class="sec" style="padding: 120px 0">
   <div class="wrap">
@@ -606,20 +631,8 @@ img{display:block;max-width:100%}
     </div>
     <div class="rv" style="display: flex; flex-direction: column; gap: 26px; justify-content: center">
       <div>
-        <p class="eyebrow" style="margin: 0 0 14px; color: #8A6A3B">Horaires &amp; accès</p>
+        <p class="eyebrow" style="margin: 0 0 14px; color: #8A6A3B">Accès</p>
         <h2 class="serif" style="margin: 0; font-size: clamp(34px, 3.6vw, 48px); line-height: 1.1">Nous trouver</h2>
-      </div>
-      <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px">
-        <div style="background: #fff; padding: 18px 20px; border-top: 2px solid #A8814A">
-          <p class="eyebrow" style="margin: 0 0 6px; color: #8A6A3B">Femmes</p>
-          <p class="serif" style="margin: 0; font-size: 28px; line-height: 1.1">9 h – 17 h</p>
-          <p style="margin: 4px 0 0; font-size: 14px; color: #5E6573">Fermé le mardi · vendredi 12 h – 22 h</p>
-        </div>
-        <div style="background: #fff; padding: 18px 20px; border-top: 2px solid #13213D">
-          <p class="eyebrow" style="margin: 0 0 6px; color: #13213D">Hommes</p>
-          <p class="serif" style="margin: 0; font-size: 28px; line-height: 1.1">18 h – 23 h</p>
-          <p style="margin: 4px 0 0; font-size: 14px; color: #5E6573">Mardi 10 h – 23 h · fermé le vendredi</p>
-        </div>
       </div>
       <dl style="margin: 0; display: flex; flex-direction: column">
         <div style="display: flex; justify-content: space-between; gap: 16px; padding: 14px 0; border-top: 1px solid #E4E0D8"><dt style="color: #5E6573">Adresse</dt><dd style="margin: 0; text-align: right; font-weight: 500">112 rue Loubon, 13003 Marseille</dd></div>
@@ -671,9 +684,9 @@ img{display:block;max-width:100%}
       </div>
       <div style="display: flex; flex-direction: column; gap: 10px; font-size: 15px">
         <span class="eyebrow" style="color: #D9BE8E; margin-bottom: 6px">Horaires</span>
-        <span>Femmes<br><span style="color: #fff">9 h – 17 h</span></span>
-        <span>Hommes<br><span style="color: #fff">18 h – 23 h</span></span>
-        <span style="font-size: 13px">Mardi : hommes 10 h – 23 h<br>Vendredi : femmes 12 h – 22 h</span>
+        <span>Mardi<br><span style="color: #fff">Hommes 10 h – 23 h</span></span>
+        <span>Vendredi<br><span style="color: #fff">Femmes 12 h – 22 h</span></span>
+        <span>Les autres jours<br><span style="color: #fff">Femmes 9 h – 17 h · Hommes 18 h – 23 h</span></span>
       </div>
     </div>
     <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; padding-top: 24px; font-size: 13px">
@@ -847,7 +860,7 @@ class Component extends DCLogic {
       menuOpen: s.menu, menuExpanded: s.menu ? 'true' : 'false',
       toggleMenu: () => this.setState({ menu: !s.menu }),
       closeMenu: () => this.setState({ menu: false }),
-      menuLinks: [ { href: '#rituels', label: 'Rituels' }, { href: '#beaute', label: 'Massage & beauté' }, { href: '#tarifs', label: 'Tarifs' }, { href: '#galerie', label: 'Galerie' }, { href: '#avis', label: 'Avis' }, { href: '#infos', label: 'Horaires & accès' } ],
+      menuLinks: [ { href: '#rituels', label: 'Rituels' }, { href: '#beaute', label: 'Massage & beauté' }, { href: '#tarifs', label: 'Tarifs' }, { href: '#galerie', label: 'Galerie' }, { href: '#avis', label: 'Avis' }, { href: '#horaires', label: 'Horaires & accès' } ],
 
       slides: this.slides.map((x, i) => ({ ...x,
         op: i === s.slide ? 1 : 0, tf: i === s.slide ? 'scale(1)' : 'scale(1.03)',
@@ -879,6 +892,15 @@ class Component extends DCLogic {
       lbPrev: () => this.setState({ lb: (s.lb - 1 + n) % n }),
       lbNext: () => this.setState({ lb: (s.lb + 1) % n }),
 
+      todayName: longDows[now.getDay()],
+      todayF: today.f ? today.f[0] + ' h – ' + today.f[1] + ' h' : 'Fermé aujourd\'hui',
+      todayH: today.h ? today.h[0] + ' h – ' + today.h[1] + ' h' : 'Fermé aujourd\'hui',
+      week: [1, 2, 3, 4, 5, 6, 0].map(d => {
+        const sc = this.schedule[d], fmt = x => x ? x[0] + ' h – ' + x[1] + ' h' : '—';
+        const isToday = d === now.getDay();
+        return { day: longDows[d].charAt(0).toUpperCase() + longDows[d].slice(1), f: fmt(sc.f), h: fmt(sc.h), isToday,
+          cls: [isToday ? 'today' : '', sc.f ? '' : 'closed-f', sc.h ? '' : 'closed-h'].join(' ').trim() };
+      }),
       reviews: this.reviews.map(r => ({ ...r, initial: r.name.charAt(0) })),
 
       whoOpts: ['f', 'h'].map(k => { const c = chip(s.who === k); const sp = this.schedule[sel.getDay()][k]; return { label: this.hours[k].label, hours: sp ? sp[0] + ' h – ' + sp[1] + ' h' : 'Fermé ce jour', on: s.who === k ? 'true' : 'false', ...c, pick: () => this.setState({ who: k, slot: null }) }; }),
