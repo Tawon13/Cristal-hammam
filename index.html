@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Cristal d'Azur — Hammam, sauna &amp; beauté à Marseille</title>
-<meta name="description" content="Hammam, sauna, bain vapeur, rituels, esthétique et coiffure au 112 rue Loubon, Marseille 3e. Femmes 9h–17h, hommes 18h–23h. Entrée 25 €. Réservation en ligne.">
+<meta name="description" content="Hammam, sauna, bain vapeur, rituels, esthétique et coiffure au 112 rue Loubon, Marseille 3e. Femmes 9h–17h, hommes 18h–23h (mardi hommes 10h–23h, vendredi femmes 12h–22h). Entrée 25 €. Réservation en ligne.">
 <link rel="canonical" href="https://www.cristaldazur.fr/">
 <script src="./support.js"></script>
 </head>
@@ -166,7 +166,7 @@ img{display:block;max-width:100%}
       </sc-for>
     </nav>
     <div style="margin-top: auto; display: flex; flex-direction: column; gap: 12px">
-      <p style="margin: 0 0 8px; color: #C8CEDA; font-size: 14px">Femmes 9 h – 17 h · Hommes 18 h – 23 h</p>
+      <p style="margin: 0 0 8px; color: #C8CEDA; font-size: 14px">Femmes 9 h – 17 h · Hommes 18 h – 23 h<br>Mardi : hommes 10 h – 23 h · Vendredi : femmes 12 h – 22 h</p>
       <a href="#reserver" onClick="{{closeMenu}}" style="background: #fff; color: #141A26; height: 52px; display: flex; align-items: center; justify-content: center; font-weight: 600; border-radius: 2px">Réserver</a>
       <a href="tel:+33986283063" style="border: 1px solid rgba(255,255,255,0.4); color: #fff; height: 52px; display: flex; align-items: center; justify-content: center; border-radius: 2px">09 86 28 30 63</a>
     </div>
@@ -218,12 +218,12 @@ img{display:block;max-width:100%}
     <div style="padding: 22px 26px; border-right: 1px solid #ECE8E0; border-bottom: 1px solid #ECE8E0">
       <p class="eyebrow" style="margin: 0 0 6px; color: #8A6A3B">Femmes</p>
       <p style="margin: 0; font-weight: 600">9 h – 17 h</p>
-      <p style="margin: 2px 0 0; font-size: 14px; color: #5E6573">Tous les jours</p>
+      <p style="margin: 2px 0 0; font-size: 14px; color: #5E6573">Fermé le mardi · vendredi 12 h – 22 h</p>
     </div>
     <div style="padding: 22px 26px; border-right: 1px solid #ECE8E0; border-bottom: 1px solid #ECE8E0">
       <p class="eyebrow" style="margin: 0 0 6px; color: #8A6A3B">Hommes</p>
       <p style="margin: 0; font-weight: 600">18 h – 23 h</p>
-      <p style="margin: 2px 0 0; font-size: 14px; color: #5E6573">Tous les jours</p>
+      <p style="margin: 2px 0 0; font-size: 14px; color: #5E6573">Mardi 10 h – 23 h · fermé le vendredi</p>
     </div>
     <div style="padding: 22px 26px; border-right: 1px solid #ECE8E0; border-bottom: 1px solid #ECE8E0">
       <p class="eyebrow" style="margin: 0 0 6px; color: #8A6A3B">Maintenant</p>
@@ -553,6 +553,9 @@ img{display:block;max-width:100%}
                   <button type="button" class="chip" onClick="{{t.pick}}" aria-pressed="{{t.on}}" disabled="{{t.past}}" style="border: 1px solid {{t.border}}; background: {{t.bg}}; color: {{t.fg}}; height: 44px; font-size: 14px; cursor: {{t.cursor}}; border-radius: 2px; text-decoration: {{t.deco}}">{{t.label}}</button>
                 </sc-for>
               </div>
+              <sc-if value="{{noSlots}}" hint-placeholder-val="{{ false }}">
+                <p style="margin: 0; font-size: 14px; color: #5E6573">{{noSlotsMsg}}</p>
+              </sc-if>
             </fieldset>
             <fieldset style="border: 0; margin: 0; padding: 0">
               <legend style="font-weight: 600; font-size: 15px; margin-bottom: 12px">5. Vos coordonnées</legend>
@@ -610,12 +613,12 @@ img{display:block;max-width:100%}
         <div style="background: #fff; padding: 18px 20px; border-top: 2px solid #A8814A">
           <p class="eyebrow" style="margin: 0 0 6px; color: #8A6A3B">Femmes</p>
           <p class="serif" style="margin: 0; font-size: 28px; line-height: 1.1">9 h – 17 h</p>
-          <p style="margin: 4px 0 0; font-size: 14px; color: #5E6573">Tous les jours</p>
+          <p style="margin: 4px 0 0; font-size: 14px; color: #5E6573">Fermé le mardi · vendredi 12 h – 22 h</p>
         </div>
         <div style="background: #fff; padding: 18px 20px; border-top: 2px solid #13213D">
           <p class="eyebrow" style="margin: 0 0 6px; color: #13213D">Hommes</p>
           <p class="serif" style="margin: 0; font-size: 28px; line-height: 1.1">18 h – 23 h</p>
-          <p style="margin: 4px 0 0; font-size: 14px; color: #5E6573">Tous les jours</p>
+          <p style="margin: 4px 0 0; font-size: 14px; color: #5E6573">Mardi 10 h – 23 h · fermé le vendredi</p>
         </div>
       </div>
       <dl style="margin: 0; display: flex; flex-direction: column">
@@ -670,7 +673,7 @@ img{display:block;max-width:100%}
         <span class="eyebrow" style="color: #D9BE8E; margin-bottom: 6px">Horaires</span>
         <span>Femmes<br><span style="color: #fff">9 h – 17 h</span></span>
         <span>Hommes<br><span style="color: #fff">18 h – 23 h</span></span>
-        <span style="font-size: 13px">Tous les jours</span>
+        <span style="font-size: 13px">Mardi : hommes 10 h – 23 h<br>Vendredi : femmes 12 h – 22 h</span>
       </div>
     </div>
     <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; padding-top: 24px; font-size: 13px">
@@ -768,8 +771,18 @@ class Component extends DCLogic {
     { name: 'Karim H.', text: 'Très bon hammam, je recommande.' }
   ];
 
-  hours = { f: { label: 'Femme', hours: '9 h – 17 h', times: ['09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00'] },
-            h: { label: 'Homme', hours: '18 h – 23 h', times: ['18:00','19:00','20:00','21:00','22:00'] } };
+  // Horaires par jour (0 = dimanche) : [ouverture, fermeture] en heures, null = fermé
+  schedule = [
+    { f: [9, 17], h: [18, 23] },
+    { f: [9, 17], h: [18, 23] },
+    { f: null, h: [10, 23] },
+    { f: [9, 17], h: [18, 23] },
+    { f: [9, 17], h: [18, 23] },
+    { f: [12, 22], h: null },
+    { f: [9, 17], h: [18, 23] }
+  ];
+
+  hours = { f: { label: 'Femme' }, h: { label: 'Homme' } };
 
   componentDidMount() {
     this._onScroll = () => { const s = window.scrollY > 40; if (s !== this.state.scrolled) this.setState({ scrolled: s }); };
@@ -789,11 +802,20 @@ class Component extends DCLogic {
     const s = this.state, ink = '#141A26', navy = '#13213D', line = '#CFC9BD';
     const chip = on => ({ bg: on ? navy : '#fff', fg: on ? '#fff' : ink, border: on ? navy : line });
     const now = new Date(), h = now.getHours();
-    let openTitle, openDetail, openColor = '#1E7A46';
-    if (h >= 9 && h < 17) { openTitle = 'Ouvert'; openDetail = 'Créneau femmes jusqu\'à 17 h'; }
-    else if (h >= 18 && h < 23) { openTitle = 'Ouvert'; openDetail = 'Créneau hommes jusqu\'à 23 h'; }
-    else if (h >= 17 && h < 18) { openTitle = 'Fermé'; openDetail = 'Réouverture à 18 h (hommes)'; openColor = '#B42318'; }
-    else { openTitle = 'Fermé'; openDetail = 'Ouverture à 9 h (femmes)'; openColor = '#B42318'; }
+    let openTitle = 'Fermé', openDetail, openColor = '#B42318';
+    const today = this.schedule[now.getDay()];
+    const label = { f: 'femmes', h: 'hommes' };
+    const cur = ['f', 'h'].find(k => today[k] && h >= today[k][0] && h < today[k][1]);
+    if (cur) { openTitle = 'Ouvert'; openColor = '#1E7A46'; openDetail = 'Créneau ' + label[cur] + ' jusqu\'à ' + today[cur][1] + ' h'; }
+    else {
+      const next = ['f', 'h'].filter(k => today[k] && h < today[k][0]).sort((a, b) => today[a][0] - today[b][0])[0];
+      if (next) openDetail = (h < 9 ? 'Ouverture' : 'Réouverture') + ' à ' + today[next][0] + ' h (' + label[next] + ')';
+      else {
+        const tmr = this.schedule[(now.getDay() + 1) % 7];
+        const k = ['f', 'h'].filter(x => tmr[x]).sort((a, b) => tmr[a][0] - tmr[b][0])[0];
+        openDetail = 'Demain à ' + tmr[k][0] + ' h (' + label[k] + ')';
+      }
+    }
 
     const dows = ['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'];
     const longDows = ['dimanche','lundi','mardi','mercredi','jeudi','vendredi','samedi'];
@@ -807,6 +829,9 @@ class Component extends DCLogic {
     const current = flat.find(o => o.id === s.serviceId) || flat[0];
     const tab = this.tabsData.find(t => t.id === s.tab) || this.tabsData[0];
     const who = this.hours[s.who];
+    const span = this.schedule[sel.getDay()][s.who];
+    const daySlots = span ? Array.from({ length: span[1] - span[0] }, (_, i) => String(span[0] + i).padStart(2, '0') + ':00') : [];
+    const dayHours = span ? span[0] + ' h – ' + span[1] + ' h' : '';
     const dateLabel = longDows[sel.getDay()] + ' ' + sel.getDate() + ' ' + months[sel.getMonth()];
     const fbSubject = 'Réservation Cristal d\'Azur — ' + current.label + ' — ' + dateLabel + (s.slot ? ' ' + s.slot : '');
     const fbBody = 'Bonjour,\n\nJe souhaite réserver :\n\nPrestation : ' + current.label + ' — ' + current.price + '\nClientèle : ' + who.label + '\nDate : ' + dateLabel + '\nHeure : ' + (s.slot || '—') + '\nNom : ' + s.name.trim() + '\nTéléphone : ' + s.phone.trim() + '\nPrécisions : ' + (s.note.trim() || '—') + '\n\nMerci.';
@@ -856,14 +881,16 @@ class Component extends DCLogic {
 
       reviews: this.reviews.map(r => ({ ...r, initial: r.name.charAt(0) })),
 
-      whoOpts: ['f', 'h'].map(k => { const c = chip(s.who === k); return { label: this.hours[k].label, hours: this.hours[k].hours, on: s.who === k ? 'true' : 'false', ...c, pick: () => this.setState({ who: k, slot: null }) }; }),
-      who: who.label.toLowerCase(), whoHours: who.hours,
+      whoOpts: ['f', 'h'].map(k => { const c = chip(s.who === k); const sp = this.schedule[sel.getDay()][k]; return { label: this.hours[k].label, hours: sp ? sp[0] + ' h – ' + sp[1] + ' h' : 'Fermé ce jour', on: s.who === k ? 'true' : 'false', ...c, pick: () => this.setState({ who: k, slot: null }) }; }),
+      who: who.label.toLowerCase(), whoHours: dayHours || 'fermé ce jour',
       bookGroups: groupsAll.map(g => ({ label: g.label, options: g.options.map(o => ({ id: o.id, label: o.label + ' — ' + o.price })) })),
       serviceId: current.id,
       setService: e => this.setState({ serviceId: e.target.value }),
 
       days: dates.map((d, i) => { const c = chip(s.day === i); return { dow: i === 0 ? 'Auj.' : dows[d.getDay()], num: d.getDate(), full: longDows[d.getDay()] + ' ' + d.getDate() + ' ' + months[d.getMonth()], on: s.day === i ? 'true' : 'false', ...c, pick: () => this.setState({ day: i, slot: null }) }; }),
-      slots: who.times.map(t => {
+      noSlots: !daySlots.length,
+      noSlotsMsg: 'Pas de créneau ' + (s.who === 'f' ? 'femmes' : 'hommes') + ' le ' + longDows[sel.getDay()] + '. Choisissez un autre jour.',
+      slots: daySlots.map(t => {
         const past = s.day === 0 && parseInt(t, 10) <= h, c = chip(s.slot === t);
         return { label: t, past, on: s.slot === t ? 'true' : 'false',
           bg: past ? '#F3F1EC' : c.bg, fg: past ? '#8E929C' : c.fg, border: past ? '#ECE8E0' : c.border,
@@ -902,7 +929,7 @@ class Component extends DCLogic {
             _cc: 'cristal.dazur001@gmail.com',
             'Nom': s.name.trim(),
             'Téléphone': s.phone.trim(),
-            'Clientèle': who.label + ' (' + who.hours + ')',
+            'Clientèle': who.label + ' (' + dayHours + ')',
             'Prestation': current.label + ' — ' + current.price,
             'Date': dateLabel,
             'Heure': s.slot,
