@@ -918,15 +918,14 @@ class Component extends DCLogic {
         this.setState({ sending: true, error: '', failed: false });
         const ctrl = new AbortController();
         const timer = setTimeout(() => ctrl.abort(), 15000);
-        fetch('https://formsubmit.co/ajax/29969b5b3af5b6865e37f8100bb47338', {
+        fetch('https://api.web3forms.com/submit', {
           method: 'POST',
           signal: ctrl.signal,
           headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
           body: JSON.stringify({
-            _subject: 'Réservation Cristal d\'Azur — ' + current.label + ' — ' + dateLabel + ' ' + s.slot,
-            _template: 'table',
-            _captcha: 'false',
-            _cc: 'cristal.dazur001@gmail.com',
+            access_key: '1af3bd5a-1a36-4cdf-b242-56f0dc500456',
+            subject: 'Réservation Cristal d\'Azur — ' + current.label + ' — ' + dateLabel + ' ' + s.slot,
+            from_name: 'Site Cristal d\'Azur',
             'Nom': s.name.trim(),
             'Téléphone': s.phone.trim(),
             'Clientèle': who.label + ' (' + dayHours + ')',
