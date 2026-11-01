@@ -2,6 +2,8 @@
 // chargée par le site depuis /api/content ; ces valeurs servent si rien n'a été enregistré.
 // schedule : 0 = dimanche ; [ouverture, fermeture] en heures, null = fermé.
 // closures : fermetures exceptionnelles { date: 'AAAA-MM-JJ', note }.
+// promos : bannières { id, active, text, days (0 = dimanche, vide = tous les jours), start, end ('AAAA-MM-JJ' ou '') }.
+// Prix promo : champ promo des lignes de tarif (it.promo), 6e case des lignes coiffure, promo des rituels.
 window.CRISTAL_DEFAULTS = {
   slides: [
     { src: 'images/hero-sauna.webp', alt: 'Le sauna en bois', caption: 'Le sauna' },
@@ -36,7 +38,7 @@ window.CRISTAL_DEFAULTS = {
       { title: 'Vernis', items: [ { n: 'Vernis semi-permanent', p: '25 €' }, { n: 'Dépose de vernis semi-permanent', p: '5 €' } ] }
     ] },
     { id: 'coiffure', label: 'Coiffure', hair: [
-      { title: 'Services & coiffage', rows: [ ['Shampooing + soin', '5 €', '5 €', '5 €'], ['Shampooing + brushing', '15 €', '15 €', '15 €'], ['Shampooing + coupe + séchage', '20 €', '20 €', '20 €'], ['Shampooing + coupe + brushing', '35 €', '35 €', '40 €'], ['Coupe enfant + brushing', '10 €', '10 €', '20 €'] ] },
+      { title: 'Services & coiffage', rows: [ ['Shampooing + soin', '5 €', '5 €', '5 €'], ['Shampooing + brushing', '15 €', '15 €', '15 €'], ['Shampooing + coupe + séchage', '20 €', '20 €', '20 €'], ['Shampooing + coupe + brushing', '35 €', '35 €', '40 €', '', '20 €'], ['Coupe enfant + brushing', '10 €', '10 €', '20 €'] ] },
       { title: 'Couleur, balayage & permanente', rows: [ ['Couleur racines + shampooing + brushing', '35 €', '35 €', '40 €', 'Racines de 1,5 à 2 cm'], ['Supplément couleur', '10 €', '10 €', '10 €'], ['Couleur tête entière + shampooing + brushing', '40 €', '50 €', '60 €'], ['Patine / gloss / rinçage', '20 €', '20 €', '30 €'], ['Balayage + shampooing + brushing', '40 €', '60 €', '80 – 150 €'], ['Ombré hair + shampooing + brushing', '40 €', '60 €', '80 – 150 €'], ['Flash balayage + shampooing + brushing', '40 €', '60 €', '80 – 150 €'], ['Permanente + shampooing + coupe + brushing', '60 €', '80 €', '120 €'] ] },
       { title: 'Lissage & botox', rows: [ ['Lissage brésilien, protéines ou indien', '50 €', '80 €', '120 €'], ['Botox capillaire / soin', '35 €', '35 €', '40 €'] ] }
     ] }
@@ -75,5 +77,8 @@ window.CRISTAL_DEFAULTS = {
     { f: [12, 22], h: null },
     { f: [9, 17], h: [18, 23] }
   ],
-  closures: []
+  closures: [],
+  promos: [
+    { id: 'dimanches', active: true, text: 'Offre des dimanches au salon de coiffure : shampooing + coupe + brushing 20 € · couleur racines + coupe + brushing 25 € · mèches + coupe + brushing 50 € · brushing 10 € (toutes longueurs)', days: [], start: '', end: '' }
+  ]
 };

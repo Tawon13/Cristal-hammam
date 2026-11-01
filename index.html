@@ -73,6 +73,19 @@ img{display:block;max-width:100%}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 .g-info{display:grid;grid-template-columns:repeat(4,minmax(0,1fr)) auto}
 .g-intro{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:80px;align-items:center}
+.promobar{display:block;overflow:hidden;background:#A8814A;color:#fff;font-size:14px;line-height:38px;height:38px;white-space:nowrap;text-decoration:none}
+.promobar .pb-track{display:flex;width:max-content;margin:0 auto}
+.promobar .pb-seg{padding:0 28px}
+.promobar .pb-track:not(.run) .pb-dup{display:none}
+.promobar .pb-track.run{margin:0;animation:pbscroll var(--pbdur,20s) linear infinite}
+.promobar:hover .pb-track.run{animation-play-state:paused}
+.promobar .pb-seg{font-weight:500}
+.promobar .pb-sep{opacity:.7;margin:0 22px}
+@keyframes pbscroll{to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion: reduce){.promobar .pb-track.run{animation:none}}
+.struck{text-decoration:line-through;color:#8E929C!important;font-weight:400!important;opacity:.85}
+.promop{color:#B42318;font-weight:700;white-space:nowrap}
+.promotag{display:inline-block;margin-top:3px;font-size:12px;font-weight:600;letter-spacing:.04em;color:#B42318}
 .g-rit{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
 .g-price{columns:2;column-gap:20px}
 .g-price>*{break-inside:avoid;margin-bottom:20px}
@@ -134,6 +147,19 @@ img{display:block;max-width:100%}
 
 <!-- ============ HEADER ============ -->
 <header style="position: fixed; top: 0; left: 0; right: 0; z-index: 40; background: {{headerBg}}; color: {{headerFg}}; border-bottom: 1px solid {{headerLine}}; transition: background .35s, color .35s, border-color .35s">
+  <sc-if value="{{hasPromoBar}}" hint-placeholder-val="{{ false }}">
+    <a class="promobar" href="#tarifs" aria-label="Promotions en cours : {{promoBarText}}">
+      <span class="pb-track {{pbCls}}" style="--pbdur: {{pbDur}}s" aria-hidden="true">
+        <sc-for list="{{pbCopies}}" as="cp" hint-placeholder-count="2">
+          <span class="pb-seg {{cp.cls}}">
+            <sc-for list="{{promoBar}}" as="pb" hint-placeholder-count="1">
+              <sc-if value="{{pb.sep}}" hint-placeholder-val="{{ false }}"><span class="pb-sep">✦</span></sc-if>{{pb.text}}
+            </sc-for>
+          </span>
+        </sc-for>
+      </span>
+    </a>
+  </sc-if>
   <div class="wrap" style="height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 24px">
     <a href="#top" style="display: flex; align-items: center; gap: 12px; color: inherit">
       <svg width="26" height="22" viewBox="0 0 26 22" aria-hidden="true"><path d="M13 3c2.2 2.6 3 5.4 0 9-3-3.6-2.2-6.4 0-9zM13 12c3-2.4 6.4-3.2 10-2-1.4 3.6-5 4.6-10 2zM13 12c-3-2.4-6.4-3.2-10-2 1.4 3.6 5 4.6 10 2zM5 17h16" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"></path></svg>
@@ -314,7 +340,7 @@ img{display:block;max-width:100%}
             </sc-for>
           </ul>
           <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,0.12)">
-            <span class="serif" style="font-size: 36px; line-height: 1; color: #E8D6B3">{{r.price}}</span>
+            <span class="serif" style="font-size: 36px; line-height: 1; color: #E8D6B3"><span class="{{r.pcls}}">{{r.price}}</span><sc-if value="{{r.hasPromo}}" hint-placeholder-val="{{ false }}"> <span class="promop" style="color: #fff">{{r.promoP}}</span></sc-if></span>
             <a class="btn btn-ghost" href="#reserver" onClick="{{r.book}}" style="border: 1px solid rgba(255,255,255,0.4); height: 44px; padding: 0 16px; display: inline-flex; align-items: center; border-radius: 2px; font-size: 14px; font-weight: 600; color: #fff">Réserver</a>
           </div>
         </article>
@@ -327,7 +353,7 @@ img{display:block;max-width:100%}
         <p style="margin: 0; color: #DCE1EA; font-size: 16px">{{aaroussa.line}}</p>
       </div>
       <div style="display: flex; align-items: center; gap: 24px; flex-wrap: wrap">
-        <span class="serif" style="font-size: 52px; line-height: 1; color: #E8D6B3">{{aaroussa.price}}</span>
+        <span class="serif" style="font-size: 52px; line-height: 1; color: #E8D6B3"><span class="{{aaroussa.pcls}}">{{aaroussa.price}}</span><sc-if value="{{aaroussa.hasPromo}}" hint-placeholder-val="{{ false }}"> <span class="promop" style="color: #fff">{{aaroussa.promoP}}</span></sc-if></span>
         <a class="btn btn-gold" href="#reserver" onClick="{{aaroussa.book}}" style="background: #D9BE8E; color: #141A26; height: 52px; padding: 0 26px; display: inline-flex; align-items: center; border-radius: 2px; font-weight: 600">Réserver ce rituel</a>
       </div>
     </article>
@@ -404,9 +430,9 @@ img{display:block;max-width:100%}
               <sc-for list="{{g.items}}" as="it" hint-placeholder-count="4">
                 <li style="padding: 12px 0; border-top: 1px solid #ECE8E0">
                   <div style="display: flex; align-items: baseline; gap: 10px">
-                    <span style="font-weight: 500">{{it.n}}</span>
+                    <span style="font-weight: 500">{{it.n}}<sc-if value="{{it.hasPromo}}" hint-placeholder-val="{{ false }}"><span class="promotag" style="display: block">Promo</span></sc-if></span>
                     <span aria-hidden="true" style="flex: 1; border-bottom: 1px dotted #CFC9BD; transform: translateY(-4px)"></span>
-                    <span style="font-weight: 600; color: #13213D; white-space: nowrap">{{it.p}}</span>
+                    <span style="font-weight: 600; color: #13213D; white-space: nowrap"><span class="{{it.pcls}}">{{it.p}}</span><sc-if value="{{it.hasPromo}}" hint-placeholder-val="{{ false }}"> <span class="promop">{{it.promoP}}</span></sc-if></span>
                   </div>
                   <sc-if value="{{it.hasD}}" hint-placeholder-val="{{ false }}">
                     <p style="margin: 2px 0 0; font-size: 14px; color: #5E6573">{{it.d}}</p>
@@ -430,7 +456,7 @@ img{display:block;max-width:100%}
                 <thead><tr><th scope="col">Prestation</th><th scope="col" class="pc">Court</th><th scope="col" class="pc">Mi-long</th><th scope="col" class="pc pl">Long</th></tr></thead>
                 <tbody>
                   <sc-for list="{{h.rows}}" as="row" hint-placeholder-count="4">
-                    <tr><th scope="row" style="font-weight: 500">{{row.n}}<sc-if value="{{row.hasD}}" hint-placeholder-val="{{ false }}"><span style="display: block; font-size: 13px; font-weight: 400; color: #5E6573">{{row.d}}</span></sc-if></th><td>{{row.c}}</td><td>{{row.m}}</td><td style="font-weight: 600; color: #13213D">{{row.l}}</td></tr>
+                    <tr><th scope="row" style="font-weight: 500">{{row.n}}<sc-if value="{{row.hasD}}" hint-placeholder-val="{{ false }}"><span style="display: block; font-size: 13px; font-weight: 400; color: #5E6573">{{row.d}}</span></sc-if><sc-if value="{{row.hasPromo}}" hint-placeholder-val="{{ false }}"><span class="promotag" style="display: block">Promo : {{row.promoP}}</span></sc-if></th><td class="{{row.pcls}}">{{row.c}}</td><td class="{{row.pcls}}">{{row.m}}</td><td class="{{row.pcls}}" style="font-weight: 600; color: #13213D">{{row.l}}</td></tr>
                   </sc-for>
                 </tbody>
               </table>
@@ -743,29 +769,58 @@ class Component extends DCLogic {
 
   schedule = D.schedule;
   closures = D.closures;
+  promos = D.promos || [];
 
   hours = { f: { label: 'Femme' }, h: { label: 'Homme' } };
 
   componentDidMount() {
     this._onScroll = () => { const s = window.scrollY > 40; if (s !== this.state.scrolled) this.setState({ scrolled: s }); };
     window.addEventListener('scroll', this._onScroll, { passive: true });
+    this._onResize = () => this.measureBar();
+    window.addEventListener('resize', this._onResize);
+    setTimeout(() => this.measureBar(), 300);
     this._onScroll();
     if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) this.startSlides();
     // Contenu enregistré depuis /admin (gardé dans le state : la logique peut être recréée)
-    window.__cristalContent = window.__cristalContent || fetch('/api/content').then(r => r.ok ? r.json() : {}).catch(() => ({}));
-    window.__cristalContent.then(c => { if (c && c.updatedAt && !this.state.content) this.setState({ content: c, slide: 0 }); });
+    const load = (tries = 0) => {
+      window.__cristalContent = window.__cristalContent || fetch('/api/content', { cache: 'no-store' }).then(r => r.ok ? r.json() : Promise.reject(r.status));
+      window.__cristalContent.then(c => { if (c && c.updatedAt && !this.state.content) this.setState({ content: c, slide: 0 }); })
+        .catch(() => { window.__cristalContent = null; if (tries < 3) setTimeout(() => load(tries + 1), 800 * (tries + 1)); });
+    };
+    load();
   }
-  componentWillUnmount() { window.removeEventListener('scroll', this._onScroll); clearInterval(this._iv); clearTimeout(this._ct); }
+  componentDidUpdate() { this.measureBar(); }
+  // Fait défiler la bannière promo seulement si son texte dépasse la largeur de l'écran
+  measureBar() {
+    const bar = document.querySelector('.promobar'), seg = bar && bar.querySelector('.pb-seg');
+    if (!seg) return;
+    const run = seg.scrollWidth > bar.clientWidth, dur = Math.max(12, Math.round(seg.scrollWidth / 60));
+    if (run !== !!this.state.pbRun || (run && dur !== this.state.pbDur)) this.setState({ pbRun: run, pbDur: dur });
+  }
+  componentWillUnmount() { window.removeEventListener('resize', this._onResize); window.removeEventListener('scroll', this._onScroll); clearInterval(this._iv); clearTimeout(this._ct); }
   startSlides() { clearInterval(this._iv); this._iv = setInterval(() => this.setState(s => ({ slide: (s.slide + 1) % this.slides.length })), 3000); }
 
   allOptions() {
     const rit = this.rituals.map(r => ({ id: r.id, label: 'Rituel ' + r.name, price: r.price + ' €' }));
-    return this.bookData.map(g => g.label === 'Rituels' ? { ...g, options: rit } : g);
+    const groups = this.bookData.map(g => g.label === 'Rituels' ? { ...g, options: rit } : g);
+    const offers = [];
+    this.tabsData.forEach(t => {
+      (t.groups || []).forEach(g => g.items.forEach(it => { if (it.promo) offers.push({ n: it.n, p: it.promo, old: it.p }); }));
+      (t.hair || []).forEach(g => g.rows.forEach(r => { if (r[5]) offers.push({ n: r[0], p: r[5], old: [...new Set([r[1], r[2], r[3]].filter(Boolean))].join(' / ') }); }));
+    });
+    this.rituals.forEach(r => { if (r.promo) offers.push({ n: 'Rituel ' + r.name, p: r.promo + ' €', old: r.price + ' €' }); });
+    offers.forEach((o, i) => Object.assign(o, { id: 'promo-' + i, label: o.n + ' (promo)', price: o.p + ' au lieu de ' + o.old }));
+    return offers.length ? [{ label: 'Offres', options: offers }, ...groups] : groups;
+  }
+
+  activePromos() {
+    const d = new Date(), today = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+    return this.promos.filter(p => p.active !== false && (p.text || '').trim() && (!p.days || !p.days.length || p.days.includes(d.getDay())) && (!p.start || p.start <= today) && (!p.end || p.end >= today));
   }
 
   renderVals() {
     const content = this.state.content || {};
-    ['schedule', 'closures', 'slides', 'photos', 'spaces', 'rituals', 'tabsData', 'bookData'].forEach(k => { if (Array.isArray(content[k]) && (content[k].length || k === 'closures')) this[k] = content[k]; });
+    ['schedule', 'closures', 'promos', 'slides', 'photos', 'spaces', 'rituals', 'tabsData', 'bookData'].forEach(k => { if (Array.isArray(content[k]) && (content[k].length || k === 'closures' || k === 'promos')) this[k] = content[k]; });
     const s = this.state, ink = '#141A26', navy = '#13213D', line = '#CFC9BD';
     const chip = on => ({ bg: on ? navy : '#fff', fg: on ? '#fff' : ink, border: on ? navy : line });
     const now = new Date(), h = now.getHours();
@@ -804,6 +859,10 @@ class Component extends DCLogic {
     const dows = ['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'];
     const dates = Array.from({ length: 7 }, (_, i) => { const d = new Date(now); d.setDate(now.getDate() + i); return d; });
     const sel = dates[s.day];
+    const promosNow = this.activePromos();
+    const withPromo = (promo, o) => ({ ...o, hasPromo: !!promo, promoP: promo || '', pcls: promo ? 'struck' : '' });
+    const promoBar = promosNow.map((pr, i) => ({ sep: i > 0, text: pr.text.trim() }));
+    const promoBarText = promoBar.map(b => b.text).join(' — ');
     const solid = s.scrolled || s.menu;
     const n = this.photos.length;
     const groupsAll = this.allOptions();
@@ -818,7 +877,7 @@ class Component extends DCLogic {
     const dateLabel = longDows[sel.getDay()] + ' ' + sel.getDate() + ' ' + months[sel.getMonth()];
     const fbSubject = 'Réservation Cristal d\'Azur — ' + current.label + ' — ' + dateLabel + (s.slot ? ' ' + s.slot : '');
     const fbBody = 'Bonjour,\n\nJe souhaite réserver :\n\nPrestation : ' + current.label + ' — ' + current.price + '\nClientèle : ' + who.label + '\nDate : ' + dateLabel + '\nHeure : ' + (s.slot || '—') + '\nNom : ' + s.name.trim() + '\nTéléphone : ' + s.phone.trim() + '\nPrécisions : ' + (s.note.trim() || '—') + '\n\nMerci.';
-    const fmt = r => ({ ...r, price: r.price + ' €', line: r.items.join(' · '), book: () => this.setState({ serviceId: r.id, submitted: false }) });
+    const fmt = r => withPromo(r.promo ? r.promo + ' €' : '', { ...r, price: r.price + ' €', line: r.items.join(' · '), book: () => this.setState({ serviceId: r.id, submitted: false }) });
 
     return {
       headerBg: solid ? 'rgba(247,245,240,0.96)' : 'transparent',
@@ -850,8 +909,8 @@ class Component extends DCLogic {
 
       tabs: this.tabsData.map(t => ({ label: t.label, selected: t.id === tab.id ? 'true' : 'false', color: t.id === tab.id ? ink : '#5E6573', line: t.id === tab.id ? '#A8814A' : 'transparent', pick: () => this.setState({ tab: t.id }) })),
       tabIsList: !tab.hair, tabIsHair: !!tab.hair,
-      groups: (tab.groups || []).map(g => ({ ...g, hasNote: !!g.note, items: g.items.map(it => ({ ...it, hasD: !!it.d })) })),
-      hair: (tab.hair || []).map(t => ({ title: t.title, rows: t.rows.map(r => ({ n: r[0], c: r[1], m: r[2], l: r[3], d: r[4] || '', hasD: !!r[4] })) })),
+      groups: (tab.groups || []).map(g => ({ ...g, hasNote: !!g.note, items: g.items.map(it => withPromo(it.promo, { ...it, hasD: !!it.d })) })),
+      hair: (tab.hair || []).map(t => ({ title: t.title, rows: t.rows.map(r => withPromo(r[5], { n: r[0], c: r[1], m: r[2], l: r[3], d: r[4] || '', hasD: !!r[4] })) })),
 
       photos: this.photos.map((p, i) => ({ ...p, cls: i === 0 ? 'big' : '', open: () => this.setState({ lb: i }) })),
       lbOpen: s.lb >= 0,
@@ -862,6 +921,8 @@ class Component extends DCLogic {
       lbPrev: () => this.setState({ lb: (s.lb - 1 + n) % n }),
       lbNext: () => this.setState({ lb: (s.lb + 1) % n }),
 
+      hasPromoBar: promoBar.length > 0, promoBar, promoBarText,
+      pbCopies: [{ cls: '' }, { cls: 'pb-dup' }], pbCls: s.pbRun ? 'run' : '', pbDur: s.pbDur || 20,
       todayName: longDows[now.getDay()],
       todayF: today.f ? today.f[0] + ' h – ' + today.f[1] + ' h' : 'Fermé aujourd\'hui',
       todayH: today.h ? today.h[0] + ' h – ' + today.h[1] + ' h' : 'Fermé aujourd\'hui',

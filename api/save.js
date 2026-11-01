@@ -1,7 +1,7 @@
 import { checkPassword, json, deny, storageError } from './_lib/auth.js';
 import { writeContent } from './_lib/store.js';
 
-const KEYS = ['schedule', 'closures', 'slides', 'photos', 'spaces', 'rituals', 'tabsData', 'bookData'];
+const KEYS = ['schedule', 'closures', 'promos', 'slides', 'photos', 'spaces', 'rituals', 'tabsData', 'bookData'];
 
 function validate(c) {
   if (!c || typeof c !== 'object') return 'Contenu invalide.';
@@ -12,6 +12,7 @@ function validate(c) {
     if (v !== null && !(Array.isArray(v) && v.length === 2 && v.every(Number.isInteger) && v[0] >= 0 && v[1] <= 24 && v[0] < v[1])) return 'Horaire invalide.';
   }
   if (!c.slides.length) return 'Il faut au moins une photo en haut de page.';
+  for (const p of c.promos) if (!p || typeof p.text !== 'string') return 'Promotion invalide.';
   return null;
 }
 
@@ -22,6 +23,7 @@ export async function POST(request) {
   let body;
   try { body = JSON.parse(text); } catch { return json({ error: 'Contenu invalide.' }, 400); }
   const content = Object.fromEntries(KEYS.map(k => [k, body[k]]));
+  if (content.promos === undefined) content.promos = [];
   const err = validate(content);
   if (err) return json({ error: err }, 400);
   content.updatedAt = new Date().toISOString();

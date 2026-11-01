@@ -59,7 +59,7 @@ details.group>summary{padding:14px 16px;font-weight:600;cursor:pointer;font-size
 details.group>.body{padding:0 16px 16px}
 .cat{background:var(--ivory);padding:14px;margin-bottom:12px}
 .line{display:grid;grid-template-columns:2fr 2fr 1fr auto;gap:8px;align-items:end;padding:8px 0;border-top:1px dashed var(--line)}
-.line.hair{grid-template-columns:2fr 1fr 1fr 1fr 1.5fr auto}
+.line.hair{grid-template-columns:2fr 1fr 1fr 1fr 1.5fr 1fr auto}
 .line:first-of-type{border-top:0}
 .savebar{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--line);box-shadow:0 -8px 24px rgba(19,33,61,.08);z-index:10}
 .savebar .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:72px;padding-top:10px;padding-bottom:10px}
@@ -109,7 +109,7 @@ details.group>.body{padding:0 16px 16px}
 <script>
 (() => {
   const DAYS = [[1, 'Lundi'], [2, 'Mardi'], [3, 'Mercredi'], [4, 'Jeudi'], [5, 'Vendredi'], [6, 'Samedi'], [0, 'Dimanche']];
-  const TABS = [['horaires', 'Horaires'], ['fermetures', 'Fermetures'], ['photos', 'Photos'], ['tarifs', 'Tarifs']];
+  const TABS = [['horaires', 'Horaires'], ['fermetures', 'Fermetures'], ['promos', 'Promos'], ['photos', 'Photos'], ['tarifs', 'Tarifs']];
   const KEY = 'cristal-admin-pw';
   const clone = o => JSON.parse(JSON.stringify(o));
   let pw = '', data = null, dirty = false, tab = 'horaires';
@@ -200,6 +200,42 @@ details.group>.body{padding:0 16px 16px}
     return [card];
   }
 
+  function panelPromos() {
+    const list = data.promos;
+    const today = new Date().toISOString().slice(0, 10);
+    const out = [h('p', { class: 'hint' }, 'Chaque promo active affiche sa phrase dans une bannière tout en haut du site (elle défile si elle est longue). Les prix promo se règlent dans l\'onglet Tarifs, sous chaque prix.')];
+    if (!list.length) out.push(h('section', { class: 'card' }, h('p', { class: 'hint', style: 'margin:0' }, 'Aucune promo pour le moment.')));
+    list.forEach((pr, i) => {
+      const expired = pr.end && pr.end < today;
+      const state = pr.active === false ? 'Masquée' : expired ? 'Terminée' : pr.start && pr.start > today ? 'Programmée' : 'Active';
+      const card = h('section', { class: 'card' },
+        h('div', { class: 'row', style: 'justify-content:space-between;align-items:center;margin-bottom:12px' },
+          h('span', { class: 'badge', style: 'margin:0;color:' + (state === 'Active' ? 'var(--green)' : 'var(--muted)') }, state),
+          h('span', { class: 'row', style: 'gap:6px' },
+            btn('↑', () => move(list, i, -1), 'small icon', { 'aria-label': 'Monter', disabled: i === 0 }),
+            btn('↓', () => move(list, i, 1), 'small icon', { 'aria-label': 'Descendre', disabled: i === list.length - 1 }),
+            btn('Supprimer', () => remove(list, i, 'cette promo'), 'small danger'))),
+        h('label', { style: 'display:flex;gap:8px;align-items:center;min-height:44px;font-weight:600' },
+          h('input', { type: 'checkbox', checked: pr.active !== false, onchange: e => { pr.active = e.target.checked; touch(); render(); } }), 'Afficher sur le site'),
+        field('Texte de la bannière', h('textarea', { rows: 3, placeholder: 'Ex. : Offre des dimanches au salon de coiffure : shampooing + coupe + brushing 20 €…', oninput: e => { pr.text = e.target.value; touch(); } }, pr.text || '')));
+
+      const days = h('div', { class: 'row', style: 'gap:6px 14px;margin-top:6px' });
+      for (const [d, name] of DAYS) days.append(h('label', { style: 'display:flex;gap:6px;align-items:center;min-height:40px' },
+        h('input', { type: 'checkbox', checked: (pr.days || []).includes(d), onchange: e => { pr.days = (pr.days || []).filter(x => x !== d); if (e.target.checked) pr.days.push(d); touch(); } }), name));
+      card.append(h('div', { style: 'margin-top:14px' }, h('span', { style: 'font-size:13px;color:var(--muted);font-weight:500' }, 'Jours où la bannière s\'affiche (aucun coché = tous les jours)'), days));
+      card.append(h('div', { class: 'row', style: 'margin-top:10px' },
+        field('Début (facultatif)', h('input', { type: 'date', value: pr.start || '', oninput: e => { pr.start = e.target.value; touch(); } })),
+        field('Fin (facultatif)', h('input', { type: 'date', value: pr.end || '', oninput: e => { pr.end = e.target.value; touch(); } })),
+        h('p', { class: 'hint', style: 'margin:0 0 10px;flex:1 1 200px' }, 'Sans dates, la bannière reste en ligne jusqu\'à ce que vous la masquiez.')));
+      out.push(card);
+    });
+    out.push(btn('+ Ajouter une promo', () => {
+      list.push({ id: 'p' + Date.now(), active: true, text: '', days: [], start: '', end: '' });
+      touch(); render(); window.scrollTo(0, document.body.scrollHeight);
+    }, 'primary'));
+    return out;
+  }
+
   function panelFermetures() {
     const today = new Date().toISOString().slice(0, 10);
     const list = data.closures;
@@ -252,21 +288,24 @@ details.group>.body{padding:0 16px 16px}
     return h('div', { class: 'line' },
       field('Prestation', text(it.n, v => { it.n = v; })),
       field('Détail (facultatif)', text(it.d, v => { if (v) it.d = v; else delete it.d; })),
-      field('Prix', text(it.p, v => { it.p = v; }, { placeholder: 'Ex. : 25 €' })),
+      h('div', {}, field('Prix', text(it.p, v => { it.p = v; }, { placeholder: 'Ex. : 25 €' })),
+        field('Prix promo', text(it.promo, v => { if (v.trim()) it.promo = v; else delete it.promo; }, { placeholder: 'Facultatif', style: 'margin-top:4px' }))),
       btn('✕', () => remove(group.items, i, '« ' + (it.n || 'cette ligne') + ' »'), 'small icon danger', { 'aria-label': 'Supprimer la ligne' }));
   }
 
+  const trimRow = r => { while (r.length > 4 && !r[r.length - 1]) r.length--; for (let k = 4; k < r.length; k++) r[k] = r[k] || ''; };
   function hairLine(group, i) {
     const r = group.rows[i];
     const cell = (j, label, ph) => field(label, text(r[j], v => { r[j] = v; }, { placeholder: ph }));
     return h('div', { class: 'line hair' },
       h('div', { class: 'full' }, cell(0, 'Prestation')), cell(1, 'Court', '20 €'), cell(2, 'Mi-long', '20 €'), cell(3, 'Long', '20 €'),
-      field('Remarque', text(r[4], v => { if (v) r[4] = v; else r.length = 4; })),
+      field('Remarque', text(r[4], v => { r[4] = v; trimRow(r); })),
+      field('Prix promo', text(r[5], v => { r[4] = r[4] || ''; r[5] = v; trimRow(r); }, { placeholder: 'Facultatif' })),
       btn('✕', () => remove(group.rows, i, '« ' + (r[0] || 'cette ligne') + ' »'), 'small icon danger', { 'aria-label': 'Supprimer la ligne' }));
   }
 
   function panelTarifs() {
-    const out = [h('p', { class: 'hint' }, 'Les prix s\'écrivent tels qu\'ils doivent apparaître : « 25 € », « dès 15 € », « 80 – 150 € ».')];
+    const out = [h('p', { class: 'hint' }, 'Les prix s\'écrivent tels qu\'ils doivent apparaître : « 25 € », « dès 15 € », « 80 – 150 € ». Un « prix promo » rempli barre le prix d\'origine sur le site et affiche le nouveau prix à côté ; videz-le pour arrêter la promo.')];
     for (const t of data.tabsData) {
       const body = h('div', { class: 'body' });
       if (t.hair) {
@@ -296,6 +335,7 @@ details.group>.body{padding:0 16px 16px}
     data.rituals.forEach((r, i) => rit.append(h('div', { class: 'cat' },
       h('div', { class: 'row' }, field('Nom du rituel', text(r.name, v => { r.name = v; }), 'grow'),
         field('Prix (€)', h('input', { type: 'number', min: 0, step: 1, value: r.price, oninput: e => { r.price = Number(e.target.value) || 0; touch(); } })),
+        field('Prix promo (€)', h('input', { type: 'number', min: 0, step: 1, value: r.promo || '', placeholder: 'Facultatif', oninput: e => { const v = Number(e.target.value); if (v) r.promo = v; else delete r.promo; touch(); } })),
         btn('Supprimer', () => remove(data.rituals, i, 'le rituel « ' + r.name + ' »'), 'small danger')),
       field('Composition (une étape par ligne)', h('textarea', { rows: 4, oninput: e => { r.items = e.target.value.split('\n').map(s => s.trim()).filter(Boolean); touch(); } }, r.items.join('\n'))))));
     rit.append(btn('+ Ajouter un rituel', () => { data.rituals.push({ id: 'r' + Date.now(), name: 'Nouveau rituel', items: ['Hammam'], price: 0 }); touch(); render(); }));
@@ -324,7 +364,7 @@ details.group>.body{padding:0 16px 16px}
     const tabs = document.getElementById('tabs');
     tabs.replaceChildren(...TABS.map(([id, label]) => h('button', { role: 'tab', 'aria-selected': String(id === tab), onclick: () => { tab = id; render(); window.scrollTo(0, 0); } }, label)));
     const y = window.scrollY;
-    const panel = { horaires: panelHoraires, fermetures: panelFermetures, photos: panelPhotos, tarifs: panelTarifs }[tab]();
+    const panel = { horaires: panelHoraires, fermetures: panelFermetures, promos: panelPromos, photos: panelPhotos, tarifs: panelTarifs }[tab]();
     document.getElementById('panel').replaceChildren(...panel);
     window.scrollTo(0, y);
   }
@@ -332,6 +372,10 @@ details.group>.body{padding:0 16px 16px}
   function invalid() {
     for (const [d, name] of DAYS) for (const k of ['f', 'h']) { const v = data.schedule[d][k]; if (v && v[0] >= v[1]) return 'Horaires du ' + name.toLowerCase() + ' : l\'heure de fin doit être après l\'heure de début.'; }
     if (data.closures.some(c => !/^\d{4}-\d{2}-\d{2}$/.test(c.date))) return 'Une fermeture n\'a pas de date.';
+    for (const pr of data.promos) {
+      if (!(pr.text || '').trim()) return 'Une promo n\'a pas de texte.';
+      if (pr.start && pr.end && pr.end < pr.start) return 'Promo : la date de fin est avant la date de début.';
+    }
     return null;
   }
 
@@ -356,6 +400,11 @@ details.group>.body{padding:0 16px 16px}
     const base = clone(window.CRISTAL_DEFAULTS);
     data = saved && saved.updatedAt ? { ...base, ...clone(saved) } : base;
     delete data.updatedAt;
+    // Ancien format de promo (titre + prestations) → phrase de bannière
+    data.promos = (data.promos || []).map(p => typeof p.text === 'string' ? p : {
+      id: p.id, active: p.active, days: p.days || [], start: p.start || '', end: p.end || '',
+      text: [p.title, (p.items || []).map(it => it.n + ' ' + it.p).join(' · ')].filter(Boolean).join(' : ')
+    });
     if (saved && saved.updatedAt) setStatus('Dernière modification : ' + new Date(saved.updatedAt).toLocaleString('fr-FR', { dateStyle: 'short', timeStyle: 'short' }));
     render();
   }
