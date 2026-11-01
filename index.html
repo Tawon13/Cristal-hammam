@@ -83,9 +83,10 @@ img{display:block;max-width:100%}
 .promobar .pb-sep{opacity:.7;margin:0 22px}
 @keyframes pbscroll{to{transform:translateX(-50%)}}
 @media (prefers-reduced-motion: reduce){.promobar .pb-track.run{animation:none}}
+.pcell{display:flex;flex-wrap:wrap;justify-content:flex-end;align-items:baseline;column-gap:6px;row-gap:2px}
 .struck{text-decoration:line-through;color:#8E929C!important;font-weight:400!important;opacity:.85}
 .promop{color:#B42318;font-weight:700;white-space:nowrap}
-.promotag{display:inline-block;margin-top:3px;font-size:12px;font-weight:600;letter-spacing:.04em;color:#B42318}
+.promotag{display:inline-block;margin-top:3px;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#B42318}
 .g-rit{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
 .g-price{columns:2;column-gap:20px}
 .g-price>*{break-inside:avoid;margin-bottom:20px}
@@ -456,7 +457,7 @@ img{display:block;max-width:100%}
                 <thead><tr><th scope="col">Prestation</th><th scope="col" class="pc">Court</th><th scope="col" class="pc">Mi-long</th><th scope="col" class="pc pl">Long</th></tr></thead>
                 <tbody>
                   <sc-for list="{{h.rows}}" as="row" hint-placeholder-count="4">
-                    <tr><th scope="row" style="font-weight: 500">{{row.n}}<sc-if value="{{row.hasD}}" hint-placeholder-val="{{ false }}"><span style="display: block; font-size: 13px; font-weight: 400; color: #5E6573">{{row.d}}</span></sc-if><sc-if value="{{row.hasPromo}}" hint-placeholder-val="{{ false }}"><span class="promotag" style="display: block">Promo : {{row.promoP}}</span></sc-if></th><td class="{{row.pcls}}">{{row.c}}</td><td class="{{row.pcls}}">{{row.m}}</td><td class="{{row.pcls}}" style="font-weight: 600; color: #13213D">{{row.l}}</td></tr>
+                    <tr><th scope="row" style="font-weight: 500">{{row.n}}<sc-if value="{{row.hasD}}" hint-placeholder-val="{{ false }}"><span style="display: block; font-size: 13px; font-weight: 400; color: #5E6573">{{row.d}}</span></sc-if><sc-if value="{{row.hasPromo}}" hint-placeholder-val="{{ false }}"><span class="promotag" style="display: block">Promo</span></sc-if></th><td><span class="pcell"><span class="{{row.pcls}}">{{row.c}}</span><sc-if value="{{row.hasPromo}}" hint-placeholder-val="{{ false }}"><span class="promop">{{row.promoP}}</span></sc-if></span></td><td><span class="pcell"><span class="{{row.pcls}}">{{row.m}}</span><sc-if value="{{row.hasPromo}}" hint-placeholder-val="{{ false }}"><span class="promop">{{row.promoP}}</span></sc-if></span></td><td style="font-weight: 600; color: #13213D"><span class="pcell"><span class="{{row.pcls}}">{{row.l}}</span><sc-if value="{{row.hasPromo}}" hint-placeholder-val="{{ false }}"><span class="promop">{{row.promoP}}</span></sc-if></span></td></tr>
                   </sc-for>
                 </tbody>
               </table>
