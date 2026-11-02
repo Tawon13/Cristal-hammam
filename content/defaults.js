@@ -3,6 +3,7 @@
 // schedule : 0 = dimanche ; [ouverture, fermeture] en heures, null = fermé.
 // closures : fermetures exceptionnelles { date: 'AAAA-MM-JJ', note }.
 // promos : bannières { id, active, text, days (0 = dimanche, vide = tous les jours), start, end ('AAAA-MM-JJ' ou '') }.
+// entry : promo entrée animée au défilement, au-dessus des offres { active, title, text, price, img1…img4 } (img1-2 partent à gauche, img3-4 à droite).
 // offers : section « Offres du moment » { id, active, title, text, days, items [{ n, d, old, p }] } (old = prix barré).
 // Prix promo : champ promo des lignes de tarif (it.promo), 6e case des lignes coiffure, promo des rituels.
 window.CRISTAL_DEFAULTS = {
@@ -94,5 +95,6 @@ window.CRISTAL_DEFAULTS = {
       { n: 'Mèches + coupe + brushing', d: 'Toutes longueurs', old: '', p: '50 €' },
       { n: 'Brushing', d: 'Toutes longueurs', old: '', p: '10 €' }
     ] }
-  ]
+  ],
+  entry: { active: true, title: 'Hammam, sauna & bain à vapeur', text: 'Gommage inclus', price: '25 €', img1: 'images/hammam-salle.webp', img2: 'images/sauna.webp', img3: 'images/bain-vapeur.webp', img4: 'images/hammam-voute.webp' }
 };

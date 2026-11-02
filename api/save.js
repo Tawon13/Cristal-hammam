@@ -26,6 +26,7 @@ export async function POST(request) {
   const content = Object.fromEntries(KEYS.map(k => [k, body[k]]));
   if (content.promos === undefined) content.promos = [];
   if (content.offers === undefined) content.offers = [];
+  if (body.entry && typeof body.entry === 'object' && !Array.isArray(body.entry)) content.entry = body.entry;
   const err = validate(content);
   if (err) return json({ error: err }, 400);
   content.updatedAt = new Date().toISOString();

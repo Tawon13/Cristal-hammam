@@ -239,6 +239,22 @@ details.group>.body{padding:0 16px 16px}
   function panelOffres() {
     const list = data.offers;
     const out = [h('p', { class: 'hint' }, 'La section « Offres du moment » s\'affiche en haut du site, sous « Prendre rendez-vous ». Chaque offre est aussi proposée dans le formulaire de réservation.')];
+    const e = data.entry = data.entry || { active: true, title: '', text: '', price: '', img1: '', img2: '' };
+    const pics = h('div', { class: 'row', style: 'margin-top:12px;gap:16px' });
+    [['img1', 'Gauche (haut)'], ['img2', 'Gauche (bas)'], ['img3', 'Droite (haut)'], ['img4', 'Droite (bas)']].forEach(([k, label]) => pics.append(h('div', { style: 'width:150px' },
+      h('span', { style: 'display:block;font-size:13px;color:var(--muted);font-weight:500;margin-bottom:4px' }, label),
+      e[k] ? h('img', { src: src(e[k]), alt: '', style: 'width:150px;aspect-ratio:4/5;object-fit:cover;border-radius:12px;display:block' }) : null,
+      h('div', { class: 'tools', style: 'margin-top:6px' }, btn('Remplacer', () => pickPhoto(url => { e[k] = url; }), 'small')))));
+    out.push(h('section', { class: 'card' }, h('h2', {}, 'Promo entrée'),
+      h('p', { class: 'hint' }, 'Le bloc animé juste avant « Offres du moment » : au défilement, les photos s\'écartent puis le texte, le prix et le bouton apparaissent.'),
+      h('label', { style: 'display:flex;gap:8px;align-items:center;min-height:44px;font-weight:600' },
+        h('input', { type: 'checkbox', checked: e.active !== false, onchange: ev => { e.active = ev.target.checked; touch(); } }), 'Afficher sur le site'),
+      h('div', { class: 'row' },
+        field('Titre', text(e.title, v => { e.title = v; }), 'grow'),
+        field('Texte', text(e.text, v => { e.text = v; }, { placeholder: 'Ex. : Gommage inclus' }), 'grow'),
+        field('Prix', text(e.price, v => { e.price = v; }, { placeholder: 'Ex. : 25 €' }))),
+      pics));
+    out.push(h('h2', { style: 'font-size:26px;margin:28px 0 12px' }, 'Offres du moment'));
     if (!list.length) out.push(h('section', { class: 'card' }, h('p', { class: 'hint', style: 'margin:0' }, 'Aucune offre pour le moment. La section est masquée sur le site.')));
     list.forEach((o, i) => {
       const card = h('section', { class: 'card' },

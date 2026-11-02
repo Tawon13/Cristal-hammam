@@ -87,6 +87,39 @@ img{display:block;max-width:100%}
 .struck{text-decoration:line-through;color:#8E929C!important;font-weight:400!important;opacity:.85}
 .promop{color:#B42318;font-weight:700;white-space:nowrap}
 .promotag{display:inline-block;margin-top:3px;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#B42318}
+.entryscroll{position:relative;--spread:0;--t1:0;--t2:0;--t3:0}
+.entrystage{position:relative;height:clamp(560px,80vh,720px);overflow:hidden;display:flex;align-items:center;justify-content:center}
+.epic{position:absolute;left:50%;top:50%;width:min(24vw,280px);aspect-ratio:4/5;object-fit:cover;border-radius:20px;border:6px solid #fff;box-shadow:0 28px 60px -28px rgba(19,33,61,.55);
+  transform:translate(-50%,-50%) translate(calc(var(--dx) * var(--spread)),calc(var(--dy) * var(--spread))) rotate(calc(var(--r0) * (1 - var(--spread)) + var(--r1) * var(--spread)));will-change:transform}
+.epic.p1{--dx:-34vw;--dy:-90px;--r0:-8deg;--r1:6deg;z-index:1}
+.epic.p2{--dx:-27vw;--dy:110px;--r0:5deg;--r1:9deg;z-index:2}
+.epic.p3{--dx:34vw;--dy:-90px;--r0:8deg;--r1:-6deg;z-index:3}
+.epic.p4{--dx:27vw;--dy:110px;--r0:-4deg;--r1:-9deg;z-index:4}
+.entrytext{position:relative;z-index:5;text-align:center;max-width:min(36vw,440px);display:flex;flex-direction:column;align-items:center;gap:18px}
+.entrytext>*{opacity:var(--o);transform:translateY(calc((1 - var(--o)) * 24px))}
+.et1{--o:var(--t1);margin:0;color:#B42318;font-size:14px}
+.et2{--o:var(--t2)}
+.et2 h2{margin:0;font-size:clamp(32px,3.6vw,48px);line-height:1.1}
+.etsub{margin:10px 0 0;font-size:18px;color:#4A5160}
+.et3{--o:var(--t3);display:flex;flex-direction:column;align-items:center;gap:20px}
+.etprice{margin:0;font-size:clamp(64px,7vw,96px);line-height:1;color:#B42318}
+.et3 .btn{background:#13213D;color:#fff;height:52px;padding:0 28px;display:inline-flex;align-items:center;border-radius:2px;font-weight:600;font-size:15px}
+.entryscroll:not(.ready3) .et3 .btn{pointer-events:none}
+@media (max-width:860px){
+  /* Sur téléphone : les photos en haut, le texte en dessous prend sa place en apparaissant et pousse la suite vers le bas */
+  .entrystage{display:block;height:auto;padding:300px 16px 0}
+  .epic{width:36vw;top:150px}
+  .epic.p1{--dx:-30vw;--dy:-6px;--r1:-7deg}
+  .epic.p2{--dx:-10vw;--dy:20px;--r1:5deg}
+  .epic.p3{--dx:10vw;--dy:-10px;--r1:-5deg}
+  .epic.p4{--dx:30vw;--dy:16px;--r1:7deg}
+  .entrytext{max-width:none;gap:0}
+  .entrytext>*{overflow:hidden;max-height:calc(var(--o) * var(--h))}
+  .et1{--h:40px;padding-top:calc(var(--o) * 8px)}
+  .et2{--h:200px;padding-top:calc(var(--o) * 12px)}
+  .et3{--h:190px;padding-top:calc(var(--o) * 22px);gap:18px}
+}
+@media (prefers-reduced-motion:reduce){.entryscroll{--spread:1;--t1:1;--t2:1;--t3:1}}
 .g-offers{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
 .offer{background:#fff;border-top:3px solid #A8814A;padding:28px 28px 30px;display:flex;flex-direction:column;box-shadow:0 18px 40px -30px rgba(19,33,61,.35)}
 .offerlist{list-style:none;margin:20px 0 24px;padding:0;flex:1}
@@ -288,6 +321,28 @@ img{display:block;max-width:100%}
     </a>
   </div>
 </div>
+
+<!-- ============ PROMO ENTRÉE (animée au défilement) ============ -->
+<sc-if value="{{entry.show}}" hint-placeholder-val="{{ true }}">
+<section id="promo-entree" class="entryscroll" aria-label="Promo entrée">
+  <div class="entrystage">
+    <sc-for list="{{entry.pics}}" as="pc" hint-placeholder-count="4">
+      <img class="epic {{pc.cls}}" src="{{pc.src}}" alt="{{pc.alt}}" loading="lazy">
+    </sc-for>
+    <div class="entrytext">
+      <p class="et1 eyebrow">Promo entrée</p>
+      <div class="et2">
+        <h2 class="serif">{{entry.title}}</h2>
+        <sc-if value="{{entry.hasText}}" hint-placeholder-val="{{ true }}"><p class="etsub">{{entry.text}}</p></sc-if>
+      </div>
+      <div class="et3">
+        <p class="serif etprice">{{entry.price}}</p>
+        <a class="btn btn-dark" href="#reserver" onClick="{{entry.book}}">Réserver mon entrée</a>
+      </div>
+    </div>
+  </div>
+</section>
+</sc-if>
 
 <!-- ============ OFFRES DU MOMENT ============ -->
 <sc-if value="{{hasOffers}}" hint-placeholder-val="{{ true }}">
@@ -810,12 +865,31 @@ class Component extends DCLogic {
   closures = D.closures;
   promos = D.promos || [];
   offers = D.offers || [];
+  entry = D.entry || null;
 
   hours = { f: { label: 'Femme' }, h: { label: 'Homme' } };
 
   componentDidMount() {
     this._onScroll = () => { const s = window.scrollY > 40; if (s !== this.state.scrolled) this.setState({ scrolled: s }); };
     window.addEventListener('scroll', this._onScroll, { passive: true });
+    // Promo entrée : avancement du défilement → écartement des photos puis apparition des textes
+    this._onEntry = () => {
+      const el = document.getElementById('promo-entree');
+      if (!el) return;
+      const r = el.getBoundingClientRect(), vh = window.innerHeight;
+      const p = Math.min(1, Math.max(0, (vh * 0.9 - r.top) / (vh * 0.9)));
+      const seg = (a, b) => Math.min(1, Math.max(0, (p - a) / (b - a)));
+      el.style.setProperty('--spread', seg(0.05, 0.4).toFixed(3));
+      el.style.setProperty('--t1', seg(0.4, 0.55).toFixed(3));
+      el.style.setProperty('--t2', seg(0.55, 0.72).toFixed(3));
+      el.style.setProperty('--t3', seg(0.72, 0.9).toFixed(3));
+      el.classList.toggle('ready3', p > 0.8);
+    };
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      window.addEventListener('scroll', this._onEntry, { passive: true });
+      window.addEventListener('resize', this._onEntry);
+      setTimeout(this._onEntry, 300);
+    }
     this._onResize = () => this.measureBar();
     window.addEventListener('resize', this._onResize);
     setTimeout(() => this.measureBar(), 300);
@@ -837,7 +911,7 @@ class Component extends DCLogic {
     const run = seg.scrollWidth > bar.clientWidth, dur = Math.max(12, Math.round(seg.scrollWidth / 60));
     if (run !== !!this.state.pbRun || (run && dur !== this.state.pbDur)) this.setState({ pbRun: run, pbDur: dur });
   }
-  componentWillUnmount() { window.removeEventListener('resize', this._onResize); window.removeEventListener('scroll', this._onScroll); clearInterval(this._iv); clearTimeout(this._ct); }
+  componentWillUnmount() { window.removeEventListener('scroll', this._onEntry); window.removeEventListener('resize', this._onEntry); window.removeEventListener('resize', this._onResize); window.removeEventListener('scroll', this._onScroll); clearInterval(this._iv); clearTimeout(this._ct); }
   startSlides() { clearInterval(this._iv); this._iv = setInterval(() => this.setState(s => ({ slide: (s.slide + 1) % this.slides.length })), 3000); }
 
   allOptions() {
@@ -864,6 +938,7 @@ class Component extends DCLogic {
 
   renderVals() {
     const content = this.state.content || {};
+    if (content.entry && typeof content.entry === 'object') this.entry = content.entry;
     ['schedule', 'closures', 'promos', 'offers', 'slides', 'photos', 'spaces', 'rituals', 'tabsData', 'bookData'].forEach(k => { if (Array.isArray(content[k]) && (content[k].length || k === 'closures' || k === 'promos' || k === 'offers')) this[k] = content[k]; });
     const s = this.state, ink = '#141A26', navy = '#13213D', line = '#CFC9BD';
     const chip = on => ({ bg: on ? navy : '#fff', fg: on ? '#fff' : ink, border: on ? navy : line });
@@ -965,6 +1040,12 @@ class Component extends DCLogic {
       lbPrev: () => this.setState({ lb: (s.lb - 1 + n) % n }),
       lbNext: () => this.setState({ lb: (s.lb + 1) % n }),
 
+      entry: (() => {
+        const e = this.entry;
+        if (!e) return { show: false };
+        return { show: e.active !== false, title: e.title || '', text: e.text || '', hasText: !!e.text, price: e.price || '',
+          pics: ['img1', 'img2', 'img3', 'img4'].map((k, i) => ({ src: e[k] || '', cls: 'p' + (i + 1), alt: ['Le hammam', 'Le sauna', 'Le bain à vapeur', 'Sous la voûte du hammam'][i] })).filter(x => x.src), book: () => this.setState({ serviceId: 'entree', slot: null, submitted: false }) };
+      })(),
       hasOffers: this.offers.some(o => o.active !== false && o.items.length),
       offers: this.offers.filter(o => o.active !== false && o.items.length).map(o => {
         const days = (o.days || []).slice().sort((a, b) => ((a + 6) % 7) - ((b + 6) % 7));
