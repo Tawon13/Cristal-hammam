@@ -109,7 +109,7 @@ details.group>.body{padding:0 16px 16px}
 <script>
 (() => {
   const DAYS = [[1, 'Lundi'], [2, 'Mardi'], [3, 'Mercredi'], [4, 'Jeudi'], [5, 'Vendredi'], [6, 'Samedi'], [0, 'Dimanche']];
-  const TABS = [['horaires', 'Horaires'], ['fermetures', 'Fermetures'], ['promos', 'Promos'], ['photos', 'Photos'], ['tarifs', 'Tarifs']];
+  const TABS = [['horaires', 'Horaires'], ['fermetures', 'Fermetures'], ['promos', 'Promos'], ['offres', 'Offres'], ['photos', 'Photos'], ['tarifs', 'Tarifs']];
   const KEY = 'cristal-admin-pw';
   const clone = o => JSON.parse(JSON.stringify(o));
   let pw = '', data = null, dirty = false, tab = 'horaires';
@@ -231,6 +231,45 @@ details.group>.body{padding:0 16px 16px}
     });
     out.push(btn('+ Ajouter une promo', () => {
       list.push({ id: 'p' + Date.now(), active: true, text: '', days: [], start: '', end: '' });
+      touch(); render(); window.scrollTo(0, document.body.scrollHeight);
+    }, 'primary'));
+    return out;
+  }
+
+  function panelOffres() {
+    const list = data.offers;
+    const out = [h('p', { class: 'hint' }, 'La section « Offres du moment » s\'affiche en haut du site, sous « Prendre rendez-vous ». Chaque offre est aussi proposée dans le formulaire de réservation.')];
+    if (!list.length) out.push(h('section', { class: 'card' }, h('p', { class: 'hint', style: 'margin:0' }, 'Aucune offre pour le moment. La section est masquée sur le site.')));
+    list.forEach((o, i) => {
+      const card = h('section', { class: 'card' },
+        h('div', { class: 'row', style: 'justify-content:space-between;align-items:center;margin-bottom:12px' },
+          h('span', { class: 'badge', style: 'margin:0;color:' + (o.active !== false ? 'var(--green)' : 'var(--muted)') }, o.active !== false ? 'Affichée' : 'Masquée'),
+          h('span', { class: 'row', style: 'gap:6px' },
+            btn('↑', () => move(list, i, -1), 'small icon', { 'aria-label': 'Monter', disabled: i === 0 }),
+            btn('↓', () => move(list, i, 1), 'small icon', { 'aria-label': 'Descendre', disabled: i === list.length - 1 }),
+            btn('Supprimer', () => remove(list, i, 'l\'offre « ' + (o.title || 'sans titre') + ' »'), 'small danger'))),
+        h('label', { style: 'display:flex;gap:8px;align-items:center;min-height:44px;font-weight:600' },
+          h('input', { type: 'checkbox', checked: o.active !== false, onchange: e => { o.active = e.target.checked; touch(); render(); } }), 'Afficher sur le site'),
+        h('div', { class: 'row' },
+          field('Titre', text(o.title, v => { o.title = v; }, { placeholder: 'Ex. : Offre des mercredis' }), 'grow'),
+          field('Sous-titre (facultatif)', text(o.text, v => { o.text = v; }, { placeholder: 'Ex. : Prenez soin de vous à prix tout doux.' }), 'grow')));
+      const days = h('div', { class: 'row', style: 'gap:6px 14px;margin-top:6px' });
+      for (const [d, name] of DAYS) days.append(h('label', { style: 'display:flex;gap:6px;align-items:center;min-height:40px' },
+        h('input', { type: 'checkbox', checked: (o.days || []).includes(d), onchange: e => { o.days = (o.days || []).filter(x => x !== d); if (e.target.checked) o.days.push(d); touch(); } }), name));
+      card.append(h('div', { style: 'margin-top:14px' }, h('span', { style: 'font-size:13px;color:var(--muted);font-weight:500' }, 'Jours de l\'offre (aucun coché = tous les jours)'), days));
+      const box = h('div', { class: 'cat', style: 'margin-top:12px' }, h('h3', { style: 'font-size:20px;margin-bottom:6px' }, 'Prestations'));
+      o.items.forEach((it, j) => box.append(h('div', { class: 'line' },
+        h('div', { class: 'full' }, field('Prestation', text(it.n, v => { it.n = v; }))),
+        field('Précision (facultatif)', text(it.d, v => { if (v) it.d = v; else delete it.d; }, { placeholder: 'Ex. : Toutes longueurs' })),
+        h('div', {}, field('Prix d\'origine (barré, facultatif)', text(it.old, v => { it.old = v; }, { placeholder: 'Ex. : 25 €' })),
+          field('Prix de l\'offre', text(it.p, v => { it.p = v; }, { placeholder: 'Ex. : 15,99 €', style: 'margin-top:4px' }))),
+        btn('✕', () => remove(o.items, j, '« ' + (it.n || 'cette ligne') + ' »'), 'small icon danger', { 'aria-label': 'Supprimer la ligne' }))));
+      box.append(btn('+ Ajouter une prestation', () => { o.items.push({ n: '', old: '', p: '' }); touch(); render(); }, 'small'));
+      card.append(box);
+      out.push(card);
+    });
+    out.push(btn('+ Ajouter une offre', () => {
+      list.push({ id: 'o' + Date.now(), active: true, title: 'Nouvelle offre', text: '', days: [], items: [{ n: '', old: '', p: '' }] });
       touch(); render(); window.scrollTo(0, document.body.scrollHeight);
     }, 'primary'));
     return out;
@@ -364,7 +403,7 @@ details.group>.body{padding:0 16px 16px}
     const tabs = document.getElementById('tabs');
     tabs.replaceChildren(...TABS.map(([id, label]) => h('button', { role: 'tab', 'aria-selected': String(id === tab), onclick: () => { tab = id; render(); window.scrollTo(0, 0); } }, label)));
     const y = window.scrollY;
-    const panel = { horaires: panelHoraires, fermetures: panelFermetures, promos: panelPromos, photos: panelPhotos, tarifs: panelTarifs }[tab]();
+    const panel = { horaires: panelHoraires, fermetures: panelFermetures, promos: panelPromos, offres: panelOffres, photos: panelPhotos, tarifs: panelTarifs }[tab]();
     document.getElementById('panel').replaceChildren(...panel);
     window.scrollTo(0, y);
   }
@@ -372,6 +411,10 @@ details.group>.body{padding:0 16px 16px}
   function invalid() {
     for (const [d, name] of DAYS) for (const k of ['f', 'h']) { const v = data.schedule[d][k]; if (v && v[0] >= v[1]) return 'Horaires du ' + name.toLowerCase() + ' : l\'heure de fin doit être après l\'heure de début.'; }
     if (data.closures.some(c => !/^\d{4}-\d{2}-\d{2}$/.test(c.date))) return 'Une fermeture n\'a pas de date.';
+    for (const o of data.offers) {
+      if (!o.title.trim()) return 'Une offre n\'a pas de titre.';
+      if (o.items.some(it => !(it.n || '').trim() || !(it.p || '').trim())) return 'Offre « ' + o.title + ' » : chaque prestation doit avoir un nom et un prix.';
+    }
     for (const pr of data.promos) {
       if (!(pr.text || '').trim()) return 'Une promo n\'a pas de texte.';
       if (pr.start && pr.end && pr.end < pr.start) return 'Promo : la date de fin est avant la date de début.';

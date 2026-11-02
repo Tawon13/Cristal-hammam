@@ -3,6 +3,7 @@
 // schedule : 0 = dimanche ; [ouverture, fermeture] en heures, null = fermé.
 // closures : fermetures exceptionnelles { date: 'AAAA-MM-JJ', note }.
 // promos : bannières { id, active, text, days (0 = dimanche, vide = tous les jours), start, end ('AAAA-MM-JJ' ou '') }.
+// offers : section « Offres du moment » { id, active, title, text, days, items [{ n, d, old, p }] } (old = prix barré).
 // Prix promo : champ promo des lignes de tarif (it.promo), 6e case des lignes coiffure, promo des rituels.
 window.CRISTAL_DEFAULTS = {
   slides: [
@@ -80,5 +81,18 @@ window.CRISTAL_DEFAULTS = {
   closures: [],
   promos: [
     { id: 'dimanches', active: true, text: 'Offre des dimanches au salon de coiffure : shampooing + coupe + brushing 20 € · couleur racines + coupe + brushing 25 € · mèches + coupe + brushing 50 € · brushing 10 € (toutes longueurs)', days: [], start: '', end: '' }
+  ],
+  offers: [
+    { id: 'mercredis', active: true, title: 'Offre des mercredis', text: 'Prenez soin de vous à prix tout doux.', days: [3], items: [
+      { n: 'Épilation visage complet', old: '25 €', p: '15,99 €' },
+      { n: 'Épilation aisselles + jambes complètes + maillot intégral', old: '48 €', p: '35 €' },
+      { n: 'Épilation aisselles + teinture des sourcils', d: 'Avec épilation des sourcils', old: '25 €', p: '15 €' }
+    ] },
+    { id: 'dimanches', active: true, title: 'Offre des dimanches', text: 'Au salon de coiffure.', days: [0], items: [
+      { n: 'Shampooing + coupe + brushing', old: '', p: '20 €' },
+      { n: 'Couleur racines + coupe + brushing', d: 'Toutes longueurs', old: '', p: '25 €' },
+      { n: 'Mèches + coupe + brushing', d: 'Toutes longueurs', old: '', p: '50 €' },
+      { n: 'Brushing', d: 'Toutes longueurs', old: '', p: '10 €' }
+    ] }
   ]
 };

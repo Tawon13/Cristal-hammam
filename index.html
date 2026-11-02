@@ -87,6 +87,14 @@ img{display:block;max-width:100%}
 .struck{text-decoration:line-through;color:#8E929C!important;font-weight:400!important;opacity:.85}
 .promop{color:#B42318;font-weight:700;white-space:nowrap}
 .promotag{display:inline-block;margin-top:3px;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#B42318}
+.g-offers{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.offer{background:#fff;border-top:3px solid #A8814A;padding:28px 28px 30px;display:flex;flex-direction:column;box-shadow:0 18px 40px -30px rgba(19,33,61,.35)}
+.offerlist{list-style:none;margin:20px 0 24px;padding:0;flex:1}
+.offerlist li{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:12px 0;border-top:1px solid #ECE8E0;font-size:15px}
+.offerprice{display:flex;flex-wrap:wrap;justify-content:flex-end;align-items:baseline;column-gap:8px;white-space:nowrap}
+.offerprice s{color:#8E929C;font-size:15px}
+.offerprice strong{font-size:28px;line-height:1;color:#B42318;font-weight:600}
+@media (max-width:860px){.g-offers{grid-template-columns:minmax(0,1fr)}.offer{padding:22px 20px 24px}}
 .g-rit{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
 .g-price{columns:2;column-gap:20px}
 .g-price>*{break-inside:avoid;margin-bottom:20px}
@@ -280,6 +288,36 @@ img{display:block;max-width:100%}
     </a>
   </div>
 </div>
+
+<!-- ============ OFFRES DU MOMENT ============ -->
+<sc-if value="{{hasOffers}}" hint-placeholder-val="{{ true }}">
+<section id="offres" class="sec" style="padding: 88px 0 0">
+  <div class="wrap">
+    <div class="rv" style="margin-bottom: 32px">
+      <p class="eyebrow" style="margin: 0 0 12px; color: #8A6A3B">Offres du moment</p>
+      <h2 class="serif" style="margin: 0; font-size: clamp(32px, 3.2vw, 44px); line-height: 1.1">Nos réductions de la semaine</h2>
+    </div>
+    <div class="g-offers">
+      <sc-for list="{{offers}}" as="of" hint-placeholder-count="2">
+        <article class="offer rv">
+          <p class="eyebrow" style="margin: 0 0 8px; color: #8A6A3B">{{of.when}}</p>
+          <h3 class="serif" style="margin: 0; font-size: 32px; line-height: 1.1">{{of.title}}</h3>
+          <sc-if value="{{of.hasText}}" hint-placeholder-val="{{ true }}"><p style="margin: 6px 0 0; color: #5E6573; font-size: 15px">{{of.text}}</p></sc-if>
+          <ul class="offerlist">
+            <sc-for list="{{of.items}}" as="it" hint-placeholder-count="3">
+              <li>
+                <span><span style="font-weight: 500">{{it.n}}</span><sc-if value="{{it.hasD}}" hint-placeholder-val="{{ false }}"><span style="display: block; font-size: 13px; color: #5E6573">{{it.d}}</span></sc-if></span>
+                <span class="offerprice"><sc-if value="{{it.hasOld}}" hint-placeholder-val="{{ true }}"><s>{{it.old}}</s></sc-if><strong class="serif">{{it.p}}</strong></span>
+              </li>
+            </sc-for>
+          </ul>
+          <a class="btn btn-line" href="#reserver" onClick="{{of.book}}" style="align-self: flex-start; border: 1px solid #13213D; color: #13213D; height: 46px; padding: 0 22px; display: inline-flex; align-items: center; border-radius: 2px; font-weight: 600; font-size: 15px">{{of.bookLabel}}</a>
+        </article>
+      </sc-for>
+    </div>
+  </div>
+</section>
+</sc-if>
 
 <!-- ============ INTRO ============ -->
 <section class="sec" style="padding: 120px 0">
@@ -771,6 +809,7 @@ class Component extends DCLogic {
   schedule = D.schedule;
   closures = D.closures;
   promos = D.promos || [];
+  offers = D.offers || [];
 
   hours = { f: { label: 'Femme' }, h: { label: 'Homme' } };
 
@@ -811,6 +850,10 @@ class Component extends DCLogic {
     });
     this.rituals.forEach(r => { if (r.promo) offers.push({ n: 'Rituel ' + r.name, p: r.promo + ' €', old: r.price + ' €' }); });
     offers.forEach((o, i) => Object.assign(o, { id: 'promo-' + i, label: o.n + ' (promo)', price: o.p + ' au lieu de ' + o.old }));
+    const longDays = ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'];
+    this.offers.filter(o => o.active !== false).forEach(o => o.items.forEach((it, i) => offers.push({
+      id: 'offre-' + o.id + '-' + i, label: it.n + (it.d ? ' (' + it.d.toLowerCase() + ')' : '') + ((o.days || []).length ? ' — ' + o.days.map(d => longDays[d]).join(', ') : ''),
+      price: it.p + (it.old ? ' au lieu de ' + it.old : '') })));
     return offers.length ? [{ label: 'Offres', options: offers }, ...groups] : groups;
   }
 
@@ -821,7 +864,7 @@ class Component extends DCLogic {
 
   renderVals() {
     const content = this.state.content || {};
-    ['schedule', 'closures', 'promos', 'slides', 'photos', 'spaces', 'rituals', 'tabsData', 'bookData'].forEach(k => { if (Array.isArray(content[k]) && (content[k].length || k === 'closures' || k === 'promos')) this[k] = content[k]; });
+    ['schedule', 'closures', 'promos', 'offers', 'slides', 'photos', 'spaces', 'rituals', 'tabsData', 'bookData'].forEach(k => { if (Array.isArray(content[k]) && (content[k].length || k === 'closures' || k === 'promos' || k === 'offers')) this[k] = content[k]; });
     const s = this.state, ink = '#141A26', navy = '#13213D', line = '#CFC9BD';
     const chip = on => ({ bg: on ? navy : '#fff', fg: on ? '#fff' : ink, border: on ? navy : line });
     const now = new Date(), h = now.getHours();
@@ -922,6 +965,17 @@ class Component extends DCLogic {
       lbPrev: () => this.setState({ lb: (s.lb - 1 + n) % n }),
       lbNext: () => this.setState({ lb: (s.lb + 1) % n }),
 
+      hasOffers: this.offers.some(o => o.active !== false && o.items.length),
+      offers: this.offers.filter(o => o.active !== false && o.items.length).map(o => {
+        const days = (o.days || []).slice().sort((a, b) => ((a + 6) % 7) - ((b + 6) % 7));
+        const plural = days.map(x => longDows[x] + 's');
+        const when = days.length && days.length < 7 ? 'Tous les ' + (plural.length > 1 ? plural.slice(0, -1).join(', ') + ' et ' + plural[plural.length - 1] : plural[0]) : 'Tous les jours';
+        const nextDay = days.length ? dates.findIndex(x => days.includes(x.getDay())) : -1;
+        return { title: o.title, text: o.text || '', hasText: !!o.text, when,
+          bookLabel: days.length === 1 ? 'Réserver un ' + longDows[days[0]] : 'Réserver',
+          items: o.items.map(it => ({ n: it.n, d: it.d || '', hasD: !!it.d, old: it.old || '', hasOld: !!it.old, p: it.p })),
+          book: () => this.setState({ serviceId: 'offre-' + o.id + '-0', day: nextDay >= 0 ? nextDay : s.day, slot: null, submitted: false }) };
+      }),
       hasPromoBar: promoBar.length > 0, promoBar, promoBarText,
       pbCopies: [{ cls: '' }, { cls: 'pb-dup' }], pbCls: s.pbRun ? 'run' : '', pbDur: s.pbDur || 20,
       todayName: longDows[now.getDay()],
